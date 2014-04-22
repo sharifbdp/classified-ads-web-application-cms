@@ -1,0 +1,173 @@
+/* CSS Document */
+body {
+    margin:0px;
+    padding:0px;
+    font-family:Verdana;
+    font-size:12px;
+    color:#333333;
+    background:#F9F9F9;
+}
+
+p {
+    margin:0px;
+    padding:0px;
+    color:#333333;
+    font-size:14px;
+}
+
+a {
+    color:#217590;
+}
+
+.login_body {
+    width:100%;
+    height:auto;
+}
+
+.head {
+    height:60px;
+    background:#464646;
+    width:100%;
+}
+
+.head_left {
+    float:left;
+    width:65%;
+    margin-left:20px;
+    margin-top:8px;
+
+}
+
+.head_right {
+    float:right;
+    width:16%;
+    margin-right:20px;
+    margin-top:8px;
+}
+
+.head_right_web_home{
+    float:left;
+    width:46px;
+    height:44px;
+    margin-right:8px;
+}
+.head_right_admin_home{
+    float:left;
+    width:46px;
+    height:44px;
+    margin-right:8px;
+}
+.head_right_log{
+    float:left;
+    width:46px;
+    height:44px;
+}
+
+.head_border {
+    height:11px;
+    background:url(../image/head_down_border.jpg) repeat-x top;
+    margin-top:1px;
+}
+
+
+.main_body {
+    width:100%;
+
+    min-height: 380px;
+}
+
+.admin_name {
+    margin-top:45px;
+}
+
+.login_area {
+    width:330px;
+    height:220px;
+    background:url(../image/login_area.png) no-repeat;
+    margin-top:10px;
+
+}
+
+.login_inner {
+    width:280px;
+    height:150px;
+    padding-top:35px;
+}
+
+.login_inner input {
+    width:265px;
+    height:34px;
+    border:#C0C0C0 solid 1px;
+    background:#F9F9F9;
+    font-size:20px;
+    color:#333333;
+    padding:0px 5px;
+    margin-top:2px;
+}
+
+.password {
+    margin-top:10px;
+}
+
+.submit {
+    text-align:left;
+    font-size:10px;
+    color:#6D6D6D;
+    margin-top:10px;
+}
+
+.submit_left {
+    float:left;
+    width:120px;
+    height:20px;
+
+}
+
+.submit_left #check {
+    width:10px;
+    height:10px;
+}
+
+
+
+.submit_right {
+    float:right;
+    width:100px;
+
+    height:20px;
+    text-align:right;
+}
+
+/* footer section*/
+.main_footer {
+    width:100%;
+    height:40px;
+    background:#464646;
+    color:#FFFFFF;
+    padding-top:20px;
+}
+.foot_left{
+    float:left;
+    width:60%;
+
+    margin-left:20px;
+}
+.foot_right {
+    float:right;
+    text-align:right;
+    width:30%;
+    margin-right:20px;
+}
+.clear {
+    clear:both;
+    font-size:0px;
+    margin:0px;
+    padding:0px;
+}
+
+select option[disabled=disabled] {
+    background: #f1f1f1;
+    color: #808080;
+    font-weight: bold;
+    font-style: italic;
+} 

@@ -1,0 +1,277 @@
+
+
+#competition-landing {
+    margin-top: 41px;
+    margin-left: 80px;
+    width: 228px;
+}
+#competition-landing>a {
+    margin-left: 18px;
+    display: block;
+    background: url(../christmas-landing.png) no-repeat;
+    width: 228px;
+    height: 265px;
+    text-indent: -9999px;
+}
+#competition-landing-copy {
+    position: relative;
+    margin-bottom: 15px;
+    text-align: center;
+}
+#competition-landing-copy h2 {
+    margin: 0;
+    font-size: 16px;
+    border-bottom: 1px solid #a6a7a7;
+}
+#competition-landing-copy p {
+    line-height: 16px;
+    width: 150px;
+    margin: 0 auto;
+}
+#competition-landing-copy div.uparrow {
+    position: absolute;
+    z-index: 0;
+    top: -47px;
+    right: -20px;
+    width: 41px;
+    height: 68px;
+    background: url(../images/iphone5-landing-page-arrow-576fe2fc6748f35c679b768ab5b02b3d.png) no-repeat;
+}
+.home-competition h1,
+.home-competition h2 {
+    margin: 0 auto 20px;
+    text-align: center;
+}
+.home-competition #post-ad-box {
+    margin-top: 0;
+    width: 400px;
+}
+.home-competition .main ol.steps {
+    margin: 0 0 35px;
+    list-style: none;
+    font-size: 16px;
+}
+.home-competition .main ol.steps li {
+    overflow: hidden;
+    background: no-repeat left center;
+    border-bottom: 1px solid #cfcfcf;
+    padding: 30px 0;
+    padding-left: 46px;
+    min-height: 70px;
+}
+.home-competition .main ol.steps li h2.number {
+    color: #FFF;
+    float: left;
+    position: relative;
+    height: 46px;
+    width: 46px;
+    margin-left: -46px;
+    line-height: 46px;
+    background: url(../images/progress-steps-a3acd8d5b7bffd94afbe2ab865147775.png) no-repeat;
+    font-size: 26px;
+    text-align: center;
+    text-shadow: #c99742 1px 1px 2px;
+}
+.home-competition .main ol.steps li div.imageholder {
+    margin-top: -30px;
+    width: 110px;
+    height: 130px;
+}
+.home-competition .main ol.steps li div.longtextwrapper { width: 382px }
+.home-competition .main ol.steps li.step1 div.imageholder {
+    background: url(../images/steps-ec7bb41fad5d79211790a908d628419b.png) no-repeat;
+    background-position: 0px 0px;
+}
+.home-competition .main ol.steps li.step2 div.imageholder {
+    background: url(../images/steps-ec7bb41fad5d79211790a908d628419b.png) no-repeat;
+    background-position: 0px -130px;
+}
+.home-competition .main ol.steps li.step3 div.imageholder {
+    background: url(../images/steps-ec7bb41fad5d79211790a908d628419b.png) no-repeat;
+    background-position: 0px -260px;
+}
+.home-competition .main .fb-like-box {
+    float: left;
+    margin: 5px 0 0 -10px;
+}
+.home-competition .post-an-ad { text-align: center }
+.home-competition .post-an-ad a.btn {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+.home-competition .aside { position: relative }
+.home-competition .aside .prize {
+    background: url(../images/competition/christmas-info.png) no-repeat;
+    width: 274px;
+    height: 366px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.home-competition .aside #item-note {
+    float: left;
+    background: url(images/note-ecbfd004f6635d6f511ba653b71c978b.png) no-repeat;
+    width: 184px;
+    padding: 24px;
+    margin-top: 8px;
+    height: 197px;
+}
+.home-competition .aside #item-note h3 { padding: 10px 0 }
+.home-competition .aside #item-note ul {
+    font-size: 14px;
+    margin: 0;
+}
+.home-competition .aside #item-note ul li {
+    background: url(../images/prize-icon-134b5b8fd0d49c939093b84c1f124871.png) no-repeat 0 0;
+    padding-left: 25px;
+    margin-bottom: 4px;
+    list-style: none;
+}
+.home-competition .aside #item-note ul li.winner { background-position: 0 -26px }
+html[lang=en] .home-competition .aside .prize { background: url(../images/christmas-info-dd030ff3c2950983ff17dfb764c0778a.png) no-repeat }
+html[lang=en] #competition-landing>a { background: url(images/christmas-landing-ec72cf3c563c8a8ff3f901bba9426df4.png) no-repeat }
+#map,
+#map-layer { width: 320px }
+#map {
+    margin-left: -18px;
+    margin-right: 40px;
+}
+#map-layer {
+    height: 428px;
+    background: url(../images/tonaton-map-6ea684fba1e024f5a8fcf7cbd3c80f82.png) top left no-repeat;
+}
+#map-layer div {
+    display: none;
+    z-index: 1;
+    height: 200px;
+    width: 200px;
+    background: url(../images/tonaton-map-6ea684fba1e024f5a8fcf7cbd3c80f82.png) top left no-repeat;
+    position: absolute;
+}
+#map-layer .city {
+    z-index: 2;
+    height: 30px;
+    width: 30px;
+}
+#map-layer .accra {
+    background-position: -458px -423px;
+    top: 320px;
+    left: 224px;
+}
+#map-layer .kumasi {
+    background-position: -673px -422px;
+    top: 250px;
+    left: 143px;
+}
+#map-layer .sekondi-takoradi {
+    background-position: -872px -423px;
+    top: 361px;
+    left: 126px;
+}
+#map-layer .western {
+    background-position: -991px -190px;
+    top: 219px;
+    left: 16px;
+}
+#map-layer .central {
+    background-position: -1188px 0px;
+    top: 228px;
+    left: 83px;
+}
+#map-layer .greater-accra {
+    background-position: -1186px -194px;
+    top: 222px;
+    left: 148px;
+}
+#map-layer .volta {
+    background-position: -1004px 0px;
+    top: 138px;
+    left: 189px;
+}
+#map-layer .eastern {
+    background-position: -787px -154px;
+    top: 147px;
+    left: 124px;
+}
+#map-layer .ashanti {
+    background-position: -792px 0px;
+    top: 170px;
+    left: 78px;
+}
+#map-layer .brong-ahafo {
+    background-position: -589px -178px;
+    top: 103px;
+    left: 71px;
+}
+#map-layer .northern {
+    background-position: -589px 0;
+    top: 21px;
+    left: 89px;
+}
+#map-layer .upper-west {
+    background-position: -382px 0;
+    top: -46px;
+    left: 24px;
+}
+#map-layer .upper-east {
+    background-position: -382px -148px;
+    top: -108px;
+    left: 99px;
+}
+.tooltip.accra {
+    top: 304px;
+    left: 114px;
+}
+.tooltip.kumasi {
+    top: 236px;
+    left: 29px;
+}
+.tooltip.sekondi-takoradi {
+    top: 345px;
+    left: 15px;
+}
+.tooltip.western {
+    top: 284px;
+    left: -27px;
+}
+.tooltip.central {
+    top: 300px;
+    left: 60px;
+}
+.tooltip.greater-accra {
+    top: 289px;
+    left: 136px;
+}
+.tooltip.volta {
+    top: 206px;
+    left: 149px;
+}
+.tooltip.eastern {
+    top: 258px;
+    left: 97px;
+}
+.tooltip.ashanti {
+    top: 218px;
+    left: 48px;
+}
+.tooltip.brong-ahafo {
+    top: 172px;
+    left: 30px;
+}
+.tooltip.northern {
+    top: 81px;
+    left: 89px;
+}
+.tooltip.upper-west {
+    top: 24px;
+    left: -6px;
+}
+.tooltip.upper-east {
+    top: -7px;
+    left: 94px;
+}
+#site-logo a {
+    width: 165px;
+    height: 37px;
+}
+

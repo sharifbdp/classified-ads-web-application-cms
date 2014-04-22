@@ -1,0 +1,383 @@
+/* CSS Document */
+
+.mid_body{
+    width:100%;
+    height:auto;
+    background:#F9F9F9;
+    margin:0px auto;
+}
+
+.inner_mid{
+    border:#C2C2C2 solid 1px;
+    width:970px;
+    height:auto;
+    margin:10px 0px; 
+}
+
+.inner_mid_left {
+    float:left;
+    width:585px;
+    height:auto;
+    /*border:#FF0000 solid 1px;*/
+    margin:10px 5px;
+}
+.inner_mid_right {
+    float:left;
+    width:330px;
+    height:200px;
+    margin:20px 20px 10px 0px;
+}
+.inner_mid_con{
+    float:left;
+    width:110px;
+    height:80px;
+    background:#FFF;
+    border:#C2C2C2 solid 1px;
+    margin:15px;
+    padding:10px 0px 0px 0px;
+}
+.inner_mid_con a img, .inner_mid_con a { border:none; text-decoration:none; }
+.con_head { font-size:11px; font-weight:bold; }
+
+/* add_page.php Starts*/
+
+.top_bar {
+    width:940px;
+    height:60px;
+    background:#FFF;
+    border:#DFDFDF solid 1px;
+    margin:15px 0px;
+}
+
+.top_bar_left {
+    float:left;
+    width:50%;
+    text-align:left;
+    margin:12px 0px 0px 15px;
+    font-size:18px;
+}
+
+.top_bar_right {
+    float:right;
+    width:auto;
+    text-align:left;
+    height:30px;
+    margin:8px 15px 0px 0px;
+}
+
+.top_menu ul { margin:0px; padding:0px; }
+
+.top_menu li {
+    float:left;
+    width:80px;
+    height:40px;
+    list-style:none;
+    text-align:center;
+}
+
+.top_menu li a p { font-size:10px; font-weight:bold; }
+
+.top_menu img { border:0px; }
+
+.add_down_list {
+    width:902px;
+    height:auto;
+    background:#FFF;
+    border:#F1F1F1 solid 1px;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.table_border{ border:#AFAFAF solid 1px; }
+
+.table_title {
+    background:#F1F1F1;
+    height:20px;
+    border:#E0E0E0 solid 1px;
+    padding:5px 5px 0px 5px;
+}
+
+.table_blank { text-align:left; }
+
+.table_blank input {
+    border:#999	solid 1px;
+    height:22px;
+    padding-top:0px;
+    width:400px;
+}
+
+.table_blank_serial input {
+    border:#999	solid 1px;
+    height:22px;
+    padding-top:0px;
+    width:100px;
+}
+
+.table_blank_radio {
+    border:#999 solid 1px;
+    height:22px;
+    width:100px;
+}
+
+.table_blank_link select {
+    border:#999 solid 1px;
+    height:22px;
+    width:220px;
+    text-align:left;
+}
+
+.table_blank_medium input {
+    border:#999	solid 1px;
+    height:22px;
+    padding-top:0px;
+    width:280px;
+}
+.add_details  textarea {
+    border:#999 solid 1px;
+    width:100%;
+    height:150px;
+}
+
+.down_list { margin-bottom:20px; }
+
+table { margin-bottom:10px; }
+#reset {
+    border:#999 solid 1px;
+    background:#CCCCCC;
+    padding:2px;
+}
+
+#submit {
+    border:#999 solid 1px;
+    background:#CCCCCC;
+    padding:2px;
+}
+
+.error {
+    border:#FF0000 solid 1px;
+    padding:10px 0px 5px 80px; 
+    height:20px;
+    width:800px;
+    background:url(../image/error.png) no-repeat left center;
+    color:#FF0000;
+    text-align:left;
+    margin:10px 0px; 
+}
+
+.ok {
+    border:#006633 solid 1px;
+    padding:8px 0px 5px 80px; 
+    height:15px;
+    background:url(../image/apply.png) no-repeat left  center;
+    color:#009900;
+    text-align:left;
+    margin:10px 0px; 
+    width:800px;
+}
+
+/*****/
+
+.path_container { margin:10px 0px; }
+
+.path {
+    padding:5px 0px 0px 0px;
+    margin:0px 0px 0px 15px;
+    float:left;
+}
+
+.add_p {
+    padding:0px;
+    margin:10px 15px;
+    text-align:left;
+}
+
+.pro_cat_tab {
+    padding:0px;
+    margin:10px 15px;
+    text-align:left;
+    border-bottom:#CCCCCC solid 1px;
+    height:18px;
+}
+
+.pro_tab {
+    float:left;
+    margin:0px;
+    margin-left:10px;
+    padding:2px 0px 0px 0px;
+    height:18px;
+    width:70px;
+    text-align:center;
+    background:#CCCCCC;
+}
+
+.pro_tab a {
+    background:#CCCCCC;
+    border:#CCCCCC solid 1px;
+    border-bottom:0px;
+    text-decoration:none;
+    color:#000000;
+    display:block;
+}
+
+.pro_tab a:hover { text-decoration:underline; }
+
+.cat_tab {
+    float:left;
+    margin:0px 0px 0px 10px;
+    padding:2px 0px 0px 0px;
+    background:#CCCCCC;
+    height:18px;
+    width:70px;
+    text-align:center;
+}
+
+.cat_tab a {
+    background:#CCCCCC;
+    border:#CCCCCC solid 1px;
+    border-bottom:0px;
+    text-decoration:none;
+    color:#000000;
+    display:block;
+}
+
+.cat_tab a:hover { text-decoration:underline; }
+
+.sse { background:#FFFFFF!important; padding:2px; }
+
+.all_pimg { padding:0px; margin:0px; }
+
+.all_pimg ul {
+    padding:0px;
+    margin:0px;
+    list-style:none;
+}
+
+.all_pimg ul li {
+    padding:5px;
+    margin:10px;
+    float:left;
+}
+
+.add_details ul{ list-style: none; }
+
+/*** Pure CSS Menu**/
+
+.pureCssMenu { cursor:pointer; }
+
+#pcm{display:none;}
+ul.pureCssMenu ul{display:none}
+ul.pureCssMenu li:hover>ul{display:block; width:auto; z-index: 1000 }
+ul.pureCssMenu ul{position:absolute;left:-1px;top:98%;}
+ul.pureCssMenu ul ul{position:absolute;left:98%;top:-2px;}
+ul.pureCssMenu,ul.pureCssMenu ul {
+    margin:0px;
+    list-style:none;
+    padding:0px 2px 2px 0px;
+    background-color:#F8F8F8;
+    background-repeat:repeat;
+    border-color:#AAAAAA;
+    border-width:1px;
+    border-style:solid;
+}
+ul.pureCssMenu table {border-collapse:collapse}ul.pureCssMenu {
+    display:block;
+    zoom:1;
+    float: left;
+}
+ul.pureCssMenu ul{ width:112.35000000000001px; }
+ul.pureCssMenu li{
+    display:block;
+    margin:6px 10px 0px 10px;
+    font-size:0px;
+}
+ul.pureCssMenu a:active, ul.pureCssMenu a:focus { outline-style:none; }
+ul.pureCssMenu a, ul.pureCssMenu li.dis a:hover, ul.pureCssMenu li.sep a:hover {
+    display:block;
+    vertical-align:middle;
+    background-color:#F8F8F8;
+    border-width:0px;
+    border-color:#6655ff;
+    border-style:solid;
+    text-align:left;
+    text-decoration:none;
+    padding:4px;
+    _padding-left:0;
+    font:bold 12px Verdana;
+    color: #333333;
+    text-decoration:none;
+    cursor:pointer;
+}
+ul.pureCssMenu span{ overflow:hidden; }
+ul.pureCssMenu li { float:left; }
+ul.pureCssMenu ul li { float:none; }
+ul.pureCssMenu ul a { text-align:left; white-space:nowrap; }
+ul.pureCssMenu li.sep{
+    text-align:center;
+    padding:0px;
+    line-height:0;
+    height:100%;
+}
+ul.pureCssMenu li.sep span{
+    float:none;	padding-right:0;
+    width:5px;
+    height:16px;
+    display:inline-block;
+    background-color:#AAAAAA;	background-image:none;}
+ul.pureCssMenu ul li.sep span{ width:80%; height:3px; }
+ul.pureCssMenu li:hover{ position:relative; }
+ul.pureCssMenu li:hover>a{
+    background-color:#333333;
+    border-color:#665500;
+    border-style:solid;
+    font:bold 12px Verdana;
+    color: #F8F8F8;
+    text-decoration:none;
+}
+ul.pureCssMenu li a:hover{
+    position:relative;
+    background-color:#333333;
+    border-color:#665500;
+    border-style:solid;
+    font:bold 12px Verdana;
+    color: #F8F8F8;
+    text-decoration:none;
+}
+ul.pureCssMenu li.dis a { color: #AAAAAA !important; }
+ul.pureCssMenu img {border: none;float:left;_float:none;margin-right:4px;width:16px;height:16px; }
+ul.pureCssMenu ul img {width:16px; height:16px; }
+ul.pureCssMenu img.over{display:none}
+ul.pureCssMenu li.dis a:hover img.over{display:none !important}
+ul.pureCssMenu li.dis a:hover img.def {display:inline !important}
+ul.pureCssMenu li:hover > a img.def  {display:none}
+ul.pureCssMenu li:hover > a img.over {display:inline}
+ul.pureCssMenu a:hover img.over,ul.pureCssMenu a:hover ul img.def,ul.pureCssMenu a:hover a:hover img.over{display:inline}
+ul.pureCssMenu a:hover img.def,ul.pureCssMenu a:hover ul img.over,ul.pureCssMenu a:hover a:hover img.def{display:none}
+ul.pureCssMenu a:hover ul{display:block}
+ul.pureCssMenu span{
+    display:block;
+    background-image:url(./images/arrv_anim_1.gif);
+    background-position:right center;
+    background-repeat: no-repeat;
+    padding-right:12px;}
+ul.pureCssMenu li:hover>a>span{	background-image:url(./images/arrv_anim_1o.gif); }
+ul.pureCssMenu a:hover span{ _background-image:url(./images/arrv_anim_1o.gif); }
+ul.pureCssMenu ul span,ul.pureCssMenu a:hover table span {background-image:url(./images/arr_double_1.gif)}
+ul.pureCssMenu ul li:hover > a span { background-image:url(./images/arr_double_1o.gif);}
+ul.pureCssMenu table a:hover span{background-image:url(./images/arr_double_1o.gif)}
+.pureCssMenu li{ height:25px; }
+
+img.delete_cross {
+    cursor: pointer;
+    height: 20px;
+    margin-left: -15px;
+    margin-top: -9px;
+    vertical-align: top;
+    width: 20px;
+}
+.delete_image {
+    border: 1px solid #008000;
+    border-radius: 5px 5px 5px 5px;
+    padding: 2px;
+    width: 100px;
+    height: 100px;
+}
