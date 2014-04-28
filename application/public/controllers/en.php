@@ -127,4 +127,17 @@ class En extends CI_Controller {
     public function post_ad() {
         $this->load->view('ad/post_ad');
     }
+    
+    public function view_area_by_location($location_id) {
+        $id = trim($location_id);
+        $data = $this->Fronts->get_area_list_by_location_id($id);
+        
+        $option = '';
+        foreach ($data as $ds){
+            echo '<option value=' . $ds["id"] . '>' . $ds["name"] . '</option>';
+            //var_dump($option);
+        }
+        
+        //echo $option;
+    }
 }

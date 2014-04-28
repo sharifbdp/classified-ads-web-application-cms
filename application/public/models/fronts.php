@@ -224,5 +224,11 @@ class Fronts extends CI_Model {
 
         return $this->db->get()->result_array();
     }
-
+    
+    public function get_area_list_by_location_id($id) {
+        $this->db->where('lid', $id);
+	$this->db->where('status', '1');
+        $query = $this->db->get('poster_location_city')->result_array();
+        return $query;
+    }
 }

@@ -1,5 +1,47 @@
 <?php $this->load->view('common/header'); ?>
 
+<style>
+    .dest
+                    {
+                        width:400px;
+                        text-align:center;
+                        padding:5px 0px;
+                        color:#900;
+                        border:solid 1px #FEBCBA;
+                        background-color:#FFE9E8;
+                        margin-bottom:10px;
+                    }
+                    .lbl
+                    {
+                        width:200px;
+                    }
+                    .editeImage
+                    {
+                        margin-bottom:-20px;
+                        margin-left:59px;
+                        position:relative;
+                        z-index:0;
+/*                        height:150px;
+                        width:150px;*/
+
+                    }
+                    .userImage
+                    {
+                        position:fixed;
+                        z-index:1;
+                    }
+                    .showImage
+                    {
+                        border:solid 3px #ccc;
+                        border-radius:8px;
+                    }
+                    .photoUpload
+                    {
+                        width:130px;
+                        height:100px;
+                    }
+</style>
+
     <body class='post_ad post_ad post_ad-show'>
 
         <?php $this->load->view('common/top_menu'); ?>
@@ -146,12 +188,18 @@
                                                         <span>Click to add photo</span>
                                                     </div>
                                                 </label>
-                                                <input type="file" name="add_image" id="add_image">
+
+                                                <div style="width: 130px; height: 100px; display: inline-block;" class="showImage">
+                                                    <img  id="showImg" src="<?php echo base_url();?>images/add_img_icon.png" alt="" border="0" width="130px" height="100px"/>
+                                                </div>
+
+                                                <input type="file" name="ad_image[]" onchange='Test.UpdatePreview(this)' accept="image/*" id="upload" />
                                             </div>
                                         </div>
-                                        <div class="feedback show">
+                                        <div class="feedback show" id="after_ad_more_img">
                                             Must be either a JPEG, GIF or PNG image file (max 5MB).
                                         </div>
+                                        <button id="add_more_image">Add More</button>
                                     </div>
                                 </div>
                             </div>
@@ -310,5 +358,79 @@
             </div>
 
         </div>
-        
-<?php $this->load->view('common/footer'); 
+
+<?php $this->load->view('common/footer'); ?>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                var MaxInputs       = 8; //maximum input boxes allowed
+                var InputsWrapper   = $("#after_ad_more_img"); //Input boxes wrapper ID
+                var AddButton       = $("#add_more_image"); //Add button ID
+
+                var x = InputsWrapper.length; //initlal text box count
+                var FieldCount=1; //to keep track of text box added
+
+                $(AddButton).click(function (e)  //on add input button click
+                {
+                        if(x <= MaxInputs){
+                            FieldCount++; //text box added increment
+                            //add input box
+                            $(InputsWrapper).append('<div class="more_image_box"><input type="file" name="ad_image[]" id="field_'+ FieldCount +'" value=""/><a href="#" class="removeclass">&times;</a></div>');
+                            x++; //text box increment
+                        }
+                return false;
+                });
+
+                $("body").on("click",".removeclass", function(e){ //user click on remove text
+                        if( x > 1 ) {
+                                $(this).parent('div').remove(); //remove text box
+                                x--; //decrement textbox
+                        }
+                return false;
+                });
+                
+                // load area by select city
+                $('#ad_location_id').change(function() {
+
+                    $.ajax({
+                        type: "GET",
+                        url: "<?php echo base_url(); ?>en/view_area_by_location/"+$('#ad_location_id').val(),
+
+                        dataType: "HTML",
+                        success: function(data){
+
+                            $('#ad_area_id').empty();
+                            if(data !== ''){
+                               $("#ad_area_id").append(data); 
+                            }else{
+                               $("#ad_area_id").append("<option value=''>No City/Area found</option>");  
+                            }
+
+                        }
+                    });
+
+                });
+
+            });
+
+            $(function() {
+                Test = {
+                    UpdatePreview: function(obj) {
+                        // if IE < 10 doesn't support FileReader
+                        if (!window.FileReader) {
+                            // don't know how to proceed to assign src to image tag
+                        } else {
+                            var reader = new FileReader();
+                            var target = null;
+
+                            reader.onload = function(e) {
+                                target = e.target || e.srcElement;
+                                $("#showImg").prop("src", target.result);
+                            };
+                            reader.readAsDataURL(obj.files[0]);
+                        }
+                    }
+                };
+            });
+        </script>

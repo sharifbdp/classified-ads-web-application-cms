@@ -171,7 +171,7 @@
                         <div class='bg left'></div>
                         <div class='bg right'></div>
                         <div class='btn-border'>
-                            <a href="#" class="btn large post"><span class="large">Post your free ad</span></a>
+                            <a href="<?php echo base_url();?>en/post_ad" class="btn large post"><span class="large">Post your free ad</span></a>
                         </div>
                     </div>
                 </div>

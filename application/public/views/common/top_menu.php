@@ -13,7 +13,7 @@
                             <ul class='h-stack flat col invisible' id='site-nav-aux'>
                                 <li><a href="<?php echo base_url();?>users/login"><span>Log in</span></a></li>
                             </ul>
-                            <a class='col btn post btn-bold' href='<?php echo base_url();?>post-ad' id='post-free-ad'>
+                            <a class='col btn post btn-bold' href='<?php echo base_url();?>en/post_ad' id='post-free-ad'>
                                 <span><strong>Post Your Ad</strong></span>
                             </a>
                         </div>
