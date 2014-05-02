@@ -6,6 +6,8 @@
             <file>file:/var/www/bikroy/application/public/views/ad/post_ad.php</file>
             <file>file:/var/www/bikroy/css/site.css</file>
             <file>file:/var/www/bikroy/application/public/controllers/en.php</file>
+            <file>file:/var/www/bikroy/application/public/views/ad/check_ad.php</file>
+            <file>file:/var/www/bikroy/application/public/models/fronts.php</file>
         </group>
     </open-files>
 </project-private>

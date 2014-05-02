@@ -190,8 +190,8 @@ class Fronts extends CI_Model {
         foreach ($query as $info) {
             $disabled = ($info['parent_id'] == 0) ? 'disabled=disabled' : '';
             if ($selectid != NULL) {
-                $active = ($info['id'] == $selectid) ? '"selected=selected"' : '';
-                echo "<option value='" . $info['id'] . "'" . " {$active}>" . str_repeat('---', $level) . " &rsaquo;" . $info['name'] . "</option>";
+                $active = ($info['id'] == $selectid) ? 'selected=selected' : '';
+                echo "<option value='" . $info['id'] . "'" . " {$active} {$disabled}>" . str_repeat('---', $level) . " &rsaquo;" . $info['name'] . "</option>";
             } else {
                 echo "<option value='" . $info['id'] . "'" . " {$disabled}>" . str_repeat('---', $level) . " &rsaquo;" . $info['name'] . "</option>";
             }
@@ -224,11 +224,37 @@ class Fronts extends CI_Model {
 
         return $this->db->get()->result_array();
     }
-    
+
     public function get_area_list_by_location_id($id) {
         $this->db->where('lid', $id);
-	$this->db->where('status', '1');
+        $this->db->where('status', '1');
         $query = $this->db->get('poster_location_city')->result_array();
         return $query;
     }
+
+    public function get_category_by_id($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('category')->row();
+    }
+
+    public function get_location_details_by_id($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('poster_location')->row();
+    }
+
+    public function get_city_details_by_id($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('poster_location_city')->row();
+    }
+
+    public function insert_ad_poster($dp) {
+        $this->db->insert('poster', $dp);
+        return $this->db->insert_id();
+    }
+
+    public function insert_advertizement($data) {
+        $this->db->insert('advertizement', $data);
+        return $this->db->insert_id();
+    }
+
 }

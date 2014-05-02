@@ -2412,7 +2412,7 @@ fieldset:first-child { margin-top: 0 }
     padding: 0 4px;
 }
 #ads-form {
-/*    display: none;*/
+    /*    display: none;*/
     position: relative;
 }
 .js #ads-form { display: block }
@@ -2692,7 +2692,7 @@ form .h-stack .field { margin-right: 8px }
 #posting-rules {
     background: #FBF8D3;
     z-index: 100;
-/*    display: none;*/
+    /*    display: none;*/
     box-shadow: 1px 1px 2px #EAE7C3;
     right: 24px;
     top: 100px;

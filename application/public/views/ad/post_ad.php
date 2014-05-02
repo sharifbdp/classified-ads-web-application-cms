@@ -76,17 +76,9 @@
                         Confirmation
                     </div>
                 </div>
-
-                <noscript class='ads-form'>
-                <div class='wrap'>
-                    <div class='inner-box'>
-                        <h2>Tonaton.com uses a lot of JavaScript.</h2>
-                        <p>If you can't enable it in your browser, you're probably going to have a better experience on our <a href='http://m.tonaton.com/post_ad'>mobile version</a>.</p>
-                    </div>
-                </div>
-                </noscript>
-                <div class='inner-box loading'></div>
-                <form accept-charset="UTF-8" action="" class="new_ad" enctype="multipart/form-data" id="ads-form" method="post">
+             
+                <?php //echo validation_errors('<div class="error">', '</div>'); ?>
+                <?php echo form_open_multipart('', array('class' => 'new_ad', 'id' => 'ads-form'))?>
 
                     <div class='inner-box form-content clearfix'>
                         <fieldset>
@@ -94,7 +86,8 @@
                                 <div class='btn btn-post'>
                                     <span>Check your ad</span>
                                 </div>
-                            </button><div class='row field category'>
+                            </button>
+                            <div class='row field category'>
                                 <div class='label col2'>
                                     <label for="ad_category_id">Category</label>
                                 </div>
@@ -102,29 +95,34 @@
                                     <div class='select_tree' id='ad_category_id'>
                                         <select autocomplete='off' name="cid">
                                             <option value="">Select a category...</option>
-                                            <?php $this->Fronts->getTreeCategory(0, 0); ?>
+                                            <?php 
+                                            $cid = set_value('cid');
+                                            $this->Fronts->getTreeCategory(0, 0, $cid); ?>
                                             <option value="831">Other</option>
                                         </select>
                                     </div>
+                                    <?php echo form_error('cid', '<label for="ad_category_id" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                             <div class='row field ad-types'>
                                 <div class='label col2'></div>
                                 <div class='input col6'>
                                     <div class='inline-inputs'>
+                                        <?php
+                                        $for_what = set_value('for_what');
+                                        $checked_1 = ($for_what == 1) ? TRUE : FALSE;
+                                        $checked_2 = ($for_what == 2) ? TRUE : FALSE;
+                                        ?>
                                         <label>
-                                            <input class="required" name="sale_type" type="radio" value="1" />
-                                            <span>
-                                                For sale
-                                            </span>
+                                            <?php echo form_radio(array('name' => 'for_what', 'value' => '1', 'checked' => $checked_1)); ?>
+                                            <span>For sale</span>
                                         </label>
                                         <label>
-                                            <input class="required" name="sale_type" type="radio" value="2" />
-                                            <span>
-                                                Wanted
-                                            </span>
+                                            <?php echo form_radio(array('name' => 'for_what', 'value' => '2', 'checked' => $checked_2)); ?>
+                                            <span>Wanted</span>
                                         </label>
                                     </div>
+                                    <?php echo form_error('for_what', '<label for="for_what" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
 
@@ -135,7 +133,8 @@
                                         <label for="ad_title">Ad title</label>
                                     </div>
                                     <div class="input col6">
-                                        <input type="text" size="42" name="ad_title" maxlength="40" id="ad_title" class="string required">
+                                        <?php echo form_input(array('name' => 'title', 'id' => 'ad_title', 'class' => 'string required', 'maxlength' => '40', 'value' => set_value('title'))); ?>
+                                        <?php echo form_error('title', '<label for="ad_title" class="error" style="display: block;">', '</label>'); ?>
                                         <div class="feedback">
                                             Keep it short and simple - and no price.
                                         </div>
@@ -146,10 +145,12 @@
                                         <label for="ad_description">Description</label>
                                     </div>
                                     <div class="input col6">
-                                        <textarea rows="8" name="ad_description" maxlength="5000" id="ad_description" cols="60" class="text required countdown"></textarea>
+                                        <?php echo form_textarea(array('name' => 'details', 'id' => 'ad_description', 'class' => 'text required countdown', 'rows' => '8', 'cols' => '60', 'maxlength' => '5000', 'value' => set_value('details')))?>
+                                        <?php echo form_error('details', '<label for="ad_description" class="error" style="display: block;">', '</label>'); ?>
                                         <div class="feedback">
                                             Good descriptions increase your ad's chances of success. Describe features, dimensions, condition and what's included.
-                                        </div><span class="countdown" style="display: none;"><span></span>&nbsp;characters remaining</span>
+                                        </div>
+                                        <span class="countdown" style="display: none;"><span></span>&nbsp;characters remaining</span>
                                     </div>
                                 </div>
                                 <div id="price-container" class="row field price">
@@ -159,15 +160,14 @@
                                         </div>
                                         <div class="col6 input prepend">
                                             <div class="inline-inputs">
-                                                <div class="add-on">
-                                                    $USD
-                                                </div>
-                                                <input type="text" size="30" name="ad_price" id="ad_price" class="numeric integer optional digits ascii">
+                                                <div class="add-on">$USD</div>
+                                                <?php echo form_input(array('name' => 'price', 'id' => 'ad_price', 'class' => 'numeric integer optional digits ascii', 'size' => '30', 'value' => set_value('price'))); ?>
                                                 <span class="input boolean optional ad_negotiable">
                                                     <label for="price_negotiable" class="boolean optional checkbox">
                                                         <input type="checkbox" value="1" name="price_negotiable" id="price_negotiable" class="boolean optional">Negotiable
                                                     </label>
                                                 </span>
+                                                <?php echo form_error('price', '<label for="ad_price" class="error" style="display: block;">', '</label>'); ?>
                                                 <div class="feedback">Pick the right price. Everything sells if the price is right.</div>
                                             </div>
                                         </div>
@@ -176,9 +176,7 @@
                                 </div>
                                 <div id="image-upload" class="row field images">
                                     <div class="label col2">
-                                        <label for="add_image">
-                                            Upload images
-                                        </label>
+                                        <label for="add_image">Upload images</label>
                                     </div>
                                     <div class="input col6">
                                         <div class="input clearfix h-stack">
@@ -228,6 +226,7 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <?php echo form_error('p_type', '<label for="ad_poster_type" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                             <div class='row field poster_name'>
@@ -235,7 +234,8 @@
                                     <label class="required" for="ad_poster_name">Name</label>
                                 </div>
                                 <div class='input col6'>
-                                    <input class="required" id="ad_poster_name" maxlength="30" name="ad_poster_name" size="30" type="text" />
+                                    <?php echo form_input(array('name' => 'name', 'id' => 'ad_poster_name', 'class' => 'required', 'maxlength' => '30', 'size' => '30', 'value' => set_value('name'))); ?>
+                                    <?php echo form_error('name', '<label for="ad_poster_name" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                             <div class='row field poster_email'>
@@ -243,8 +243,8 @@
                                     <label for="ad_poster_email">Email</label>
                                 </div>
                                 <div class='input col6'>
-                                    <input class="required email ascii" id="ad_poster_email" name="ad_poster_name" size="40" type="text" />
-                                    <div id='mailcheck'></div>
+                                    <?php echo form_input(array('name' => 'email', 'id' => 'ad_poster_email', 'class' => 'required email ascii', 'size' => '40', 'value' => set_value('email'))); ?>
+                                    <?php echo form_error('email', '<label for="ad_poster_email" class="error" style="display: block;">', '</label>'); ?>
                                     <div class='feedback'>
                                         Your email will be hidden on the ad, but we need it to send you updates about your ad.
                                     </div>
@@ -258,7 +258,8 @@
                                     <div class='inline-inputs'>
                                         <div class='phone-nos'>
                                             <div class='phone-no'>
-                                                <input class="phone required ascii" id="ad_poster_phone_number" maxlength="21" name="ad_poster_phone_number" type="text" />
+                                                <?php echo form_input(array('name' => 'phone', 'id' => 'ad_poster_phone_number', 'class' => 'phone required ascii', 'maxlength' => '21', 'value' => set_value('phone'))); ?>
+                                                <?php echo form_error('phone', '<label for="ad_poster_phone_number" class="error" style="display: block;">', '</label>'); ?>
                                                 <input class="extra-field" id="ad_poster_hide_phone_numbers" name="ad_poster_phone_number_status" type="checkbox" value="1" />
                                                 <label for="ad_poster_phone_number_status">Hide phone number</label>
                                                 <div class='feedback'>
@@ -283,7 +284,7 @@
                                 </div>
                                 <div class='input col6'>
                                     <div class='select_tree'>
-                                        <select id='ad_location_id' name="ad_location_id">
+                                        <select id='ad_location_id' name="ad_location">
                                             <option value=''>Select a location...</option>
                                             <?php
                                             $all_location = $this->Fronts->get_all_location_data();
@@ -297,6 +298,7 @@
                                             ?>
                                         </select>
                                     </div>
+                                    <?php echo form_error('ad_location', '<label for="ad_location_id" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                             <div class='row field location'>
@@ -305,11 +307,12 @@
                                 </div>
                                 <div class='input col6'>
                                     <div class='select_tree'>
-                                        <select id='ad_area_id' name="ad_area_id">
+                                        <select id='ad_area_id' name="ad_city">
                                             <option value=''>First Select a location...</option>
 
                                         </select>
                                     </div>
+                                    <?php echo form_error('ad_city', '<label for="ad_area_id" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                         </fieldset>
@@ -330,30 +333,8 @@
                             Something went wrong while checking your ad. Please click &quot;Check your ad&quot; again to post your ad. If the error persists, please contact customer support.
                         </div>
                     </div>
-                    <div class='actions inner-box review-actions'>
-                        <div class='center-wrap wrap clearfix'>
-                            <div class='polar col'>
-                                <button class="btn large post publish" name="publish" type="submit" value="Publish"><span>
-                                        Publish ad
-                                    </span>
-                                </button></div>
-                            <div class='info'>
-                                <span class='polar'>
-                                    Did you miss something?
-                                    <a class='btn small edit' href='edit'>
-                                        <span>
-                                            edit ad
-                                        </span>
-                                    </a>
-                                </span>
-                                <span class='small-print polar'>
-                                    By publishing your ad on Tonaton.com, you agree to Tonaton.com's <a href="/en/terms" data-ui-nav="modal">terms and conditions</a>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
+                    
+                <?php echo form_close(); ?>
 
             </div>
 
