@@ -1,363 +1,235 @@
-<!DOCTYPE html>
-<!--[if IE 8 ]><html lang="en" class="ie8"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"><!--<![endif]-->
+<?php $this->load->view('common/header'); ?>
 
-<head>
-<meta charset='utf-8'>
-<meta content="authenticity_token" name="csrf-param" />
-<meta content="Y/lHDtel/ctQs+0l3h7AQJaARDFSXjKJQrCm9UOWUts=" name="csrf-token" />
-<meta content='namYgiL3asVc9iHG4UAOdt_d8AUWtRuQfJTjVjm6Grk' name='google-site-verification'>
-<title>Confirmation - Free classifieds at Tonaton.com</title>
-<link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
-<link href='http://tonaton.com/opensearch?locale=en' rel='search' title='tonaton.com' type='application/opensearchdescription+xml'>
-<link href="/assets/desktop/application-244f37c0325015f01ccacb99646a9e24.css" media="screen" rel="stylesheet" type="text/css" />
-<link href="/assets/desktop/sites/tonaton/site-477be7e70a607ba31107ea48ce721250.css" media="screen" rel="stylesheet" type="text/css" />
-
-<script>
-  var UserTimings = {};
-
-  function TrackTiming(category, variable, opt_label) {
-    this.category = category;
-    this.variable = variable;
-    this.label = opt_label ? opt_label : undefined;
-    this.startTime = window.performance ? performance.timing.navigationStart : undefined;
-    this.endTime;
-    this.sampleRate = 1;
-    this.maxTime = 60 * 60; // Set a maximum time of 1 hour to avoid bad data
-    return this;
-  }
-
-  TrackTiming.prototype.end = function() {
-    this.endTime = new Date().getTime();
-    return this;
-  }
-
-  TrackTiming.prototype.send = function() {
-    if (this.startTime) {
-      var timeSpent = (this.endTime - this.startTime);
-      if (window._gaq && timeSpent > 0 && timeSpent < this.maxTime) {
-        _gaq.push(['_trackTiming', this.category, this.variable, timeSpent, this.label, this.sampleRate]);
-      }
-    }
-    return this;
-  }
-</script>
-
-<script>
-  document.documentElement.className += " js";
-  document.createElement("time");
-  var KvData = {};
-</script>
-
-</head>
 <body class='post_item post_item post_item-finish'>
-<noscript>
-<div class='warning-wrapper'>
-<div class='warning inner-box-compact wrap'>
-<h3>Tonaton.com uses a lot of JavaScript.</h3>
-<p>If you can't enable it in your browser, you're probably going to have a better experience on our <a href='http://m.tonaton.com/post_ad'>mobile version</a>.</p>
-</div>
-</div>
-</noscript>
 
-<div id='site-head'>
-<div class='fill'>
-<div class='wrap'>
-<div class='row'>
-<div class='col' id='site-logo'>
-<a href="/en">Tonaton.com</a>
-</div>
-<ul class='col h-stack flat' id='site-nav'>
-<li><a href="/en/ads-in-ghana"><span>All Ads</span></a></li>
-<li><a href="/en/help"><span>Help & Support</span></a></li>
-</ul>
-<div class='polar'>
-<ul class='h-stack flat col invisible' id='site-nav-aux'>
-<li><a href="/en/users/log_in"><span>Log in</span></a></li>
-</ul>
-<a class='col btn post btn-bold' href='/en/post_ad' id='post-free-ad'>
-<span>
-<strong>Post Your Ad</strong>
-</span>
-</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <?php $this->load->view('common/top_menu'); ?>
 
-<div id='site-content'>
+    <div id='site-content'>
 
-<div class='wrap'>
-<div class='progress-bar'>
-<div class='details done step'>
-<i></i>
-Fill in details
-</div>
-<div class='done preview step'>
-<i></i>
-Check your ad
-</div>
-<div class='confirmation done step'>
-<i></i>
-Confirmation
-</div>
-</div>
+        <div class='wrap'>
+            <div class='progress-bar'>
+                <div class='details done step'><i></i>Fill in details</div>
+                <div class='done preview step'><i></i>Check your ad</div>
+                <div class='confirmation done step'><i></i>Confirmation</div>
+            </div>
 
-<div class='inner-box'>
-<h2 class='confirmation-headline'>
-Your ad was successfully submitted for review
-</h2>
-<p class='confirmation-info'>
-Please note it can take up to <strong>1 hour</strong> for your ad to be published on the site. <br>Once the ad has been reviewed, you will receive an email at <strong>coventry012@gmail.com</strong>.
-</p>
-<ul class='regular flat' id='item-rows'>
-<li class='item'>
-<div class='h-stack'>
-<div class='photo'>
-<img src='http://res.cloudinary.com/saltside-production/image/private/t_thumb/81614b44-81b5-4c94-b615-1c7e29aec430.jpg'>
-</div>
-<div class='inner'>
-<div class='col'>
-<h2>
-<span>
-A picture
-</span>
-</h2>
-<div class='meta'>
-<span class='category'>
-Art &amp; Collectibles,
-</span>
-<span class='location'>Oyibi</span>
-</div>
-</div>
-<div class='attr polar'>
-<span class='data'>
-GH₵ 1
-</span>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class='wrap'>
-</div>
-<script>
-  var AD_SLUG = "a-picture-for-sale-greater-accra";
-  var AD_LOCATION = "Oyibi, Greater Accra";
-  var AD_CATEGORY = "leisure-sports-hobby_arts-collectibles";
-  var CATEGORY_VERTICAL = "electronics_other";
-  var AD_POST_TYPE = "new";
-</script>
-<div class='wrap'>
-<div class='item-box'>
-<h2>Do you have something to sell?</h2>
-<p>Post your ad for free on Tonaton.com</p>
-<div class='btn-wrapper'>
-<div class='bg left'></div>
-<div class='bg right'></div>
-<div class='btn-border'>
-<a href="/en/new?controller=ads" class="btn large post"><span class="large">Post your free ad</span></a>
-</div>
-</div>
-</div>
-</div>
+            <div class='inner-box'>
+                <?php if(!empty($content)) { 
+//                    echo "<pre>";
+//                    echo print_r($content);
+//                    echo "</pre>";
+                    ?>
+                <h2 class='confirmation-headline'>Your ad was successfully submitted for review</h2>
+                <p class='confirmation-info'>
+                    Please note it can take up to <strong>1 hour</strong> for your ad to be published on the site. <br>Once the ad has been reviewed, you will receive an email at <strong><?php echo $content->poster_email;?></strong>.
+                </p>
+                <ul class='regular flat' id='item-rows'>
+                    <li class='item'>
+                        <div class='h-stack'>
+                            <div class='photo'>
+                                <img src='http://res.cloudinary.com/saltside-production/image/private/t_thumb/81614b44-81b5-4c94-b615-1c7e29aec430.jpg'>
+                            </div>
+                            <div class='inner'>
+                                <div class='col'>
+                                    <h2><span><?php echo $content->title; ?></span></h2>
+                                    <div class='meta'>
+                                        <span class='category'><?php echo $content->cat_name;?></span>
+                                        <span class='location'><?php echo $content->city;?></span>
+                                    </div>
+                                </div>
+                                <div class='attr polar'><span class='data'>USD $ <?php echo $content->price; ?></span></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <?php }else{ ?>
+                <div class='alert' id='check-error-message'>
+                    <br>
+                    <div class='box error'>
+                        Something went wrong while checking your ad. Please click &quot;Check your ad&quot; again to post your ad. If the error persists, please contact customer support.
+                    </div>
+                </div>
+                <?php } ?>
+            </div>
+        </div>
 
+<!--        <div class="wrap">
+            <div class="similar-items wrap">
+                <h2>You might also like...</h2>
+                <div class="inner-box">
+                    <div data-ui="gallery" data-ui-transition="slide 500" class="gallery">
+                        <div class="stage">
+                            <div class="items" style="width: 4390px; left: -878px;"><div class="item h-stack" style="width: 878px;">
+                                    <a href="/en/acer-aspire-one-d270-for-sale-dhaka-33"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/412bed75-8340-4345-8e78-c18202ae0b7f.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/412bed75-8340-4345-8e78-c18202ae0b7f.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire One D270</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-4315-for-sale-dhaka-5"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/4fad4c27-bd4b-4aaa-a0bf-11eb65ce3e60.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/4fad4c27-bd4b-4aaa-a0bf-11eb65ce3e60.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire 4315</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-one-for-sale-dhaka-90"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/7bd453e7-b5b1-4179-bdb6-bacb9f584cba.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/7bd453e7-b5b1-4179-bdb6-bacb9f584cba.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer aspire one</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-from-usa-for-sale-dhaka-1"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/b58ad1d8-cfbc-4b96-b145-7cdf8af96f7f.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/b58ad1d8-cfbc-4b96-b145-7cdf8af96f7f.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">ACER ASPIRE FROM USA</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-5520-for-sale-dhaka"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/c3106aaa-b6a0-4bf4-b4ab-874958925ec8.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/c3106aaa-b6a0-4bf4-b4ab-874958925ec8.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire 5520</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="item h-stack" style="width: 878px;">
+                                    <a href="/en/acer-aspire-for-sale-dhaka-45"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e7774994-8c3d-11e3-b7cb-22000a270a3d.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e7774994-8c3d-11e3-b7cb-22000a270a3d.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-for-sale-dhaka-51"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/ac7f3265-9094-4a1c-a9be-2ef0a4305da0.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/ac7f3265-9094-4a1c-a9be-2ef0a4305da0.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-v5-122p-touchscreen-laptop-for-sale-dhaka"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/a889451a-01f4-4a32-a2fa-9b9c2d79e6c9.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/a889451a-01f4-4a32-a2fa-9b9c2d79e6c9.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">New TouchScreen ACER Aspire V5 Laptop</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-4749z-for-sale-dhaka-10"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/80a5dd41-b370-4638-8e72-338856955d33.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/80a5dd41-b370-4638-8e72-338856955d33.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire 4749z</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-one-725-for-sale-dhaka-52"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e6d6c480-fa2b-4628-b315-a9c7db793d9c.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e6d6c480-fa2b-4628-b315-a9c7db793d9c.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer aspire one 725</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="item h-stack" style="width: 878px;">
+                                    <a href="/en/acer-aspire-4736z-laptop-for-sale-dhaka-27"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/4522edf9-4752-4d0d-878f-c44888a6214d.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/4522edf9-4752-4d0d-878f-c44888a6214d.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire 4736Z Laptop</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-5552-for-sale-dhaka-2"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/30017581-8d2c-4f2c-88be-cc8b9574a436.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/30017581-8d2c-4f2c-88be-cc8b9574a436.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire 5552</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-4752-series-for-sale-dhaka-1"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/af6d3db3-2227-4a60-88f0-8f84f6c4aae1.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/af6d3db3-2227-4a60-88f0-8f84f6c4aae1.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">ACER Aspire 4752 Series</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-5735z-for-sale-dhaka-2"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/60426b80-7ee9-40c4-b9ca-231013f942c5.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/60426b80-7ee9-40c4-b9ca-231013f942c5.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire 5735z ,</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-5742z-for-sale-dhaka-4"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/42dfe294-8b14-11e3-881f-123143013573.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/42dfe294-8b14-11e3-881f-123143013573.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire 5742z</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="item h-stack" style="width: 878px;">
+                                    <a href="/en/acer-aspire-one-d270-for-sale-dhaka-33"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/412bed75-8340-4345-8e78-c18202ae0b7f.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/412bed75-8340-4345-8e78-c18202ae0b7f.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire One D270</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-4315-for-sale-dhaka-5"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/4fad4c27-bd4b-4aaa-a0bf-11eb65ce3e60.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/4fad4c27-bd4b-4aaa-a0bf-11eb65ce3e60.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire 4315</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-one-for-sale-dhaka-90"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/7bd453e7-b5b1-4179-bdb6-bacb9f584cba.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/7bd453e7-b5b1-4179-bdb6-bacb9f584cba.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer aspire one</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-from-usa-for-sale-dhaka-1"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/b58ad1d8-cfbc-4b96-b145-7cdf8af96f7f.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/b58ad1d8-cfbc-4b96-b145-7cdf8af96f7f.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">ACER ASPIRE FROM USA</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-5520-for-sale-dhaka"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/c3106aaa-b6a0-4bf4-b4ab-874958925ec8.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/c3106aaa-b6a0-4bf4-b4ab-874958925ec8.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire 5520</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="item h-stack" style="width: 878px;">
+                                    <a href="/en/acer-aspire-for-sale-dhaka-45"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e7774994-8c3d-11e3-b7cb-22000a270a3d.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e7774994-8c3d-11e3-b7cb-22000a270a3d.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-for-sale-dhaka-51"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/ac7f3265-9094-4a1c-a9be-2ef0a4305da0.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/ac7f3265-9094-4a1c-a9be-2ef0a4305da0.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">acer aspire</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-v5-122p-touchscreen-laptop-for-sale-dhaka"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/a889451a-01f4-4a32-a2fa-9b9c2d79e6c9.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/a889451a-01f4-4a32-a2fa-9b9c2d79e6c9.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">New TouchScreen ACER Aspire V5 Laptop</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-4749z-for-sale-dhaka-10"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/80a5dd41-b370-4638-8e72-338856955d33.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/80a5dd41-b370-4638-8e72-338856955d33.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer Aspire 4749z</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a><a href="/en/acer-aspire-one-725-for-sale-dhaka-52"><div class="inner-content">
+                                            <img src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e6d6c480-fa2b-4628-b315-a9c7db793d9c.jpg" data-src="http://res.cloudinary.com/saltside-production/image/private/t_featthumb/e6d6c480-fa2b-4628-b315-a9c7db793d9c.jpg" class="similar-ad loaded" alt=" - ">
+                                            <div class="title">Acer aspire one 725</div>
+                                            <div class="price"></div>
+                                        </div>
+                                    </a>
+                                </div></div>
+                        </div>
+                        <div class="dots">
+                            <a href="#" data-ui-nav="1" class="current"></a>
+                            <a href="#" data-ui-nav="2" class=""></a>
+                            <a href="#" data-ui-nav="3" class=""></a>
+                        </div>
+                        <div class="small-arrows">
+                            <a href="#" data-ui-nav="prev" class="arrow">Prev</a>
+                            <a href="#" data-ui-nav="next" class="arrow">Next</a>
+                        </div>
+                    </div>
+                    <a class="polar view-more-similar-items" href="/en/computers-accessories-laptops-netbooks-in-dhaka">More ads</a>
+                </div>
+            </div>
 
-</div>
-<div id='site-floor'>
-<div class='wrap'>
-<div class='row'>
-<div class='col5'>
-<div class='no-like clearfix' id='facebook'>
-<div class='fb-icon'></div>
-<div class='link'><a href="http://www.facebook.com/pages/Tonaton/367377380021665" target="_blank">Find us on Facebook</a></div>
-</div>
+        </div>-->
 
-<div class='separator'></div>
-<div class='muted'>
-Copyright &copy; Saltside Technologies.
-</div>
+        <div class='wrap'>
+            <div class='item-box'>
+                <h2>Do you have something to sell?</h2>
+                <p>Post your ad for free on Tonaton.com</p>
+                <div class='btn-wrapper'>
+                    <div class='bg left'></div>
+                    <div class='bg right'></div>
+                    <div class='btn-border'>
+                        <a href="/en/new?controller=ads" class="btn large post"><span class="large">Post your free ad</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-</div>
-<div class='col7'>
-<div id='floor-nav'>
-<div class='quarter'>
-<ul>
-<lh>
-<span class='heading muted'>
-How To Sell Fast
-</span>
-</lh>
-<li>
-<a href="/en/help/howtosellfast">How to sell fast</a>
-</li>
-<li>
-<a href="/en/advertising">Banner Advertising</a>
-</li>
-</ul>
-</div>
-<div class='quarter'>
-<ul>
-<lh>
-<span class='heading muted'>
-Company
-</span>
-</lh>
-<li>
-<a href="/en/help/about">About us</a>
-</li>
-<li>
-<a href="/en/terms">Terms &amp; conditions</a>
-</li>
-<li>
-<a href="/en/privacy_policy">Privacy policy</a>
-</li>
-</ul>
-</div>
-<div class='quarter'>
-<ul>
-<lh>
-<span class='heading muted'>
-Help &amp; support
-</span>
-</lh>
-<li>
-<a href="/en/help">FAQ</a>
-</li>
-<li>
-<a href="/en/help/staysafe">Stay safe</a>
-</li>
-<li>
-<a href="/en/help/contact">Contact us</a>
-</li>
-</ul>
-</div>
-<div class='quarter'>
-<ul>
-<lh>
-<span class='heading muted'>
-Social
-</span>
-</lh>
-<li>
-<a class='blog-link' href='http://blog.tonaton.com'>
-Blog
-</a>
-</li>
-<li>
-<a href="http://www.facebook.com/pages/Tonaton/367377380021665" target="_blank">Facebook</a>
-</li>
-<li>
-<a href="https://twitter.com/tonatonghana" target="_blank">Twitter</a>
-</li>
-<li>
-<a href="http://www.youtube.com/user/Tonatonclassifieds" target="_blank">YouTube</a>
-</li>
-</ul>
-</div>
-</div>
+    </div>
 
-</div>
-</div>
-</div>
-</div>
-
-<script src="/assets/desktop/libs-ec4e56bd66df1b251b998426da3153e1.js" type="text/javascript"></script>
-<script>
-  $link = $('ul#site-nav-aux');
-  var user = $.cookie('user');
-  if (user) {
-    $link.find('span').text(user);
-    $link.find('a').attr('href', '/account');
-  }
-  $link.removeClass('invisible');
-</script>
-
-<script src="/assets/desktop/i18n/en.tonaton-374e91e3503adc6112adc6425bb2ced9.js" type="text/javascript"></script>
-
-
-
-<script>
-  var lets_go = function() {
-    moment.lang(Config.LOCALE, momentParse(i18n[Config.LOCALE]["moment"]));
-    Kv2.init();
-  },
-  Config = {
-    CDN_URL: 'http://res.cloudinary.com/saltside-production/image/private/',
-    SERVER_TIME_DIFF: Math.abs(moment().zone()) - (0 / 60),
-    SITE_NAME: 'tonaton',
-    COUNTRY: 'GH',
-    LOCALE: 'en',
-    CURRENCY: 'GH₵',
-    ZAP_ID: '151711/151732',
-    FB_TRACK_ID: 'sx2t9a',
-    FB_URL: 'http://www.facebook.com/pages/Tonaton/367377380021665',
-    AD_LIST_TEMPLATE: "regular",
-    EM_SESSION_ID: '444f752f576053973961b5baff9c4eea'
-  };
-
-  function defer(c, b) {
-    var a = document.createElement("script");
-    a.type = "text/javascript";
-    a.readyState ? a.onreadystatechange = function () {
-      if (a.readyState == "loaded" || a.readyState == "complete") a.onreadystatechange = null, b()
-    } : a.onload = function () {
-      b()
-    };
-    a.src = c;
-    document.getElementsByTagName("head")[0].appendChild(a)
-  }
-  defer('/assets/desktop/application-2044aec7de0854bfd93a3b8ef9b7e7ca.js', function() {
-    lets_go();
-    defer('/assets/desktop/track-ff162819382eee150b0546935c4eff2b.js', function() {
-      Tr2.init();
-    });
-  });
-
-
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-37478419-1']);
-_gaq.push(['_setDomainName', 'tonaton.com']);
-_gaq.push(['_setCustomVar', 5, 'language', 'en', 2]);
-
-_gaq.push(['_trackPageview']);
-_gaq.push(['all._setAccount', 'UA-33150711-1']);
-_gaq.push(['all._setDomainName', 'tonaton.com']);
-_gaq.push(['all._trackPageview']);
-
-for (var key in UserTimings) {
-  UserTimings[key].send();
-}
-
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
-
-
-</script>
-
-
-
-  <script>
-  var google_conversion_id = "988366692";
-  var google_conversion_label = "-xqHCOTPpwUQ5I6l1wM";
-  var google_custom_params = window.google_tag_params;
-  var google_remarketing_only = true;
-</script>
-<script src="http://www.googleadservices.com/pagead/conversion.js" type="text/javascript"></script>
-<noscript>
-  <div style="display:inline;">
-    <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/988366692/?value=0&amp;label=-xqHCOTPpwUQ5I6l1wM&amp;guid=ON&amp;script=0"/>
-  </div>
-</noscript>
-
-
-
-</body>
-</html>
+<?php $this->load->view('common/footer'); ?>

@@ -5,6 +5,8 @@ if (!defined('BASEPATH'))
 
 class En extends CI_Controller {
 
+    public $i = 1; //default value
+
     public function __construct() {
         parent::__construct();
         $this->load->model('Fronts');
@@ -124,52 +126,6 @@ class En extends CI_Controller {
         }
     }
 
-    public function post_ad() {
-
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('cid', 'Category', 'required|xss_clean');
-        $this->form_validation->set_rules('for_what', 'Type', 'required|xss_clean');
-        $this->form_validation->set_rules('title', 'Title', 'required|xss_clean');
-        $this->form_validation->set_rules('details', 'Description', 'required|xss_clean');
-        $this->form_validation->set_rules('price', 'Price', 'required|xss_clean');
-        $this->form_validation->set_rules('ad_location', 'Ad Location', 'required|xss_clean');
-        $this->form_validation->set_rules('ad_city', 'Ad City', 'required|xss_clean');
-
-        //Poster
-        $this->form_validation->set_rules('name', 'Name', 'required|xss_clean');
-        $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|valid_email');
-        $this->form_validation->set_rules('phone', 'Phone No', 'required|xss_clean');
-        
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('ad/post_ad');
-        } else {
-            $data['cid'] = $this->input->post('cid', TRUE);
-            $data['for_what'] = $this->input->post('for_what', TRUE);
-            $data['title'] = $this->input->post('title', TRUE);
-            $data['details'] = $this->input->post('details', TRUE);
-            $data['price'] = $this->input->post('price', TRUE);
-            $data['ad_location'] = $this->input->post('ad_location', TRUE);
-            $data['ad_city'] = $this->input->post('ad_city', TRUE);
-            $data['entry_date'] = date('Y-m-d H:i:s');
-            $data['status'] = 0;
-
-            //poster
-            $dp['name'] = $this->input->post('name', TRUE);
-            $dp['email'] = $this->input->post('email', TRUE);
-            $dp['phone'] = $this->input->post('phone', TRUE);
-            $dp['status'] = 0;
-
-            $data['p_id'] = $this->Fronts->insert_ad_poster($dp);
-            if ($data['p_id']) {
-                $data['ad_id'] = $this->Fronts->insert_advertizement($data);
-                $this->load->view('ad/check_ad', $data + $dp);
-            } else {
-                redirect('en/post_ad');
-            }
-        }
-    }
-
     public function view_area_by_location($location_id) {
         $id = trim($location_id);
         $data = $this->Fronts->get_area_list_by_location_id($id);
@@ -177,6 +133,113 @@ class En extends CI_Controller {
         foreach ($data as $ds) {
             echo '<option value=' . $ds["id"] . '>' . $ds["name"] . '</option>';
         }
+    }
+
+    public function generate_unique_slug($slug, $separator = '-', $increment_number_at_end = FALSE) {
+
+        //check if the last char is a number
+        //that could break this script if we don't handle it
+        $last_char_is_number = is_numeric($slug[strlen($slug) - 1]);
+        //add a point to this slug if needed to prevent number collision..
+        $slug = $slug . ($last_char_is_number && $increment_number_at_end ? '.' : '');
+
+        //if slug exists already, increment it
+        $i = 0;
+
+        while (get_instance()->db->where('slug', $slug)->count_all_results('advertizement') != 0) {
+            //increment the slug
+            $slug = increment_string($slug, $separator);
+            $i++;
+        }
+
+        //so now we have unique slug
+        //remove the dot create because number collision
+        if ($last_char_is_number && $increment_number_at_end)
+            $slug = str_replace('.', '', $slug);
+
+        return $slug;
+    }
+
+    public function post_ad() {
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('cid', 'Category', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('for_what', 'Type', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('title', 'Title', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('details', 'Description', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('price', 'Price', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('ad_location', 'Ad Location', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('ad_city', 'Ad City', 'required|xss_clean|trim');
+
+        //Poster
+        $this->form_validation->set_rules('name', 'Name', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|valid_email|trim');
+        $this->form_validation->set_rules('phone', 'Phone No', 'required|xss_clean|trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('ad/post_ad');
+        } else {
+            $data['cid'] = $this->input->post('cid', TRUE);
+            $data['for_what'] = $this->input->post('for_what', TRUE);
+            $data['title'] = $this->input->post('title', TRUE);
+            $slug = url_title($data['title'], '-', TRUE);
+
+            $data['slug'] = $this->generate_unique_slug($slug); //here generate slug
+            $data['details'] = $this->input->post('details', TRUE);
+            $data['price'] = $this->input->post('price', TRUE);
+            $data['ad_location'] = $this->input->post('ad_location', TRUE);
+            $data['ad_city'] = $this->input->post('ad_city', TRUE);
+            $data['entry_date'] = date('Y-m-d H:i:s');
+            $data['status'] = 5;
+
+            //poster
+            $dp['name'] = $this->input->post('name', TRUE);
+            $dp['email'] = $this->input->post('email', TRUE);
+            $dp['phone'] = $this->input->post('phone', TRUE);
+            $dp['status'] = 5;
+
+            $data['p_id'] = $this->Fronts->insert_ad_poster($dp);
+            if ($data['p_id']) {
+                $ad_id = $this->Fronts->insert_advertizement($data);
+                $ad_details = $this->Fronts->get_advertizement_by_id($ad_id);
+                redirect('en/review/' . $ad_details->slug . '');
+            } else {
+                redirect('en/post_ad');
+            }
+        }
+    }
+
+    public function review($slug) {
+        $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
+        $this->load->view('ad/check_ad', $data);
+    }
+
+    public function publish() {
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('password', 'Password', 'required|xss_clean|trim|matches[c_password]');
+        $this->form_validation->set_rules('c_password', 'Password Confirmation', 'required|xss_clean|trim');
+
+        $ad_id = $this->input->post('ad_id', TRUE);
+        $ad_details = $this->Fronts->get_advertizement_by_id($ad_id);
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->review($ad_details->slug);
+        } else {
+            $data['status'] = '0';
+            $update = $this->Fronts->update_advertizement_by_id($data, $ad_id);
+            
+            if ($update) {
+                $dp['password'] = md5($this->input->post('password', TRUE));
+                $this->Fronts->update_poster_by_id($dp, $ad_details->p_id);
+                redirect('en/finish/' . $ad_details->slug . '');
+            }
+        }
+    }
+
+    public function finish($slug) {
+        $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
+        $this->load->view('ad/finish', $data);
     }
 
 }
