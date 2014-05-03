@@ -34,7 +34,7 @@
                                     <h2><span><?php echo $content->title; ?></span></h2>
                                     <div class='meta'>
                                         <span class='category'><?php echo $content->cat_name;?></span>
-                                        <span class='location'><?php echo $content->city;?></span>
+                                        <span class='location'><?php echo ', ' . $content->city;?></span>
                                     </div>
                                 </div>
                                 <div class='attr polar'><span class='data'>USD $ <?php echo $content->price; ?></span></div>
@@ -219,12 +219,12 @@
         <div class='wrap'>
             <div class='item-box'>
                 <h2>Do you have something to sell?</h2>
-                <p>Post your ad for free on Tonaton.com</p>
+                <p>Post your ad for free on Website.com</p>
                 <div class='btn-wrapper'>
                     <div class='bg left'></div>
                     <div class='bg right'></div>
                     <div class='btn-border'>
-                        <a href="/en/new?controller=ads" class="btn large post"><span class="large">Post your free ad</span></a>
+                        <a href="<?php echo base_url()?>en/post_ad" class="btn large post"><span class="large">Post your free ad</span></a>
                     </div>
                 </div>
             </div>

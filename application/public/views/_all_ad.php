@@ -1,41 +1,8 @@
-<!DOCTYPE html>
-<!--[if IE 8 ]><html lang="en" class="ie8"><![endif]-->
-<!--[if IE 9 ]><html lang="en" class="ie9"><![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"><!--<![endif]-->
+<?php $this->load->view('common/header'); ?>
 
-    <head>
-        <meta charset='utf-8'>
-        <title>Free classifieds in Ghana - Free classifieds at Tonaton.com</title>
-        <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
-        <link href="css/application-06427762cecb838b8eca9ceb6612945b.css" media="screen" rel="stylesheet" type="text/css" />
-        <link href="css/site-65531322e89965559642cee0931859da.css" media="screen" rel="stylesheet" type="text/css" />
-    </head>
     <body class='ads ads ads-index'>
-        <div id='site-head'>
-            <div class='fill'>
-                <div class='wrap'>
-                    <div class='row'>
-                        <div class='col' id='site-logo'>
-                            <a href="/en">Tonaton.com</a>
-                        </div>
-                        <ul class='col h-stack flat' id='site-nav'>
-                            <li class='current'><a href="/en/ads-in-ghana"><span>All Ads</span></a></li>
-                            <li><a href="/help.php"><span>Help & Support</span></a></li>
-                        </ul>
-                        <div class='polar'>
-                            <ul class='h-stack flat col invisible' id='site-nav-aux'>
-                                <li><a href="/en/users/log_in"><span>Log in</span></a></li>
-                            </ul>
-                            <a class='col btn post btn-bold' href='/en/post_ad' id='post-free-ad'>
-                                <span>
-                                    <strong>Post Your Ad</strong>
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <?php $this->load->view('common/top_menu'); ?>
 
         <div id='site-content'>
 
@@ -182,32 +149,25 @@
                         <div id='item-nav-bar'>
                             <div class='tabs'>
                                 <div class='h-stack' data-tabs='{"all":88049,"private":29538,"business":58511,"without_filter":88049}' id='scopes'>
-                                    <div class='current tab' data-sellertype='all'>
-                                        <a href="/en/ads-in-ghana?scope=all">All ads
+                                    <div class='tab current' data-sellertype='all'>
+                                        <a href="<?php echo base_url();?>en/all_ad?scope=all">All ads
                                             <span class='ad-count'>88049</span>
                                         </a></div>
                                     <div class='tab' data-sellertype='private'>
-                                        <a href="/en/ads-in-ghana?scope=private">Private ads
+                                        <a href="<?php echo base_url();?>en/all_ad?scope=private">Private ads
                                             <span class='ad-count'>29538</span>
                                         </a></div>
                                     <div class='tab' data-sellertype='business'>
-                                        <a href="/en/ads-in-ghana?scope=business">Business ads
+                                        <a href="<?php echo base_url();?>en/all_ad?scope=business">Business ads
                                             <span class='ad-count'>58511</span>
                                         </a></div>
                                 </div>
                                 <div class='h-stack polar' id='sort-mode-nav'>
                                     <div class='sort-wrap'>
-                                        <a class='current-sort' href='#'>
-                                            <span>Most Recent</span>
-                                            <i class='arrow'></i>
-                                        </a>
-                                        <div class='sort-options'>
-                                            <a data-sort='created' href='/en/ads-in-ghana?sort=created'>
-                                                Most Recent
-                                            </a>
-                                            <a data-sort='price' href='/en/ads-in-ghana?sort=price'>
-                                                Lowest Price
-                                            </a>
+                                        <a class='current-sort' href='#'><span>Most Recent</span><i class='arrow'></i></a>
+                                        <div class='sort-options' style="">
+                                            <a data-sort='created' href='/en/ads-in-ghana?sort=created'>Most Recent</a>
+                                            <a data-sort='price' href='/en/ads-in-ghana?sort=price'>Lowest Price</a>
                                         </div>
                                     </div>
                                 </div>
@@ -218,19 +178,13 @@
                             <div class='top clearfix'>
                                 <ol class='breadcrumbs clearfix h-stack flat'>
                                     <li>
-                                        <h1>
-                                            <a href="/en/ads-in-ghana" class="current" rel="current">All ads</a> in Ghana
-                                        </h1>
+                                        <h1><a href="/en/ads-in-ghana" class="current" rel="current">All ads</a> in Ghana</h1>
                                     </li>
                                 </ol>
 
                                 <div class='h-stack polar' id='list-mode-nav'>
-                                    <a class='current regular' href='#regular'>
-                                        Regular
-                                    </a>
-                                    <a class='compact' href='#compact'>
-                                        Compact
-                                    </a>
+                                    <a class='current regular' href='#regular'>Regular</a>
+                                    <a class='compact' href='#compact'>Compact</a>
                                 </div>
                             </div>
                             <ul class='flat regular' id='item-rows'>
@@ -487,123 +441,131 @@
 
 
                         </div>
-                        <div class='pagination'></div>
-                        <div id='server-side-pagination'>
-                            <a href="/en/ads-in-ghana?page=2" rel="next">next</a>
+
+                        <div class="pagination" style="display: block;">
+                            <div class="nav h-stack">
+                                <div class="page">
+                                    <span class="prev disabled">
+                                        <a data-page="0" href="#">prev</a>
+                                    </span>
+                                </div>
+                                <div class="page current">
+                                    <span class="current">
+                                        <a data-page="1" href="#">1</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="2" href="#">2</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="3" href="#">3</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="4" href="#">4</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="5" href="#">5</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="6" href="#">6</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="7" href="#">7</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="8" href="#">8</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="9" href="#">9</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="10" href="#">10</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="11" href="#">11</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="12" href="#">12</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="13" href="#">13</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="14" href="#">14</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span>
+                                        <a data-page="2730" href="#">...2730</a>
+                                    </span>
+                                </div>
+                                <div class="page">
+                                    <span class="next ">
+                                        <a data-page="2" href="#">next</a>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
             <div class='wrap'>
                 <div class='item-box'>
                     <h2>Do you have something to sell?</h2>
-                    <p>Post your ad for free on Tonaton.com</p>
+                    <p>Post your ad for free on Website.com</p>
                     <div class='btn-wrapper'>
                         <div class='bg left'></div>
                         <div class='bg right'></div>
                         <div class='btn-border'>
-                            <a href="/en/new?controller=ads" class="btn large post"><span class="large">Post your free ad</span></a>
+                            <a href="<?php echo base_url();?>en/post_ad" class="btn large post"><span class="large">Post your free ad</span></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div id='site-floor'>
-            <div class='wrap'>
-                <div class='row'>
-                    <div class='col5'>
-                        <div class='no-like clearfix' id='facebook'>
-                            <div class='fb-icon'></div>
-                            <div class='link'><a href="http://www.facebook.com/pages/Tonaton/367377380021665" target="_blank">Find us on Facebook</a></div>
-                        </div>
 
-                        <div class='separator'></div>
-                        <div class='muted'>
-                            Copyright &copy; Saltside Technologies.
-                        </div>
+<?php $this->load->view('common/footer'); ?>
 
-                    </div>
-                    <div class='col7'>
-                        <div id='floor-nav'>
-                            <div class='quarter'>
-                                <ul>
-                                    <lh>
-                                        <span class='heading muted'>
-                                            How To Sell Fast
-                                        </span>
-                                    </lh>
-                                    <li>
-                                        <a href="/howtosellfast.php">How to sell fast</a>
-                                    </li>
-                                    <li>
-                                        <a href="">Banner Advertising</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class='quarter'>
-                                <ul>
-                                    <lh>
-                                        <span class='heading muted'>
-                                            Company
-                                        </span>
-                                    </lh>
-                                    <li>
-                                        <a href="/about.php">About us</a>
-                                    </li>
-                                    <li>
-                                        <a href="/privacy_policy.php">Terms &amp; conditions</a>
-                                    </li>
-                                    <li>
-                                        <a href="/privacy_policy.php">Privacy policy</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class='quarter'>
-                                <ul>
-                                    <lh>
-                                        <span class='heading muted'>
-                                            Help &amp; support
-                                        </span>
-                                    </lh>
-                                    <li>
-                                        <a href="./help.php">FAQ</a>
-                                    </li>
-                                    <li>
-                                        <a href="/staysafe.php">Stay safe</a>
-                                    </li>
-                                    <li>
-                                        <a href="/contact.php">Contact us</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class='quarter'>
-                                <ul>
-                                    <lh>
-                                        <span class='heading muted'>
-                                            Social
-                                        </span>
-                                    </lh>
-                                    <li>
-                                        <a class='blog-link' href='http://blog.tonaton.com'>
-                                            Blog
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="http://www.facebook.com/pages/Tonaton/367377380021665" target="_blank">Facebook</a>
-                                    </li>
-                                    <li>
-                                        <a href="https://twitter.com/tonatonghana" target="_blank">Twitter</a>
-                                    </li>
-                                    <li>
-                                        <a href="http://www.youtube.com/user/Tonatonclassifieds" target="_blank">YouTube</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
+        <script type="text/javascript">
+        $(document).ready(function() {
+            
+            $('.current-sort').click(function(e) {
+                e.preventDefault();
+                var style = $('.sort-options').attr('style');
+                if(style === ''){
+                  $('.sort-options').attr('style', 'display:block');
+                  $('i.arrow').addClass('open');
+               }else{
+                  $('.sort-options').attr('style', '');
+                  $('i.arrow').removeClass('open');
+               }   
+            });
+            
+        });
+        </script>

@@ -169,6 +169,7 @@ class En extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required|xss_clean|trim');
         $this->form_validation->set_rules('details', 'Description', 'required|xss_clean|trim');
         $this->form_validation->set_rules('price', 'Price', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('type', 'Ad Type', 'required|xss_clean|trim');
         $this->form_validation->set_rules('ad_location', 'Ad Location', 'required|xss_clean|trim');
         $this->form_validation->set_rules('ad_city', 'Ad City', 'required|xss_clean|trim');
 
@@ -176,6 +177,7 @@ class En extends CI_Controller {
         $this->form_validation->set_rules('name', 'Name', 'required|xss_clean|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|valid_email|trim');
         $this->form_validation->set_rules('phone', 'Phone No', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('p_status', 'Phone No Show/Hide', 'xss_clean|trim');
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('ad/post_ad');
@@ -191,15 +193,24 @@ class En extends CI_Controller {
             $data['ad_location'] = $this->input->post('ad_location', TRUE);
             $data['ad_city'] = $this->input->post('ad_city', TRUE);
             $data['entry_date'] = date('Y-m-d H:i:s');
+            $data['type'] = $this->input->post('type', TRUE);
             $data['status'] = 5;
 
             //poster
-            $dp['name'] = $this->input->post('name', TRUE);
-            $dp['email'] = $this->input->post('email', TRUE);
-            $dp['phone'] = $this->input->post('phone', TRUE);
-            $dp['status'] = 5;
+            $poster_email = $this->input->post('email', TRUE);
+            $poster_check = $this->Fronts->check_poster_email_existence($poster_email);
+            if ($poster_check == FALSE) {
+                $dp['name'] = $this->input->post('name', TRUE);
+                $dp['email'] = $poster_email;
+                $dp['phone'] = $this->input->post('phone', TRUE);
+                $dp['p_status'] = $this->input->post('p_status', TRUE);
+                $dp['status'] = 5;
 
-            $data['p_id'] = $this->Fronts->insert_ad_poster($dp);
+                $data['p_id'] = $this->Fronts->insert_ad_poster($dp);
+            } else {
+                $data['p_id'] = $poster_check->id;
+            }
+
             if ($data['p_id']) {
                 $ad_id = $this->Fronts->insert_advertizement($data);
                 $ad_details = $this->Fronts->get_advertizement_by_id($ad_id);
@@ -217,9 +228,13 @@ class En extends CI_Controller {
 
     public function publish() {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('password', 'Password', 'required|xss_clean|trim|matches[c_password]');
-        $this->form_validation->set_rules('c_password', 'Password Confirmation', 'required|xss_clean|trim');
+        $poster_status = $this->input->post('poster_status', TRUE);
+        if ($poster_status == 5) {
+            $this->form_validation->set_rules('password', 'Password', 'required|xss_clean|trim|matches[c_password]');
+            $this->form_validation->set_rules('c_password', 'Password Confirmation', 'required|xss_clean|trim');
+        }
 
+        $this->form_validation->set_rules('ad_id', 'Poster ID', 'required|xss_clean|trim');
         $ad_id = $this->input->post('ad_id', TRUE);
         $ad_details = $this->Fronts->get_advertizement_by_id($ad_id);
 
@@ -228,9 +243,12 @@ class En extends CI_Controller {
         } else {
             $data['status'] = '0';
             $update = $this->Fronts->update_advertizement_by_id($data, $ad_id);
-            
+
             if ($update) {
-                $dp['password'] = md5($this->input->post('password', TRUE));
+                $dp['status'] = '0';
+                if ($poster_status == 5) {
+                    $dp['password'] = md5($this->input->post('password', TRUE));
+                }
                 $this->Fronts->update_poster_by_id($dp, $ad_details->p_id);
                 redirect('en/finish/' . $ad_details->slug . '');
             }
@@ -240,6 +258,10 @@ class En extends CI_Controller {
     public function finish($slug) {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
         $this->load->view('ad/finish', $data);
+    }
+    
+    public function all_ad() {
+        $this->load->view('ad/all_ad');
     }
 
 }

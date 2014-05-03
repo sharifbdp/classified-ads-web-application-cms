@@ -3,10 +3,11 @@
 <body class='post_item post_item post_item-show'>
 
     <?php $this->load->view('common/top_menu'); ?>
-
+    
     <?php
     echo form_open('en/publish');
     echo form_hidden('ad_id', $content->id);
+    echo form_hidden('poster_status', $content->poster_status);
     ?>
     <div id="site-content">
         
@@ -80,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <?php if($content->poster_status == 5){ ?>
                     <div class="password">
                         <div class="row create_account">
                             <div class="col2">&nbsp;</div>
@@ -112,6 +113,7 @@
                             </div>
                         </div>
                     </div>
+                    <?php } ?>
                     <div class="section payment"></div>
                     
                 </div>
@@ -135,7 +137,7 @@
                             <a href="#" id="edit_item" class="btn small edit"><span>edit ad</span></a>
                         </span>
                         <span class="small-print polar">
-                            By publishing your ad on Tonaton.com, you agree to Tonaton.com's <a href="<?php echo base_url(); ?>en/details/terms-conditions" target="_blank">terms and conditions</a>
+                            By publishing your ad on Website.com, you agree to Website.com's <a href="<?php echo base_url(); ?>en/details/terms-conditions" target="_blank">terms and conditions</a>
                         </span>
                     </div>
                 </div>

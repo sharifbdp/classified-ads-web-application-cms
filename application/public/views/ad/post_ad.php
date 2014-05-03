@@ -76,7 +76,7 @@
                         Confirmation
                     </div>
                 </div>
-             
+
                 <?php //echo validation_errors('<div class="error">', '</div>'); ?>
                 <?php echo form_open_multipart('', array('class' => 'new_ad', 'id' => 'ads-form'))?>
 
@@ -95,7 +95,7 @@
                                     <div class='select_tree' id='ad_category_id'>
                                         <select autocomplete='off' name="cid">
                                             <option value="">Select a category...</option>
-                                            <?php 
+                                            <?php
                                             $cid = set_value('cid');
                                             $this->Fronts->getTreeCategory(0, 0, $cid); ?>
                                             <option value="831">Other</option>
@@ -204,29 +204,28 @@
 
                         </fieldset>
                         <fieldset>
-                            <div class='legend'>
-                                About you
-                            </div>
+                            <div class='legend'>About you</div>
                             <div class='row field seller-type'>
                                 <div class='label col2'></div>
                                 <div class='input col6'>
                                     <div class='inline-inputs'>
+                                        <?php
+                                        $ad_type = set_value('type');
+                                        $ch_1 = ($ad_type == 1) ? TRUE : FALSE;
+                                        $ch_2 = ($ad_type == 2) ? TRUE : FALSE;
+                                        ?>
                                         <div class='seller-types' id='seller-types'>
                                             <label>
-                                                <input class="required" id="ad_poster_poster_type_private" name="ad_poster_type" type="radio" checked="checked" value="1" />
-                                                <span>
-                                                    Private
-                                                </span>
+                                                <?php echo form_radio(array('name' => 'type', 'value' => '1', 'class' => 'required', 'id'=> 'ad_poster_poster_type_private', 'checked' => $ch_1)); ?>
+                                                <span>Private</span>
                                             </label>
                                             <label>
-                                                <input class="required" id="ad_poster_poster_type_business" name="ad_poster_type" type="radio" value="2" />
-                                                <span>
-                                                    Business
-                                                </span>
+                                                <?php echo form_radio(array('name' => 'type', 'value' => '2', 'class' => 'required', 'id'=> 'ad_poster_poster_type_business', 'checked' => $ch_2)); ?>
+                                                <span>Business</span>
                                             </label>
                                         </div>
                                     </div>
-                                    <?php echo form_error('p_type', '<label for="ad_poster_type" class="error" style="display: block;">', '</label>'); ?>
+                                    <?php echo form_error('type', '<label for="ad_type" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                             <div class='row field poster_name'>
@@ -260,7 +259,7 @@
                                             <div class='phone-no'>
                                                 <?php echo form_input(array('name' => 'phone', 'id' => 'ad_poster_phone_number', 'class' => 'phone required ascii', 'maxlength' => '21', 'value' => set_value('phone'))); ?>
                                                 <?php echo form_error('phone', '<label for="ad_poster_phone_number" class="error" style="display: block;">', '</label>'); ?>
-                                                <input class="extra-field" id="ad_poster_hide_phone_numbers" name="ad_poster_phone_number_status" type="checkbox" value="1" />
+                                                <input class="extra-field" id="ad_poster_hide_phone_numbers" name="p_status" type="checkbox" value="1" />
                                                 <label for="ad_poster_phone_number_status">Hide phone number</label>
                                                 <div class='feedback'>
                                                     Enter a phone number starting with 0 (include the district code for landline numbers). Do not enter the country code.
@@ -333,7 +332,7 @@
                             Something went wrong while checking your ad. Please click &quot;Check your ad&quot; again to post your ad. If the error persists, please contact customer support.
                         </div>
                     </div>
-                    
+
                 <?php echo form_close(); ?>
 
             </div>
@@ -370,7 +369,7 @@
                         }
                 return false;
                 });
-                
+
                 // load area by select city
                 $('#ad_location_id').change(function() {
 
@@ -383,14 +382,41 @@
 
                             $('#ad_area_id').empty();
                             if(data !== ''){
-                               $("#ad_area_id").append(data); 
+                               $("#ad_area_id").append(data);
                             }else{
-                               $("#ad_area_id").append("<option value=''>No City/Area found</option>");  
+                               $("#ad_area_id").append("<option value=''>No City/Area found</option>");
                             }
 
                         }
                     });
 
+                });
+
+                //set price negotiable
+                $('#price_negotiable').change(function() {
+                    if ($(this).attr("checked")) {
+                       $('#ad_price').val('0'); 
+                       $('#ad_price').attr('readonly', 'readonly');
+                    }else{
+                       $('#ad_price').val(''); 
+                       $('#ad_price').removeAttr('readonly');
+                    }
+                });
+
+                //set business name
+                $('#ad_poster_poster_type_business').click(function() {
+                    if ($(this).attr("checked")) {
+                       $('.poster_name div label').text('Business Name'); 
+                    }else{
+                       $('.poster_name div label').text('Name'); 
+                    }
+                });
+                $('#ad_poster_poster_type_private').click(function() {
+                    if ($(this).attr("checked")) {
+                       $('.poster_name div label').text('Name'); 
+                    }else{
+                       $('.poster_name div label').text('Business Name'); 
+                    }
                 });
 
             });

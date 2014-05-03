@@ -247,6 +247,18 @@ class Fronts extends CI_Model {
         return $this->db->get('poster_location_city')->row();
     }
 
+    public function check_poster_email_existence($email) {
+        $this->db->where('email', $email);
+        $query = $this->db->get('poster')->row();
+        $norows = $this->db->count_all_results();
+
+        if ($norows < 0) {
+            return false;
+        } else {
+            return $query;
+        }
+    }
+
     public function insert_ad_poster($dp) {
         $this->db->insert('poster', $dp);
         return $this->db->insert_id();
@@ -274,7 +286,7 @@ class Fronts extends CI_Model {
     }
 
     public function get_ad_details_by_sulg($slug) {
-        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, L.name as location, CT.name as city');
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
         $this->db->from('advertizement as A');
         $this->db->join('category as C', 'C.id = A.cid', 'inner');
         $this->db->join('poster as P', 'P.id = A.p_id', 'inner');
@@ -286,7 +298,7 @@ class Fronts extends CI_Model {
     }
 
     public function get_ad_details_by_id($id) {
-        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, L.name as location, CT.name as city');
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
         $this->db->from('advertizement as A');
         $this->db->join('category as C', 'C.id = A.cid', 'inner');
         $this->db->join('poster as P', 'P.id = A.p_id', 'inner');

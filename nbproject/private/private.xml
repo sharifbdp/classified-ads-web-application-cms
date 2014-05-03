@@ -4,11 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/bikroy/application/public/views/ad/finish.php</file>
+            <file>file:/var/www/bikroy/application/public/views/ad/all_ad.php</file>
             <file>file:/var/www/bikroy/application/public/views/ad/post_ad.php</file>
-            <file>file:/var/www/bikroy/css/site.css</file>
+            <file>file:/var/www/bikroy/application/public/views/ad/private_ad.php</file>
             <file>file:/var/www/bikroy/application/public/controllers/en.php</file>
-            <file>file:/var/www/bikroy/application/public/views/ad/check_ad.php</file>
             <file>file:/var/www/bikroy/application/public/models/fronts.php</file>
+            <file>file:/var/www/bikroy/application/public/views/ad/check_ad.php</file>
         </group>
     </open-files>
 </project-private>

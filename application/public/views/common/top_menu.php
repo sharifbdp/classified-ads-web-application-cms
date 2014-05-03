@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div id="user-nav-bg"></div>
+<!--        <div id="user-nav-bg"></div>
         <div id="user-nav">
 <div class="wrap">
 <div class="row">
@@ -49,4 +49,4 @@ Log Out
 </ul>
 </div>
 </div>
-</div>
+</div>-->

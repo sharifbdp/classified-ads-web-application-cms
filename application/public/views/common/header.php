@@ -6,9 +6,11 @@
     <head>
         <meta charset="UTF-8">
         <title>Free Classifieds in Ghana - Website.com</title>
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="googlebot" content="noindex, nofollow">
         <meta name="description" content="Free Classifieds in Ghana">
         <meta name="keywords" content="Free Classifieds in Ghana">
         <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
-        <link href="<?php echo base_url();?>css/app.css" media="screen" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url();?>css/site.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url(); ?>css/app.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url(); ?>css/site.css" media="screen" rel="stylesheet" type="text/css" />
     </head>
