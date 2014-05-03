@@ -6,7 +6,7 @@
                             <a href="<?php echo base_url();?>">website.com</a>
                         </div>
                         <ul class='col h-stack flat' id='site-nav'>
-                            <li><a href="#"><span>All Ads</span></a></li>
+                            <li><a href="<?php echo base_url();?>en/all_ads"><span>All Ads</span></a></li>
                             <li><a href="<?php echo base_url();?>en/details/faq"><span>Help & Support</span></a></li>
                         </ul>
                         <div class='polar'>

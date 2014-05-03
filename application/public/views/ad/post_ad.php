@@ -57,24 +57,13 @@
                         <li>Do not upload pictures with watermarks. Invalid pictures will be removed.</li>
                         <li>Do not put your email or phone numbers in the title or description.</li>
                     </ul>
-                    <p class='link'>
-                        <a href="/en/help#q-11">Click here to see all of our posting rules. </a>
-                    </p>
+                    <p class='link'><a href="<?php echo base_url('en/details/faq');?>">Click here to see all of our posting rules. </a></p>
                 </div>
 
                 <div class='progress-bar'>
-                    <div class='current details step'>
-                        <i></i>
-                        Fill in details
-                    </div>
-                    <div class='step preview'>
-                        <i></i>
-                        Check your ad
-                    </div>
-                    <div class='step confirmation'>
-                        <i></i>
-                        Confirmation
-                    </div>
+                    <div class='current details step'><i></i>Fill in details</div>
+                    <div class='step preview'><i></i>Check your ad</div>
+                    <div class='step confirmation'><i></i>Confirmation</div>
                 </div>
 
                 <?php //echo validation_errors('<div class="error">', '</div>'); ?>
@@ -83,9 +72,7 @@
                     <div class='inner-box form-content clearfix'>
                         <fieldset>
                             <button id="decoy-btn" type="submit">
-                                <div class='btn btn-post'>
-                                    <span>Check your ad</span>
-                                </div>
+                                <div class='btn btn-post'><span>Check your ad</span></div>
                             </button>
                             <div class='row field category'>
                                 <div class='label col2'>
@@ -145,7 +132,7 @@
                                         <label for="ad_description">Description</label>
                                     </div>
                                     <div class="input col6">
-                                        <?php echo form_textarea(array('name' => 'details', 'id' => 'ad_description', 'class' => 'text required countdown', 'rows' => '8', 'cols' => '60', 'maxlength' => '5000', 'value' => set_value('details')))?>
+                                        <?php echo form_textarea(array('name' => 'details', 'id' => 'ad_description', 'class' => 'text required countdown', 'rows' => '8', 'cols' => '58', 'maxlength' => '5000', 'value' => set_value('details')))?>
                                         <?php echo form_error('details', '<label for="ad_description" class="error" style="display: block;">', '</label>'); ?>
                                         <div class="feedback">
                                             Good descriptions increase your ad's chances of success. Describe features, dimensions, condition and what's included.
@@ -164,7 +151,7 @@
                                                 <?php echo form_input(array('name' => 'price', 'id' => 'ad_price', 'class' => 'numeric integer optional digits ascii', 'size' => '30', 'value' => set_value('price'))); ?>
                                                 <span class="input boolean optional ad_negotiable">
                                                     <label for="price_negotiable" class="boolean optional checkbox">
-                                                        <input type="checkbox" value="1" name="price_negotiable" id="price_negotiable" class="boolean optional">Negotiable
+                                                        <input type="checkbox" value="1" name="negotiable" id="price_negotiable" class="boolean optional">Negotiable
                                                     </label>
                                                 </span>
                                                 <?php echo form_error('price', '<label for="ad_price" class="error" style="display: block;">', '</label>'); ?>
@@ -392,16 +379,16 @@
 
                 });
 
-                //set price negotiable
-                $('#price_negotiable').change(function() {
-                    if ($(this).attr("checked")) {
-                       $('#ad_price').val('0'); 
-                       $('#ad_price').attr('readonly', 'readonly');
-                    }else{
-                       $('#ad_price').val(''); 
-                       $('#ad_price').removeAttr('readonly');
-                    }
-                });
+//                //set price negotiable
+//                $('#price_negotiable').change(function() {
+//                    if ($(this).attr("checked")) {
+//                       $('#ad_price').val('0'); 
+//                       $('#ad_price').attr('readonly', 'readonly');
+//                    }else{
+//                       $('#ad_price').val(''); 
+//                       $('#ad_price').removeAttr('readonly');
+//                    }
+//                });
 
                 //set business name
                 $('#ad_poster_poster_type_business').click(function() {

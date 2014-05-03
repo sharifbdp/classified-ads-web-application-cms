@@ -36,13 +36,6 @@ class En extends CI_Controller {
         $this->load->view('inner/details', $data);
     }
 
-    public function services($alias) {
-        $al = trim($alias);
-        $data['content'] = $this->Fronts->get_service_details_by_slug($al);
-
-        $this->load->view('inner/service_details', $data);
-    }
-
     public function links($alias) {
         $al = trim($alias);
         $data['content'] = $this->Fronts->get_quick_links_details_by_slug($al);
@@ -169,6 +162,7 @@ class En extends CI_Controller {
         $this->form_validation->set_rules('title', 'Title', 'required|xss_clean|trim');
         $this->form_validation->set_rules('details', 'Description', 'required|xss_clean|trim');
         $this->form_validation->set_rules('price', 'Price', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('negotiable', 'Negotiable', 'xss_clean|trim');
         $this->form_validation->set_rules('type', 'Ad Type', 'required|xss_clean|trim');
         $this->form_validation->set_rules('ad_location', 'Ad Location', 'required|xss_clean|trim');
         $this->form_validation->set_rules('ad_city', 'Ad City', 'required|xss_clean|trim');
@@ -190,6 +184,7 @@ class En extends CI_Controller {
             $data['slug'] = $this->generate_unique_slug($slug); //here generate slug
             $data['details'] = $this->input->post('details', TRUE);
             $data['price'] = $this->input->post('price', TRUE);
+            $data['negotiable'] = $this->input->post('negotiable', TRUE);
             $data['ad_location'] = $this->input->post('ad_location', TRUE);
             $data['ad_city'] = $this->input->post('ad_city', TRUE);
             $data['entry_date'] = date('Y-m-d H:i:s');
@@ -260,8 +255,14 @@ class En extends CI_Controller {
         $this->load->view('ad/finish', $data);
     }
     
-    public function all_ad() {
-        $this->load->view('ad/all_ad');
+    public function all_ads() {
+        $data['content'] = $this->Fronts->get_all_ad_data();
+        $this->load->view('ad/all_ad', $data);
+    }
+    
+    public function view($slug) {
+        $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
+        $this->load->view('ad/ad_details', $data);
     }
 
 }

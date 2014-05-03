@@ -111,54 +111,55 @@
 
                 <div class='linkshelf' id='home-categories'>
                     <div class='wrap links'>
-                        
+
                         <?php
                         $first_set_cate = $this->Fronts->get_all_parent_category(4, 0);
                         $second_set_cate = $this->Fronts->get_all_parent_category(4, 4);
                         $third_set_cate = $this->Fronts->get_all_parent_category(4, 8);
                         ?>
-                        
-                        <?php if(!empty($first_set_cate)){?>
-                        <ul class='row flat'>
-                            <?php foreach ($first_set_cate as $cate_1){?>
-                            <li class='col3'>
-                                <h3>
-                                    <a href="#"><div class='text'><?php echo $cate_1['name']; ?></div>
-                                        <span class='ad-count'>43736</span>
-                                    </a></h3>
-                                <p><?php echo $cate_1['summary'];?></p>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                        <?php }
-                        if(!empty($second_set_cate)){
-                        ?>
-                        <ul class='row flat'>
-                            <?php foreach ($second_set_cate as $cate_2){?>
-                            <li class='col3'>
-                                <h3>
-                                    <a href="#"><div class='text'><?php echo $cate_2['name']; ?></div>
-                                        <span class='ad-count'>43736</span>
-                                    </a></h3>
-                                <p><?php echo $cate_2['summary'];?></p>
-                            </li>
-                            <?php } ?>
-                        </ul>
-                        <?php
+
+                        <?php if (!empty($first_set_cate)) { ?>
+                            <ul class='row flat'>
+                                <?php
+                                foreach ($first_set_cate as $cate_1) {
+                                    $count_loc_ad_1 = $this->Fronts->count_ads_by_location_id($cate_1['id']);
+                                    ?>
+                                    <li class='col3'>
+                                        <h3><a href="#"><div class='text'><?php echo $cate_1['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_1; ?></span></a></h3>
+                                        <p><?php echo $cate_1['summary']; ?></p>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                            <?php
                         }
-                        if(!empty($third_set_cate)){
-                        ?>
-                        <ul class='row flat'>
-                            <?php foreach ($third_set_cate as $cate_3){?>
-                            <li class='col3'>
-                                <h3>
-                                    <a href="#"><div class='text'><?php echo $cate_3['name']; ?></div>
-                                        <span class='ad-count'>43736</span>
-                                    </a></h3>
-                                <p><?php echo $cate_3['summary'];?></p>
-                            </li>
-                            <?php } ?>
-                        </ul>
+                        if (!empty($second_set_cate)) {
+                            ?>
+                            <ul class='row flat'>
+                                <?php
+                                foreach ($second_set_cate as $cate_2) {
+                                    $count_loc_ad_2 = $this->Fronts->count_ads_by_location_id($cate_2['id']);
+                                    ?>
+                                    <li class='col3'>
+                                        <h3><a href="#"><div class='text'><?php echo $cate_2['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_2; ?></span></a></h3>
+                                        <p><?php echo $cate_2['summary']; ?></p>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                            <?php
+                        }
+                        if (!empty($third_set_cate)) {
+                            ?>
+                            <ul class='row flat'>
+                                <?php
+                                foreach ($third_set_cate as $cate_3) {
+                                    $count_loc_ad_3 = $this->Fronts->count_ads_by_location_id($cate_3['id']);
+                                    ?>
+                                    <li class='col3'>
+                                        <h3><a href="#"><div class='text'><?php echo $cate_3['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_3; ?></span></a></h3>
+                                        <p><?php echo $cate_3['summary']; ?></p>
+                                    </li>
+                                <?php } ?>
+                            </ul>
                         <?php } ?>
                     </div>
                 </div>
@@ -178,5 +179,5 @@
             </div>
 
         </div>
-        
-<?php $this->load->view('common/footer'); 
+
+<?php $this->load->view('common/footer');

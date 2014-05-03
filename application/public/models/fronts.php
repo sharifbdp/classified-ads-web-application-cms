@@ -180,6 +180,28 @@ class Fronts extends CI_Model {
 
     /* new */
 
+    public function time_ago($time) {
+        $periods = array("second", "minute", "hour", "day", "week", "month", "year", "decade");
+        $lengths = array("60", "60", "24", "7", "4.35", "12", "10");
+
+        $now = time();
+
+        $difference = $now - $time;
+        $tense = "ago";
+
+        for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
+            $difference /= $lengths[$j];
+        }
+
+        $difference = round($difference);
+
+        if ($difference != 1) {
+            $periods[$j].= "s";
+        }
+
+        return "$difference $periods[$j] ago";
+    }
+
     public function getTreeCategory($parent, $level = 0, $selectid = NULL) {
         $this->db->from('category');
         $this->db->select('id, name, parent_id');
@@ -236,7 +258,16 @@ class Fronts extends CI_Model {
         $this->db->where('id', $id);
         return $this->db->get('category')->row();
     }
-
+    
+    
+    public function get_category_details_by_id($id) {
+        $this->db->select('C.parent_id as parent_id, C.name as sub_name, C.alias as sub_alias, P.name as main_name, P.alias as main_alias');
+        $this->db->from('category as C');
+        $this->db->join('category as P', 'C.parent_id = P.id', 'inner');
+        $this->db->where('C.id', $id);
+        return $this->db->get('category')->row();
+    }
+    
     public function get_location_details_by_id($id) {
         $this->db->where('id', $id);
         return $this->db->get('poster_location')->row();
@@ -294,7 +325,7 @@ class Fronts extends CI_Model {
         $this->db->join('poster_location_city as CT', 'CT.id = A.ad_city', 'inner');
 
         $this->db->where('A.slug', $slug);
-        return $this->db->get('advertizement')->row();
+        return $this->db->get()->row();
     }
 
     public function get_ad_details_by_id($id) {
@@ -306,6 +337,46 @@ class Fronts extends CI_Model {
         $this->db->join('poster_location_city as CT', 'CT.id = A.ad_city', 'inner');
 
         $this->db->where('A.id', $id);
+        return $this->db->get()->row();
+    }
+
+    public function get_all_ad_data($limit = NULL, $offset = NULL) {
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement A');
+        $this->db->join('category C', 'C.id = A.cid', 'inner');
+        $this->db->join('poster P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
+
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        $this->db->where('A.status', 0);
+        $this->db->order_by('A.entry_date', 'DESC');
+        return $this->db->get()->result_array();
+    }
+    
+    public function count_ads_by_category_id($cid) {
+        $this->db->where('cid', $cid);
+        $this->db->where('status', 0);
+        return $this->db->count_all_results('advertizement');
+    }
+    
+    public function count_ads_by_location_id($ad_location) {
+        $this->db->where('ad_location', $ad_location);
+        $this->db->where('status', 0);
+        return $this->db->count_all_results('advertizement');
+    }
+    
+    public function get_next_ad($parent_id) {
+        $this->db->where('id', $parent_id + 1);
+        $this->db->where('status', 0);
+        return $this->db->get('advertizement')->row();
+    }
+    
+    public function get_previous_ad($parent_id) {
+        $this->db->where('id', $parent_id - 1);
+        $this->db->where('status', 0);
         return $this->db->get('advertizement')->row();
     }
 
