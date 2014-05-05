@@ -5,8 +5,6 @@ if (!defined('BASEPATH'))
 
 class En extends CI_Controller {
 
-    public $i = 1; //default value
-
     public function __construct() {
         parent::__construct();
         $this->load->model('Fronts');
@@ -153,6 +151,61 @@ class En extends CI_Controller {
         return $slug;
     }
 
+    public function upload_image($ad_id) {
+
+        $this->load->library('image_lib');
+
+        $config['upload_path'] = './uploads/ad_image/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = '5120';
+        $config['max_width'] = '2048';
+        $config['max_height'] = '1080';
+
+        $this->load->library('upload', $config);
+
+        foreach ($_FILES['ad_image'] as $key => $val) {
+            $i = 1;
+            foreach ($val as $v) {
+                $field_name = "file_" . $i;
+                $_FILES[$field_name][$key] = $v;
+                $i++;
+            }
+        }
+        // hapus array awal, karena kita sudah memiliki array baru
+        unset($_FILES['ad_image']);
+
+        $error = array();
+        foreach ($_FILES as $field_name => $file) {
+            if (!$this->upload->do_upload($field_name)) {
+                $error[] = $this->upload->display_errors();
+            } else {
+
+                $data_upload_files = $this->upload->data();
+
+                // Get value and insert to table 
+                $ad['ad_id'] = $ad_id;
+                $ad['image_name'] = $data_upload_files['file_name'];
+                $ad['status'] = '0';
+                $this->Fronts->insert_ad_image($ad);
+
+                // Big image
+                $config['source_image'] = $data_upload_files['full_path'];
+                $config['new_image'] = './uploads/ad_image/' . $data_upload_files['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = TRUE;
+                $config['width'] = 500;
+                $config['height'] = 375;
+
+                $this->image_lib->initialize($config);
+                $this->image_lib->resize();
+                $this->image_lib->clear();
+            }
+        }
+        if (count($error) > 0) {
+            $this->session->set_flashdata('upload_error', $error);
+        }
+    }
+
     public function post_ad() {
 
         $this->load->library('form_validation');
@@ -208,6 +261,7 @@ class En extends CI_Controller {
 
             if ($data['p_id']) {
                 $ad_id = $this->Fronts->insert_advertizement($data);
+                $this->upload_image($ad_id); //Upload image and insert to DB
                 $ad_details = $this->Fronts->get_advertizement_by_id($ad_id);
                 redirect('en/review/' . $ad_details->slug . '');
             } else {
@@ -245,6 +299,8 @@ class En extends CI_Controller {
                     $dp['password'] = md5($this->input->post('password', TRUE));
                 }
                 $this->Fronts->update_poster_by_id($dp, $ad_details->p_id);
+                $da_ad['status'] = 1;
+                $this->Fronts->update_ad_image_by_ad_id($da_ad, $ad_id);
                 redirect('en/finish/' . $ad_details->slug . '');
             }
         }
@@ -254,12 +310,12 @@ class En extends CI_Controller {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
         $this->load->view('ad/finish', $data);
     }
-    
+
     public function all_ads() {
         $data['content'] = $this->Fronts->get_all_ad_data();
         $this->load->view('ad/all_ad', $data);
     }
-    
+
     public function view($slug) {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
         $this->load->view('ad/ad_details', $data);

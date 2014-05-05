@@ -258,8 +258,7 @@ class Fronts extends CI_Model {
         $this->db->where('id', $id);
         return $this->db->get('category')->row();
     }
-    
-    
+
     public function get_category_details_by_id($id) {
         $this->db->select('C.parent_id as parent_id, C.name as sub_name, C.alias as sub_alias, P.name as main_name, P.alias as main_alias');
         $this->db->from('category as C');
@@ -267,7 +266,7 @@ class Fronts extends CI_Model {
         $this->db->where('C.id', $id);
         return $this->db->get('category')->row();
     }
-    
+
     public function get_location_details_by_id($id) {
         $this->db->where('id', $id);
         return $this->db->get('poster_location')->row();
@@ -300,10 +299,19 @@ class Fronts extends CI_Model {
         return $this->db->insert_id();
     }
 
+    public function insert_ad_image($dp) {
+        return $this->db->insert('advertizement_image', $dp);
+    }
+
     public function update_advertizement_by_id($data, $ad_id) {
         $data['entry_date'] = date('Y-m-d H:i:s');
         $this->db->where('id', $ad_id);
         return $this->db->update('advertizement', $data);
+    }
+
+    public function update_ad_image_by_ad_id($da_ad, $ad_id) {
+        $this->db->where('ad_id', $ad_id);
+        return $this->db->update('advertizement_image', $da_ad);
     }
 
     public function update_poster_by_id($dp, $p_id) {
@@ -355,25 +363,31 @@ class Fronts extends CI_Model {
         $this->db->order_by('A.entry_date', 'DESC');
         return $this->db->get()->result_array();
     }
-    
+
+    public function get_all_ad_image_by_ad_id($ad_id) {
+        $this->db->where('ad_id', $ad_id);
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get('advertizement_image')->result_array();
+    }
+
     public function count_ads_by_category_id($cid) {
         $this->db->where('cid', $cid);
         $this->db->where('status', 0);
         return $this->db->count_all_results('advertizement');
     }
-    
+
     public function count_ads_by_location_id($ad_location) {
         $this->db->where('ad_location', $ad_location);
         $this->db->where('status', 0);
         return $this->db->count_all_results('advertizement');
     }
-    
+
     public function get_next_ad($parent_id) {
         $this->db->where('id', $parent_id + 1);
         $this->db->where('status', 0);
         return $this->db->get('advertizement')->row();
     }
-    
+
     public function get_previous_ad($parent_id) {
         $this->db->where('id', $parent_id - 1);
         $this->db->where('status', 0);

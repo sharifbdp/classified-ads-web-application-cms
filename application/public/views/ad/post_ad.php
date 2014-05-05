@@ -1,47 +1,5 @@
 <?php $this->load->view('common/header'); ?>
 
-<style>
-    .dest
-                    {
-                        width:400px;
-                        text-align:center;
-                        padding:5px 0px;
-                        color:#900;
-                        border:solid 1px #FEBCBA;
-                        background-color:#FFE9E8;
-                        margin-bottom:10px;
-                    }
-                    .lbl
-                    {
-                        width:200px;
-                    }
-                    .editeImage
-                    {
-                        margin-bottom:-20px;
-                        margin-left:59px;
-                        position:relative;
-                        z-index:0;
-/*                        height:150px;
-                        width:150px;*/
-
-                    }
-                    .userImage
-                    {
-                        position:fixed;
-                        z-index:1;
-                    }
-                    .showImage
-                    {
-                        border:solid 3px #ccc;
-                        border-radius:8px;
-                    }
-                    .photoUpload
-                    {
-                        width:130px;
-                        height:100px;
-                    }
-</style>
-
     <body class='post_ad post_ad post_ad-show'>
 
         <?php $this->load->view('common/top_menu'); ?>

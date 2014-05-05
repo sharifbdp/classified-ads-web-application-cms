@@ -13,7 +13,8 @@
                             <input id='item-search-field' name='query' placeholder='What are you looking for?' type='text'>
                         </div>
                         <div class='category'>
-                            <select id='ad_category_select' name='category'><option value="" selected="selected">All Categories</option>
+                            <select id='ad_category_select' name='category'>
+                                <option value="" selected="selected">All Categories</option>
                                 <option value="604">Cars &amp; Vehicles</option>
                                 <option value="623">Property</option>
                                 <option value="644">Electronics</option>

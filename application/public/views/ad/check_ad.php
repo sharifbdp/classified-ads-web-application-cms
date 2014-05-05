@@ -66,14 +66,21 @@
                             <div class="col2 label">Description</div>
                             <div class="col6 value description"><p><?php echo $content->details; ?></p></div>
                         </div>
+                        <?php
+                        $ad_img_list = $this->Fronts->get_all_ad_image_by_ad_id($content->id);
+                        if(!empty($ad_img_list)){
+                        ?>
                         <div class="row" id="image-upload">
                             <div class="col2 label"></div>
                             <div class="col value images preview-images h-stack">
+                                <?php foreach ($ad_img_list as $list){ ?>
                                 <div class="image">
-                                    <a href="http://res.cloudinary.com/saltside-production/image/private/t_large_tonaton/bb86cdf2-3e5f-4105-9e75-1d38ae78f95d.jpg" data-ui-nav="modal" class="frame"><img src="http://res.cloudinary.com/saltside-production/image/private/t_gallerythumb/bb86cdf2-3e5f-4105-9e75-1d38ae78f95d.jpg"></a>
+                                    <img src="<?php echo base_url('uploads/ad_image/' . $list['image_name']);?>" width="115" height="82" style="border: 1px solid #e4e4e4;margin-bottom: 8px;">
                                 </div>
+                                <?php } ?>
                             </div>
                         </div>
+                        <?php } ?>
                         <div class="row">
                             <div class="col2 label">Price</div>
                             <div class="col6 value images h-stack">
