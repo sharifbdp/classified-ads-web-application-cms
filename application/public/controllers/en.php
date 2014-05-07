@@ -193,8 +193,20 @@ class En extends CI_Controller {
                 $config['new_image'] = './uploads/ad_image/' . $data_upload_files['file_name'];
                 $config['create_thumb'] = FALSE;
                 $config['maintain_ratio'] = TRUE;
-                $config['width'] = 500;
-                $config['height'] = 375;
+                $config['width'] = 625;
+                $config['height'] = 385;
+
+                $this->image_lib->initialize($config);
+                $this->image_lib->resize();
+                $this->image_lib->clear();
+                
+                //thumb image
+                $config['source_image'] = $data_upload_files['full_path'];
+                $config['new_image'] = './uploads/ad_image/thumbs/' . $data_upload_files['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = TRUE;
+                $config['width'] = 105;
+                $config['height'] = 75;
 
                 $this->image_lib->initialize($config);
                 $this->image_lib->resize();
@@ -230,6 +242,11 @@ class En extends CI_Controller {
             $this->load->view('ad/post_ad');
         } else {
             $data['cid'] = $this->input->post('cid', TRUE);
+            $data['s_cid'] = $this->check($data['cid']);
+            
+            
+            var_dump($data);
+            exit();
             $data['for_what'] = $this->input->post('for_what', TRUE);
             $data['title'] = $this->input->post('title', TRUE);
             $slug = url_title($data['title'], '-', TRUE);
@@ -318,7 +335,15 @@ class En extends CI_Controller {
 
     public function view($slug) {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
+        $data['all_images'] = $this->Fronts->get_all_ad_image_by_ad_id($data['content']->id);
+//        echo "<pre>";
+//        echo print_r($data['content']);
+//        echo "<pre>";
         $this->load->view('ad/ad_details', $data);
+    }
+
+    public function check($cate_id) {
+        $this->Fronts->get_super_parent_cate_ad($cate_id);
     }
 
 }

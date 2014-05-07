@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 29, 2014 at 01:02 AM
+-- Generation Time: May 08, 2014 at 12:47 AM
 -- Server version: 5.5.37-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4
 
@@ -27,22 +27,64 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `advertizement` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `alias` varchar(255) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cid` int(11) NOT NULL,
-  `price` decimal(19,2) NOT NULL,
-  `b_price` decimal(19,2) NOT NULL,
-  `p_code` varchar(255) NOT NULL,
-  `custom_link` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `serial` int(3) NOT NULL,
-  `summary` mediumtext NOT NULL,
+  `s_cid` int(11) NOT NULL,
+  `p_id` int(11) NOT NULL,
+  `ad_location` int(11) NOT NULL,
+  `ad_city` int(11) NOT NULL,
+  `for_what` varchar(1) NOT NULL COMMENT '1=For sale; 2=Wanted',
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `details` longtext NOT NULL,
-  `show_home` int(1) NOT NULL COMMENT '1 = Show in home; 0 = No',
+  `price` decimal(19,2) NOT NULL,
+  `negotiable` int(1) NOT NULL COMMENT '1=Negotiable',
+  `entry_date` datetime NOT NULL,
+  `type` int(1) NOT NULL COMMENT '1= private; 2= business',
+  `status` int(2) NOT NULL COMMENT '1= active; 0= inactive; 5= Incomplete;13= delete',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `advertizement`
+--
+
+INSERT INTO `advertizement` (`id`, `cid`, `s_cid`, `p_id`, `ad_location`, `ad_city`, `for_what`, `title`, `slug`, `details`, `price`, `negotiable`, `entry_date`, `type`, `status`) VALUES
+(1, 26, 0, 1, 1, 1, '1', 'A bikes', 'a-bikes', 'A bikes A bikes Good descriptions increase your ad''s chances of success. Describe features, dimensions, condition and what''s included.', 15.00, 1, '2014-05-02 00:00:00', 1, 0),
+(2, 13, 0, 1, 1, 2, '1', 'Acer Aspire 4749z', 'acer-aspire-4749z', 'Acer Aspire 4749z Acer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749z', 3000.00, 0, '2014-05-03 14:05:56', 1, 0),
+(3, 18, 0, 1, 1, 3, '1', 'Canon 18-55 mm IS II', 'canon-18-55-mm-is-ii', 'Canon 18-55 mm IS II Canon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS II', 1500.00, 0, '2014-05-03 14:06:46', 2, 0),
+(4, 14, 0, 2, 1, 14, '1', 'Dining table with 6 chairs', 'dining-table-with-6-chairs', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 700.00, 1, '2014-05-04 01:21:26', 2, 0),
+(5, 25, 0, 1, 1, 3, '2', 'this is a test title', 'this-is-a-test-title', 'ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.', 1500.00, 0, '2014-05-06 01:32:54', 2, 0),
+(6, 24, 0, 3, 1, 5, '1', 'a good truck', 'a-good-truck', 'a good truck a good trucka good trucka good trucka good truck', 10000.00, 1, '2014-05-07 22:40:52', 1, 0),
+(7, 12, 0, 1, 1, 6, '1', 'A mobile', 'a-mobile', 'A mobileA mobileA mobileA mobileA mobile', 3000.00, 0, '2014-05-07 23:51:33', 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `advertizement_image`
+--
+
+CREATE TABLE IF NOT EXISTS `advertizement_image` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ad_id` int(11) NOT NULL,
+  `image_name` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `advertizement_image`
+--
+
+INSERT INTO `advertizement_image` (`id`, `ad_id`, `image_name`, `status`) VALUES
+(1, 5, 'Acer-Aspire-A5560-7414.png', 1),
+(2, 5, 'images.jpeg', 1),
+(3, 5, 'sharif_ul_islam.jpg', 1),
+(4, 6, 'Acer-Aspire-A5560-74141.png', 1),
+(5, 7, 'Acer-Aspire-A5560-74142.png', 1),
+(6, 7, 'images1.jpeg', 1),
+(7, 7, 'sharif_ul_islam1.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -383,6 +425,34 @@ INSERT INTO `page_template` (`id`, `template_name`) VALUES
 (10, 'faq'),
 (11, 'stay-safe'),
 (12, 'contact-us');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poster`
+--
+
+CREATE TABLE IF NOT EXISTS `poster` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(96) NOT NULL,
+  `phone` varchar(20) NOT NULL,
+  `p_status` int(1) NOT NULL COMMENT '1 = Hide; 0= Show',
+  `password` varchar(36) NOT NULL,
+  `last_login_date` datetime NOT NULL,
+  `last_login_ip` varchar(16) NOT NULL,
+  `status` int(1) NOT NULL COMMENT '0= inactive; 1=active; 13 = delete',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `poster`
+--
+
+INSERT INTO `poster` (`id`, `name`, `email`, `phone`, `p_status`, `password`, `last_login_date`, `last_login_ip`, `status`) VALUES
+(1, 'Sharif', 'sharifbdp@gmail.com', '01913513255', 1, 'a75d6a841eafd550b0a27293ee054614', '0000-00-00 00:00:00', '', 0),
+(2, 'Toma Karmokar', 'toma@yahoo.com', '01987680087', 1, '9b89b7713fd72002f29be0c1fc3ff445', '0000-00-00 00:00:00', '', 0),
+(3, 'A Man', 'man@gmail.com', '099988777', 0, '6531401f9a6807306651b87e44c05751', '0000-00-00 00:00:00', '', 0);
 
 -- --------------------------------------------------------
 

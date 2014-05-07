@@ -394,4 +394,14 @@ class Fronts extends CI_Model {
         return $this->db->get('advertizement')->row();
     }
 
+    public function get_super_parent_cate_ad($cate_id) {
+        $cate_details = $this->get_category_by_id($cate_id);
+        if ($cate_details->parent_id != 0) {
+            $this->get_super_parent_cate_ad($cate_details->parent_id);
+        } else {
+            echo $cate_details->id;
+        }
+    }
+   
+
 }

@@ -119,12 +119,8 @@
                                         </div>
                                     </div>
                                     <div class='arrows'>
-                                        <a data-ui-nav='prev' href='#'>
-                                            <i class='arrow'>prev</i>
-                                        </a>
-                                        <a data-ui-nav='next' href='#'>
-                                            <i class='arrow'>next</i>
-                                        </a>
+                                        <a data-ui-nav='prev' href='#'><i class='arrow'>prev</i></a>
+                                        <a data-ui-nav='next' href='#'><i class='arrow'>next</i></a>
                                     </div>
                                 </div>
                                 <div class='shadow'></div>

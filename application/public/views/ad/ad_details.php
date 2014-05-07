@@ -65,17 +65,48 @@
                     </div>
                     <div class='row'>
                         <div class='col four-rd-padding' id='item-main'>
+                            <?php if(!empty($all_images)){
+                                if(count($all_images) == 1){
+                                ?>
                             <div id='single-image'>
                                 <div class='frame'>
                                     <div class='items'>
                                         <div class='item'>
-                                            <img alt="<?php echo $content->title;?>" src="<?php echo base_url('images/no-image.png')?>" />
+                                            <?php
+                                            foreach ($all_images as $img){
+                                            ?>
+                                            <img alt="<?php echo $content->title;?>" src="<?php echo base_url('uploads/ad_image/' . $img['image_name']); ?>" />
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class='shadow'></div>
                             </div>
-
+                                <?php }else{ ?>
+                            <div data-ui-default='0' data-ui='gallery' id='gallery'>
+                                <div class='frame'>
+                                    <div class='items'>
+                                        <?php foreach ($all_images as $img){?>
+                                        <div class='item'>
+                                            <img alt="<?php echo $content->title;?>" src="<?php echo base_url('uploads/ad_image/' . $img['image_name']); ?>" />
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                    <div class='arrows'>
+                                        <a data-ui-nav='prev' href='#'><i class='arrow'>prev</i></a>
+                                        <a data-ui-nav='next' href='#'><i class='arrow'>next</i></a>
+                                    </div>
+                                </div>
+                                <div class='shadow'></div>
+                                <div class='thumbs'>
+                                    <?php $sl=1; foreach ($all_images as $img){?>
+                                    <a data-ui-nav='<?php echo $sl;?>' href='#'>
+                                        <img alt=" - " src="<?php echo base_url('uploads/ad_image/thumbs/' . $img['image_name']); ?>" width="105" height="75" />
+                                    </a>
+                                    <?php $sl++; } ?>
+                                </div>
+                            </div>
+                            <?php } } ?>
                             <div id='item-information-left'>
                                 <div class='copy' id='item-text-description'><p><?php echo $content->details;?></p></div>
                             </div>
