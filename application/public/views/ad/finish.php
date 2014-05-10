@@ -26,8 +26,24 @@
                 <ul class='regular flat' id='item-rows'>
                     <li class='item'>
                         <div class='h-stack'>
-                            <div class='photo'>
-                                <img src='http://res.cloudinary.com/saltside-production/image/private/t_thumb/81614b44-81b5-4c94-b615-1c7e29aec430.jpg'>
+                            <?php $all_images = $this->Fronts->get_all_ad_image_by_ad_id($content->id); ?>
+                            <div class="photo <?php echo (count($all_images) > 0) ? 'plural' : ''; ?>">
+                                <div class="stack">
+                                    <?php
+                                    if ($all_images) {
+                                        $sl = 1;
+                                        foreach ($all_images as $img) {
+                                            if ($sl == 1) {
+                                                ?>
+                                                <img src="<?php echo base_url(); ?>uploads/ad_image/<?php echo $img['image_name']; ?>" alt="<?php echo $content->title; ?>">
+                                                <?php
+                                            } $sl++;
+                                        }
+                                    } else {
+                                        ?>
+                                        <img src="<?php echo base_url(); ?>images/no-image.png" alt="<?php echo $content->title; ?>">
+                                    <?php } ?>
+                                </div>
                             </div>
                             <div class='inner'>
                                 <div class='col'>

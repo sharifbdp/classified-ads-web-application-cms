@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 08, 2014 at 12:47 AM
+-- Generation Time: May 11, 2014 at 12:33 AM
 -- Server version: 5.5.37-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `advertizement` (
   `status` int(2) NOT NULL COMMENT '1= active; 0= inactive; 5= Incomplete;13= delete',
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `advertizement`
@@ -57,7 +57,8 @@ INSERT INTO `advertizement` (`id`, `cid`, `s_cid`, `p_id`, `ad_location`, `ad_ci
 (4, 14, 0, 2, 1, 14, '1', 'Dining table with 6 chairs', 'dining-table-with-6-chairs', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 700.00, 1, '2014-05-04 01:21:26', 2, 0),
 (5, 25, 0, 1, 1, 3, '2', 'this is a test title', 'this-is-a-test-title', 'ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.', 1500.00, 0, '2014-05-06 01:32:54', 2, 0),
 (6, 24, 0, 3, 1, 5, '1', 'a good truck', 'a-good-truck', 'a good truck a good trucka good trucka good trucka good truck', 10000.00, 1, '2014-05-07 22:40:52', 1, 0),
-(7, 12, 0, 1, 1, 6, '1', 'A mobile', 'a-mobile', 'A mobileA mobileA mobileA mobileA mobile', 3000.00, 0, '2014-05-07 23:51:33', 1, 0);
+(7, 12, 0, 1, 1, 6, '1', 'A mobile', 'a-mobile', 'A mobileA mobileA mobileA mobileA mobile', 3000.00, 0, '2014-05-07 23:51:33', 1, 0),
+(8, 13, 0, 1, 1, 8, '1', 'X code', 'x-code', 'Make sure you post in the correct category.\n    Do not post the same ad more than once. Duplicate ads will be rejected.\n    Do not upload pictures with watermarks. Invalid pictures will be removed.\n    Do not put your email or phone numbers in the title or description.', 3000.00, 0, '2014-05-10 00:18:04', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -71,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `advertizement_image` (
   `image_name` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Dumping data for table `advertizement_image`
@@ -84,7 +85,9 @@ INSERT INTO `advertizement_image` (`id`, `ad_id`, `image_name`, `status`) VALUES
 (4, 6, 'Acer-Aspire-A5560-74141.png', 1),
 (5, 7, 'Acer-Aspire-A5560-74142.png', 1),
 (6, 7, 'images1.jpeg', 1),
-(7, 7, 'sharif_ul_islam1.jpg', 1);
+(7, 7, 'sharif_ul_islam1.jpg', 1),
+(8, 8, '2.png', 1),
+(9, 8, '1.png', 1);
 
 -- --------------------------------------------------------
 

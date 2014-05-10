@@ -182,7 +182,7 @@ class En extends CI_Controller {
 
                 $data_upload_files = $this->upload->data();
 
-                // Get value and insert to table 
+                // Get value and insert to table
                 $ad['ad_id'] = $ad_id;
                 $ad['image_name'] = $data_upload_files['file_name'];
                 $ad['status'] = '0';
@@ -199,7 +199,7 @@ class En extends CI_Controller {
                 $this->image_lib->initialize($config);
                 $this->image_lib->resize();
                 $this->image_lib->clear();
-                
+
                 //thumb image
                 $config['source_image'] = $data_upload_files['full_path'];
                 $config['new_image'] = './uploads/ad_image/thumbs/' . $data_upload_files['file_name'];
@@ -242,11 +242,8 @@ class En extends CI_Controller {
             $this->load->view('ad/post_ad');
         } else {
             $data['cid'] = $this->input->post('cid', TRUE);
-            $data['s_cid'] = $this->check($data['cid']);
-            
-            
-            var_dump($data);
-            exit();
+            // $data['s_cid'] = $this->Fronts->get_super_parent_cate_ad($data['cid']);
+
             $data['for_what'] = $this->input->post('for_what', TRUE);
             $data['title'] = $this->input->post('title', TRUE);
             $slug = url_title($data['title'], '-', TRUE);
@@ -329,8 +326,60 @@ class En extends CI_Controller {
     }
 
     public function all_ads() {
-        $data['content'] = $this->Fronts->get_all_ad_data();
+        $this->load->library('pagination');
+
+        $config['base_url'] = base_url() . 'en/all_ads';
+        $config['total_rows'] = $this->Fronts->total_no_of_ad_data($type = NULL, $sort = NULL);
+        $config['per_page'] = 5;
+
+        $config['prev_link'] = 'prev';
+        $config['prev_tag_open'] = '<div class="page"><span class="prev">';
+        $config['prev_tag_close'] = '</span></div>';
+
+        $config['next_link'] = 'next';
+        $config['next_tag_open'] = '<div class="page"><span class="next ">';
+        $config['next_tag_close'] = '</span></div>';
+
+        $config['cur_tag_open'] = '<div class="page current"><span class="current"><a href="#">';
+        $config['cur_tag_close'] = '</a></span></div>';
+
+        $config['num_tag_open'] = '<div class="page"><span>';
+        $config['num_tag_close'] = '</span></div>';
+
+//        $config['first_link'] = '<<';
+//        $config['first_tag_open'] = '<div class="page"><span>';
+//        $config['first_tag_close'] = '</span></div>';
+//        
+//        $config['last_link'] = '>>';
+//        $config['last_tag_open'] = '<div class="page"><span>';
+//        $config['last_tag_close'] = '</span></div>';
+
+        $config['first_link'] = FALSE;
+        $config['last_link'] = FALSE;
+
+        $this->pagination->initialize($config);
+
+        $data['content'] = $this->Fronts->get_all_ad_data($type = NULL, $sort = NULL, $config['per_page'], $this->uri->segment(3));
         $this->load->view('ad/all_ad', $data);
+    }
+
+    public function load_ads($type = NULL, $sort = NULL) {
+        if ($type != NULL) {
+            if ($type == 'all') {
+                $type = NULL;
+            } elseif ($type == 'private') {
+                $type = 1;
+            } elseif ($type == 'business') {
+                $type = 2;
+            }
+        }
+        if ($sort == 'price') {
+            $sort = TRUE;
+        } else {
+            $sort = FALSE;
+        }
+        $data['content'] = $this->Fronts->get_all_ad_data($type, $sort);
+        $this->load->view('ad/private_ad', $data);
     }
 
     public function view($slug) {
@@ -342,8 +391,10 @@ class En extends CI_Controller {
         $this->load->view('ad/ad_details', $data);
     }
 
-    public function check($cate_id) {
-        $this->Fronts->get_super_parent_cate_ad($cate_id);
+    public function category($slug) {
+        $alias = trim($slug);
+        $data['cate_details'] = $this->Fronts->get_category_by_alias($alias);
+        $this->load->view('ad/category_page');
     }
 
 }

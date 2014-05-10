@@ -75,10 +75,10 @@
                                                 foreach ($all_parent_cate as $cate) {
                                                     $cate_ad = $this->Fronts->get_category_by_id($cate['id']);
                                                     if($cate_ad->parent_id != 0){
-                                                    $cate_ad = $this->Fronts->get_category_by_id($cate['id']);    
+                                                    $cate_ad = $this->Fronts->get_category_by_id($cate['id']);
                                                     }
                                                     ?>
-                                                    <li><a href="#"><span class='title'><?php echo $cate['name']; ?></span><span class='count'>&nbsp;<?php echo '0';?></span></a></li>
+                                                    <li><a href="<?php echo base_url('en/category/' . $cate['alias']);?>"><span class='title'><?php echo $cate['name']; ?></span><span class='count'>&nbsp;<?php echo '0';?></span></a></li>
                                                 <?php
                                                 }
                                             }
@@ -121,17 +121,17 @@
                         <div id='item-nav-bar'>
                             <div class='tabs'>
                                 <div class='h-stack' id='scopes'>
-                                    <div class='tab current'>
-                                        <a href="<?php echo base_url();?>en/all_ads">All ads
-                                            <span class='ad-count'>88049</span>
+                                    <div id="all-ads" class='tab current'>
+                                        <a href="#">All ads
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type();?></span>
                                         </a></div>
-                                    <div class='tab'>
-                                        <a href="<?php echo base_url();?>en/all_ads">Private ads
-                                            <span class='ad-count'>29538</span>
+                                    <div id="private-ads" class='tab'>
+                                        <a href="#">Private ads
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type(1);?></span>
                                         </a></div>
-                                    <div class='tab'>
-                                        <a href="<?php echo base_url();?>en/all_ads">Business ads
-                                            <span class='ad-count'>58511</span>
+                                    <div id="business-ads" class='tab'>
+                                        <a href="#">Business ads
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type(2);?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -139,8 +139,8 @@
                                     <div class='sort-wrap'>
                                         <a class='current-sort' href='#'><span>Most Recent</span><i class='arrow'></i></a>
                                         <div class='sort-options' style="">
-                                            <a data-sort='created' href='#'>Most Recent</a>
-                                            <a data-sort='price' href='#'>Lowest Price</a>
+                                            <a id="most-recent" rel="<?php echo base_url();?>en/load_ads/all" href='#'>Most Recent</a>
+                                            <a id="low-price" rel="<?php echo base_url();?>en/load_ads/all" href='#'>Lowest Price</a>
                                         </div>
                                     </div>
                                 </div>
@@ -148,16 +148,16 @@
                         </div>
 
                         <div id='item-listing'>
+                            <div class="spinner"></div>
                             <div class='top clearfix'>
                                 <ol class='breadcrumbs clearfix h-stack flat'>
                                     <li>
                                         <h1><a href="<?php echo base_url();?>en/all_ads" class="current" rel="current">All ads</a> in Ghana</h1>
                                     </li>
                                 </ol>
-
                                 <div class='h-stack polar' id='list-mode-nav'>
-                                    <a class='current regular' href='#regular'>Regular</a>
-                                    <a class='compact' href='#compact'>Compact</a>
+                                    <a class='regular current' href='#'>Regular</a>
+                                    <a class='compact' href='#'>Compact</a>
                                 </div>
                             </div>
 
@@ -190,7 +190,7 @@
 
                                                 <div class="title-and-price clearfix">
                                                     <div class="title-container"><div class="title"><h2><a href="<?php echo base_url(); ?>en/view/<?php echo $list['slug']; ?>" title="<?php echo $list['title']; ?>"><?php echo $list['title']; ?></a></h2></div></div>
-                                                    <div class="price-container"><div class="price"><span class="data"><?php echo ($list['negotiable'] == 1) ? 'Negotiable' : round($list['price']); ?></span></div></div>
+                                                    <div class="price-container"><div class="price"><span class="data"><?php echo ($list['negotiable'] == 1) ? 'Negotiable' : '$ '.round($list['price']); ?></span></div></div>
                                                 </div>
                                                 <div class="meta-container">
                                                     <div class="meta">
@@ -211,10 +211,43 @@
                                 }
                                 ?>
                             </ul>
+
+                            <ul id="item-rows" class="flat compact" style="display: none;">
+                                <?php
+                                if (!empty($content)) {
+                                    foreach ($content as $list) {
+                                        $all_images = $this->Fronts->get_all_ad_image_by_ad_id($list['id']);
+                                        ?>
+                                        <li class="item">
+                                            <div class="h-stack">
+                                                <div class="photo"><span class="icon <?php echo (count($all_images) > 0) ? 'plural' : ''; ?>"></span></div>
+                                                <div class="title">
+                                                    <h2>
+                                                        <a href="<?php echo base_url(); ?>en/view/<?php echo $list['slug']; ?>">
+                                                            <?php echo ($list['type'] == 2) ? '<i class="business-icon" title="Business">Business</i>' : ''; ?>
+                                                            <?php echo $list['title']; ?>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="meta"><?php echo $list['location']; ?>, <span class="date"><?php echo $this->Fronts->time_ago(strtotime($list['entry_date'])); ?></span></div>
+                                                <div class="polar h-stack">
+                                                    <div class="attr"><?php echo ($list['negotiable'] == 1) ? '' : '$ ' . round($list['price']); ?></div>
+                                                    <div class="fav-row"><a href="#" class="btn small favorite"><span><i class="ico-star"></i></span></a></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php }
+                                }
+                                ?>
+                            </ul>
+
                         </div>
 
-                        <div class="pagination" style="display: block;"></div>
-
+                        <div class="pagination" style="display: block;">
+                            <div class="nav h-stack">
+                            <?php echo $this->pagination->create_links(); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -234,21 +267,3 @@
         </div>
 
 <?php $this->load->view('common/footer'); ?>
-
-        <script type="text/javascript">
-        $(document).ready(function() {
-
-            $('.current-sort').click(function(e) {
-                e.preventDefault();
-                var style = $('.sort-options').attr('style');
-                if(style === '' || style === 'display: none;'){
-                  $('.sort-options').show(300);
-                  $('i.arrow').addClass('open');
-               }else{
-                  $('.sort-options').hide(300);
-                  $('i.arrow').removeClass('open');
-               }
-            });
-
-        });
-        </script>

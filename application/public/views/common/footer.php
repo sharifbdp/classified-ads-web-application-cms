@@ -71,7 +71,7 @@
                 </div>
             </div>
         </div>
-
+        <script type="text/javascript">URL = "<?php echo base_url(); ?>";</script>
         <script src="<?php echo base_url();?>js/jquery.js" type="text/javascript"></script>
         <script src="<?php echo base_url();?>js/custom.js" type="text/javascript"></script>
 
