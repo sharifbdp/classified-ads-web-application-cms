@@ -69,26 +69,18 @@
                                     </li>
                                     <li class='indent-1'>
                                         <div class='current'>
-                                            Electronics
+                                            <?php echo (!empty($cate_details)) ? $cate_details->name : 'No Category'; ?>
                                         </div>
-                                        <ul class='flat tree links'>
-                                            <li>
-                                                <a href="/en/mobile-phones-in-ghana"><span class='title'>Mobile Phones</span><span class='count'>&nbsp;22706</span></a></li>
-                                            <li>
-                                                <a href="/en/computers-accessories-in-ghana"><span class='title'>Computers &amp; Accessories</span><span class='count'>&nbsp;13495</span></a></li>
-                                            <li>
-                                                <a href="/en/tv-video-in-ghana"><span class='title'>TV &amp; Video</span><span class='count'>&nbsp;3763</span></a></li>
-                                            <li>
-                                                <a href="/en/audio-mp3-in-ghana"><span class='title'>Audio &amp; MP3</span><span class='count'>&nbsp;1182</span></a></li>
-                                            <li>
-                                                <a href="/en/video-games-consoles-in-ghana"><span class='title'>Video Games &amp; Consoles</span><span class='count'>&nbsp;1088</span></a></li>
-                                            <li>
-                                                <a href="/en/mobile-phone-accessories-in-ghana"><span class='title'>Mobile Phone Accessories</span><span class='count'>&nbsp;696</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/cameras-camcorders-in-ghana"><span class='title'>Cameras &amp; Camcorders</span><span class='count'>&nbsp;534</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/other-electronics-in-ghana"><span class='title'>Other Electronics</span><span class='count'>&nbsp;379</span></a></li>
-                                        </ul>
+                                        <?php if (!empty($cate_details)) { ?>
+                                            <ul class='flat tree links'>
+                                                <?php
+                                                $all_child_cate = $this->Fronts->get_all_parent_category($cate_details->id);
+                                                foreach ($all_child_cate as $child) {
+                                                    ?>
+                                                    <li><a href="<?php echo base_url('en/category/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;0</span></a></li>
+                                                <?php } ?>
+                                            </ul>
+                                        <?php } ?>
                                     </li>
                                 </ul>
 
@@ -189,72 +181,92 @@
                                 </div>
                             </div>
                             
-                            <ul class='compact flat' id='item-rows'>
-                                
-                                <li class='item' data-id='hdmidvivga-cables-for-sale-accra-302' data-item='{"location":"Accra","category":"Computer Accessories","poster_name":"no joke company","title":"HDMI/DVI/VGA CABLES","slug":"hdmidvivga-cables-for-sale-accra-302","has_many_images":false,"show_image":"9adec24a-630e-4e12-84c8-0bd7aef047ad","show_attr":null,"is_business":true,"negotiable":false,"featured":false,"paid":false,"currently_featured":false,"created_at":"2014-05-10T14:56:51+00:00","updated_at":"2014-05-10T15:15:40+00:00","published_at":1399734940}'>
-                                    <div class="h-stack">
-                                        <div class="photo">
-                                            <span class="icon "></span>
-                                        </div>
-                                        <div class="title">
-                                            <h2>
-                                                <a href="/en/hdmidvivga-cables-for-sale-accra-302">
-                                                    <i class="business-icon" title="Business">Business</i>
-                                                    HDMI/DVI/VGA CABLES
-                                                </a>
-                                            </h2>
-                                        </div>
-                                        <div class="meta">Accra, <span class="date"></span></div>
-                                        <div class="polar h-stack">
-                                            <div class="attr"></div>
-                                            <div class="fav-row">
-                                                <a class="btn small favorite" href="#">
-                                                    <span>
-                                                        <i class="ico-star"></i>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <ul class='flat regular' id='item-rows'>
+                                <?php
+                                if (!empty($content)) {
+                                    foreach ($content as $list) {
+                                        ?>
+                                        <li class='item'>
+                                            <div class="h-stack">
+                                                <?php $all_images = $this->Fronts->get_all_ad_image_by_ad_id($list['id']); ?>
+                                                <div class="photo <?php echo (count($all_images) > 1) ? 'plural' : ''; ?>">
+                                                    <div class="stack">
+                                                        <?php
+                                                        if ($all_images) {
+                                                            $sl = 1;
+                                                            foreach ($all_images as $img) {
+                                                                if ($sl == 1) {
+                                                                    ?>
+                                                                    <img src="<?php echo base_url(); ?>uploads/ad_image/<?php echo $img['image_name']; ?>" alt="<?php echo $list['title']; ?>">
+                                                                    <?php
+                                                                } $sl++;
+                                                            }
+                                                        } else {
+                                                            ?>
+                                                            <img src="<?php echo base_url(); ?>images/no-image.png" alt="<?php echo $list['title']; ?>">
+                                                        <?php } ?>
+                                                    </div>
+                                                </div>
 
-                                </li>
-                                <li class='featured item' data-id='smartfullhdallsharedigital32ledtv-for-sale-accra' data-item='{"location":"Accra","category":"TVs","poster_name":"10 GIG SMART DIGITAL HOME","title":"SMART~FULLHD~ALLSHARE~DIGITAL~32\"LED~TV","slug":"smartfullhdallsharedigital32ledtv-for-sale-accra","has_many_images":true,"show_image":"8b863633-ee0f-4bfd-b15f-c04f7341d83d","show_attr":{"value":"GH₵ 1,390"},"is_business":true,"negotiable":false,"featured":true,"paid":true,"currently_featured":true,"created_at":"2014-05-10T15:13:07+00:00","updated_at":"2014-05-10T15:15:40+00:00","published_at":1399734940}'>
-                                    <div class="h-stack">
-                                        <div class="photo">
-                                            <span class="icon plural"></span>
-                                        </div>
-                                        <div class="title">
-                                            <h2>
-                                                <a href="/en/smartfullhdallsharedigital32ledtv-for-sale-accra">
-                                                    <i class="business-icon" title="Business">Business</i>
-                                                    SMART~FULLHD~ALLSHARE~DIGITAL~32&quot;LED~TV
-                                                </a>
-                                            </h2>
-                                        </div>
-                                        <div class="meta">Accra, <span class="date"></span></div>
-                                        <div class="polar h-stack">
-                                            <div class="attr">GH₵ 1,390</div>
-                                            <div class="fav-row">
-                                                <a class="btn small favorite" href="#">
-                                                    <span>
-                                                        <i class="ico-star"></i>
-                                                    </span>
-                                                </a>
+                                                <div class="title-and-price clearfix">
+                                                    <div class="title-container"><div class="title"><h2><a href="<?php echo base_url(); ?>en/view/<?php echo $list['slug']; ?>" title="<?php echo $list['title']; ?>"><?php echo $list['title']; ?></a></h2></div></div>
+                                                    <div class="price-container"><div class="price"><span class="data"><?php echo ($list['negotiable'] == 1) ? 'Negotiable' : '$ '.round($list['price']); ?></span></div></div>
+                                                </div>
+                                                <div class="meta-container">
+                                                    <div class="meta">
+                                                        <span class="information-row properties"></span>
+                                                        <span class="information-row">
+                                                            <?php echo ($list['type'] == 2) ? '<i class="business-icon" title="Business">Business</i>' : ''; ?>
+                                                            <span class="date"><?php echo $this->Fronts->time_ago(strtotime($list['entry_date'])); ?></span>,
+                                                            <span class="category"><?php echo $list['cat_name']; ?></span>,
+                                                            <span class="location"><?php echo $list['location']; ?></span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="extras"><a class="btn small favorite" href="#"><span><i class="ico-star"></i>Favorite</span></a></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-
-                                </li>
-                                
-                                
-                                
+                                        </li>
+                                    <?php
+                                    }
+                                }
+                                ?>
                             </ul>
+
+                            <ul id="item-rows" class="flat compact" style="display: none;">
+                                <?php
+                                if (!empty($content)) {
+                                    foreach ($content as $list) {
+                                        $all_images = $this->Fronts->get_all_ad_image_by_ad_id($list['id']);
+                                        ?>
+                                        <li class="item">
+                                            <div class="h-stack">
+                                                <div class="photo"><span class="icon <?php echo (count($all_images) > 1) ? 'plural' : ''; ?>"></span></div>
+                                                <div class="title">
+                                                    <h2>
+                                                        <a href="<?php echo base_url(); ?>en/view/<?php echo $list['slug']; ?>">
+                                                            <?php echo ($list['type'] == 2) ? '<i class="business-icon" title="Business">Business</i>' : ''; ?>
+                                                            <?php echo $list['title']; ?>
+                                                        </a>
+                                                    </h2>
+                                                </div>
+                                                <div class="meta"><?php echo $list['location']; ?>, <span class="date"><?php echo $this->Fronts->time_ago(strtotime($list['entry_date'])); ?></span></div>
+                                                <div class="polar h-stack">
+                                                    <div class="attr"><?php echo ($list['negotiable'] == 1) ? '' : '$ ' . round($list['price']); ?></div>
+                                                    <div class="fav-row"><a href="#" class="btn small favorite"><span><i class="ico-star"></i></span></a></div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    <?php }
+                                }
+                                ?>
+                            </ul>
+                            
                         </div>
                         
                         <div class='pagination'></div>
 
                         <div id='server-side-pagination'>
-                            <a href="/en/electronics-in-ghana?&amp;page=2" rel="next">next</a>
+                            
                         </div>
                     </div>
                 </div>
@@ -263,12 +275,12 @@
             <div class='wrap'>
                 <div class='item-box'>
                     <h2>Do you have something to sell?</h2>
-                    <p>Post your ad for free on Tonaton.com</p>
+                    <p>Post your ad for free on Website.com</p>
                     <div class='btn-wrapper'>
                         <div class='bg left'></div>
                         <div class='bg right'></div>
                         <div class='btn-border'>
-                            <a href="/en/new?controller=ads" class="btn large post"><span class="large">Post your free ad</span></a>
+                            <a href="<?php echo base_url();?>en/post_ad" class="btn large post"><span class="large">Post your free ad</span></a>
                         </div>
                     </div>
                 </div>

@@ -102,20 +102,20 @@ $(document).ready(function() {
         });
     });
 
-    $('.compact').click(function(e) {
+    $('a.compact').click(function(e) {
         e.preventDefault();
         $('.flat.regular').hide(200);
         $('.flat.compact').show(200);
-        $('.regular').removeClass('current');
-        $('.compact').addClass('current');
+        $('a.regular').removeClass('current');
+        $('a.compact').addClass('current');
     });
 
-    $('.regular').click(function(e) {
+    $('a.regular').click(function(e) {
         e.preventDefault();
         $('.flat.compact').hide(200);
         $('.flat.regular').show(200);
-        $('.compact').removeClass('current');
-        $('.regular').addClass('current');
+        $('a.compact').removeClass('current');
+        $('a.regular').addClass('current');
     });
 
 

@@ -234,9 +234,9 @@ class Fronts extends CI_Model {
         return $this->db->get()->result_array();
     }
 
-    public function get_all_parent_category($limit = NULL, $offset = NULL) {
+    public function get_all_parent_category($parent_id = 0, $limit = NULL, $offset = NULL) {
         $this->db->from('category');
-        $this->db->where("parent_id", '0');
+        $this->db->where("parent_id", $parent_id);
         $this->db->where("status != ", '13');
         $this->db->order_by("serial", "asc");
 
@@ -388,6 +388,23 @@ class Fronts extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_all_ad_data_by_category_id($cate_id, $limit = NULL, $offset = NULL) {
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement A');
+        $this->db->join('category C', 'C.id = A.cid', 'inner');
+        $this->db->join('poster P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        $this->db->where('A.status', 0);
+        $this->db->where('A.s_cid', $cate_id);
+        $this->db->order_by('A.entry_date', 'DESC');
+
+        return $this->db->get()->result_array();
+    }
+
     public function get_all_ad_image_by_ad_id($ad_id) {
         $this->db->where('ad_id', $ad_id);
         $this->db->order_by('id', 'DESC');
@@ -424,15 +441,6 @@ class Fronts extends CI_Model {
         $this->db->where('id', $parent_id - 1);
         $this->db->where('status', 0);
         return $this->db->get('advertizement')->row();
-    }
-
-    public function get_super_parent_cate_ad($cate_id) {
-        $cate_details = $this->get_category_by_id($cate_id);
-        if ($cate_details->parent_id != 0) {
-            $this->get_super_parent_cate_ad($cate_details->parent_id);
-        } else {
-            return $cate_details->id;
-        }
     }
 
 }

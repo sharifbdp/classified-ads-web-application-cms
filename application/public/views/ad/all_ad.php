@@ -169,7 +169,7 @@
                                         <li class='item'>
                                             <div class="h-stack">
                                                 <?php $all_images = $this->Fronts->get_all_ad_image_by_ad_id($list['id']); ?>
-                                                <div class="photo <?php echo (count($all_images) > 0) ? 'plural' : ''; ?>">
+                                                <div class="photo <?php echo (count($all_images) > 1) ? 'plural' : ''; ?>">
                                                     <div class="stack">
                                                         <?php
                                                         if ($all_images) {
@@ -220,7 +220,7 @@
                                         ?>
                                         <li class="item">
                                             <div class="h-stack">
-                                                <div class="photo"><span class="icon <?php echo (count($all_images) > 0) ? 'plural' : ''; ?>"></span></div>
+                                                <div class="photo"><span class="icon <?php echo (count($all_images) > 1) ? 'plural' : ''; ?>"></span></div>
                                                 <div class="title">
                                                     <h2>
                                                         <a href="<?php echo base_url(); ?>en/view/<?php echo $list['slug']; ?>">

@@ -242,8 +242,7 @@ class En extends CI_Controller {
             $this->load->view('ad/post_ad');
         } else {
             $data['cid'] = $this->input->post('cid', TRUE);
-            // $data['s_cid'] = $this->Fronts->get_super_parent_cate_ad($data['cid']);
-
+            $data['s_cid'] = file_get_contents(base_url() . "en/get_super_parent_cate_ad/" . $data['cid']);
             $data['for_what'] = $this->input->post('for_what', TRUE);
             $data['title'] = $this->input->post('title', TRUE);
             $slug = url_title($data['title'], '-', TRUE);
@@ -349,7 +348,7 @@ class En extends CI_Controller {
 //        $config['first_link'] = '<<';
 //        $config['first_tag_open'] = '<div class="page"><span>';
 //        $config['first_tag_close'] = '</span></div>';
-//        
+//
 //        $config['last_link'] = '>>';
 //        $config['last_tag_open'] = '<div class="page"><span>';
 //        $config['last_tag_close'] = '</span></div>';
@@ -394,7 +393,17 @@ class En extends CI_Controller {
     public function category($slug) {
         $alias = trim($slug);
         $data['cate_details'] = $this->Fronts->get_category_by_alias($alias);
-        $this->load->view('ad/category_page');
+        $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_details']->id);
+        $this->load->view('ad/category_page', $data);
+    }
+
+    public function get_super_parent_cate_ad($cate_id) {
+        $cate_details = $this->Fronts->get_category_by_id($cate_id);
+        if ($cate_details->parent_id != 0) {
+            $this->get_super_parent_cate_ad($cate_details->parent_id);
+        } else {
+            echo $cate_details->id;
+        }
     }
 
 }
