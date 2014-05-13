@@ -77,8 +77,9 @@
                                                     if($cate_ad->parent_id != 0){
                                                     $cate_ad = $this->Fronts->get_category_by_id($cate['id']);
                                                     }
+                                                    $count_cate_1_ad = $this->Fronts->count_ads_by_category_id($cate['id']);
                                                     ?>
-                                                    <li><a href="<?php echo base_url('en/category/' . $cate['alias']);?>"><span class='title'><?php echo $cate['name']; ?></span><span class='count'>&nbsp;<?php echo '0';?></span></a></li>
+                                                    <li><a href="<?php echo base_url('en/category/' . $cate['alias']);?>"><span class='title'><?php echo $cate['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cate_1_ad;?></span></a></li>
                                                 <?php
                                                 }
                                             }

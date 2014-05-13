@@ -126,6 +126,15 @@ class En extends CI_Controller {
         }
     }
 
+    public function view_category_list_by_parent($parent) {
+        $id = trim($parent);
+        $data = $this->Fronts->get_all_parent_category($id);
+
+        foreach ($data as $ds) {
+            echo '<option value=' . $ds["id"] . '>' . $ds["name"] . '</option>';
+        }
+    }
+
     public function generate_unique_slug($slug, $separator = '-', $increment_number_at_end = FALSE) {
 
         //check if the last char is a number
@@ -222,7 +231,7 @@ class En extends CI_Controller {
 
         $this->load->library('form_validation');
 
-        $this->form_validation->set_rules('cid', 'Category', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('cate_2', 'Category', 'required|xss_clean|trim');
         $this->form_validation->set_rules('for_what', 'Type', 'required|xss_clean|trim');
         $this->form_validation->set_rules('title', 'Title', 'required|xss_clean|trim');
         $this->form_validation->set_rules('details', 'Description', 'required|xss_clean|trim');
@@ -241,8 +250,9 @@ class En extends CI_Controller {
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('ad/post_ad');
         } else {
-            $data['cid'] = $this->input->post('cid', TRUE);
-            $data['s_cid'] = file_get_contents(base_url() . "en/get_super_parent_cate_ad/" . $data['cid']);
+            $data['cate_2'] = $this->input->post('cate_2', TRUE);
+            $data['cate_1'] = file_get_contents(base_url() . "en/find_parent_category/" . $data['cate_2']);
+            $data['cate_3'] = $this->input->post('cate_3', TRUE);
             $data['for_what'] = $this->input->post('for_what', TRUE);
             $data['title'] = $this->input->post('title', TRUE);
             $slug = url_title($data['title'], '-', TRUE);
@@ -256,7 +266,7 @@ class En extends CI_Controller {
             $data['entry_date'] = date('Y-m-d H:i:s');
             $data['type'] = $this->input->post('type', TRUE);
             $data['status'] = 5;
-
+            
             //poster
             $poster_email = $this->input->post('email', TRUE);
             $poster_check = $this->Fronts->check_poster_email_existence($poster_email);
@@ -390,20 +400,27 @@ class En extends CI_Controller {
         $this->load->view('ad/ad_details', $data);
     }
 
-    public function category($slug) {
-        $alias = trim($slug);
-        $data['cate_details'] = $this->Fronts->get_category_by_alias($alias);
-        $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_details']->id);
+    public function category($c_1, $c_2 = NULL, $c_3 = NULL) {
+        $cate_1 = trim($c_1);
+        $cate_2 = trim($c_2);
+        $cate_3 = trim($c_3);
+        $data['cate_1_details'] = $this->Fronts->get_category_by_alias($cate_1);
+        $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_1_details']->id);
+        if ($cate_2 != NUll) {
+            $data['cate_2_details'] = $this->Fronts->get_category_by_alias($cate_2);
+            $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_1_details']->id, $data['cate_2_details']->id);
+        }
+        if ($cate_3 != NUll) {
+            $data['cate_3_details'] = $this->Fronts->get_category_by_alias($cate_3);
+            $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_1_details']->id, $data['cate_2_details']->id, $data['cate_3_details']->id);
+        }
+        var_dump($data['content']);
         $this->load->view('ad/category_page', $data);
     }
 
-    public function get_super_parent_cate_ad($cate_id) {
+    public function find_parent_category($cate_id) {
         $cate_details = $this->Fronts->get_category_by_id($cate_id);
-        if ($cate_details->parent_id != 0) {
-            $this->get_super_parent_cate_ad($cate_details->parent_id);
-        } else {
-            echo $cate_details->id;
-        }
+        echo $cate_details->parent_id;
     }
 
 }

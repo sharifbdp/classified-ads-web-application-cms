@@ -38,15 +38,28 @@
                                 </div>
                                 <div class='input col6'>
                                     <div class='select_tree' id='ad_category_id'>
-                                        <select autocomplete='off' name="cid">
+                                        <select autocomplete='off' name="cate_2">
                                             <option value="">Select a category...</option>
                                             <?php
-                                            $cid = set_value('cid');
-                                            $this->Fronts->getTreeCategory(0, 0, $cid); ?>
-                                            <option value="831">Other</option>
+                                            $cate_value = set_value('cate_2');
+                                            $all_cate_1 = $this->Fronts->get_all_parent_category(0);
+                                            foreach ($all_cate_1 as $cate_1) {
+                                                $all_cate_2 = $this->Fronts->get_all_parent_category($cate_1['id']);
+                                                echo '<optgroup label="' . $cate_1['name'] . '" data-id="' . $cate_1['id'] . '">';
+                                                foreach ($all_cate_2 as $cate_2) {
+                                                    $selected = ($cate_value == $cate_2['id']) ? 'selected=selected' : '';
+                                                    echo "<option value='" . $cate_2['id'] . "' {$selected}>" . $cate_2['name'] . "</option>";
+                                                }
+                                                echo '</optgroup>';
+                                            }
+                                            ?>
+                                            <option value="999">Other</option>
+                                        </select>
+                                        <select autocomplete='off' name="cate_3" style="display: none;">
+                                            
                                         </select>
                                     </div>
-                                    <?php echo form_error('cid', '<label for="ad_category_id" class="error" style="display: block;">', '</label>'); ?>
+                                    <?php echo form_error('cate_2', '<label for="ad_category_id" class="error" style="display: block;">', '</label>'); ?>
                                 </div>
                             </div>
                             <div class='row field ad-types'>
@@ -314,24 +327,39 @@
                         }
                 return false;
                 });
+                
+                // load sub category list (cate_3)  by select category(cate_2)
+                $("select[name=cate_2]").change(function() {
 
+                    $.ajax({
+                        type: "GET",
+                        url: "<?php echo base_url(); ?>en/view_category_list_by_parent/"+$(this).val(),
+                        dataType: "HTML",
+                        success: function(data){
+                            $('select[name=cate_3]').empty();
+                            if(data !== ''){
+                               $('select[name=cate_3]').show();
+                               $('select[name=cate_3]').append(data);
+                            }else{$('select[name=cate_3]').hide();}
+                        }
+                    });
+
+                });
+                
                 // load area by select city
                 $('#ad_location_id').change(function() {
 
                     $.ajax({
                         type: "GET",
                         url: "<?php echo base_url(); ?>en/view_area_by_location/"+$('#ad_location_id').val(),
-
                         dataType: "HTML",
                         success: function(data){
-
                             $('#ad_area_id').empty();
                             if(data !== ''){
                                $("#ad_area_id").append(data);
                             }else{
                                $("#ad_area_id").append("<option value=''>No City/Area found</option>");
                             }
-
                         }
                     });
 
@@ -340,10 +368,10 @@
 //                //set price negotiable
 //                $('#price_negotiable').change(function() {
 //                    if ($(this).attr("checked")) {
-//                       $('#ad_price').val('0'); 
+//                       $('#ad_price').val('0');
 //                       $('#ad_price').attr('readonly', 'readonly');
 //                    }else{
-//                       $('#ad_price').val(''); 
+//                       $('#ad_price').val('');
 //                       $('#ad_price').removeAttr('readonly');
 //                    }
 //                });
@@ -351,16 +379,16 @@
                 //set business name
                 $('#ad_poster_poster_type_business').click(function() {
                     if ($(this).attr("checked")) {
-                       $('.poster_name div label').text('Business Name'); 
+                       $('.poster_name div label').text('Business Name');
                     }else{
-                       $('.poster_name div label').text('Name'); 
+                       $('.poster_name div label').text('Name');
                     }
                 });
                 $('#ad_poster_poster_type_private').click(function() {
                     if ($(this).attr("checked")) {
-                       $('.poster_name div label').text('Name'); 
+                       $('.poster_name div label').text('Name');
                     }else{
-                       $('.poster_name div label').text('Business Name'); 
+                       $('.poster_name div label').text('Business Name');
                     }
                 });
 

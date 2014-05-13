@@ -13,22 +13,29 @@
                         <ol class='breadcrumbs clearfix h-stack flat'>
                             <li><a href="<?php echo base_url(); ?>en/all_ads" rel="up up">All ads</a><span>&rarr;</span></li>
                             <?php
-                            $parent = $this->Fronts->get_category_details_by_id($content->cid);
-                            $child = $this->Fronts->get_category_details_by_id($parent->parent_id);
-                            if ($child && $child->main_name != '') {
+                            $cate_1 = $this->Fronts->get_category_by_id($content->cate_1);
+                            $cate_2 = $this->Fronts->get_category_by_id($content->cate_2);
+                            $cate_3 = $this->Fronts->get_category_by_id($content->cate_3);
+                            if ($cate_1) {
                                 ?>
-                                <li><a href="#" rel="up"><?php echo $child->main_name; ?></a><span>&rarr;</span></li>
+                                <li><a href="#" rel="up"><?php echo $cate_1->name; ?></a><span>&rarr;</span></li>
                                 <?php
                             }
-                            if ($parent->main_name != '') {
+                            if ($cate_2 && empty($cate_3)) {
                                 ?>
-                                <li><a href="#" rel="up"><?php echo $parent->main_name; ?></a><span>&rarr;</span></li>
+                                <li><a href="#" class="current" rel="current"><?php echo $cate_2->name; ?></a> in <?php echo $content->city; ?></li>
+                            <?php
+                            }
+
+                            if ($cate_2 && $cate_3) {
+                                ?>
+                                <li><a href="#" rel="up"><?php echo $cate_2->name; ?></a><span>&rarr;</span></li>
                                 <?php
                             }
-                            if ($parent->sub_name != '') {
+                            if ($cate_3) {
                                 ?>
-                                <li><a href="#" class="current" rel="current"><?php echo $parent->sub_name; ?></a> in <?php echo $content->city; ?></li>
-                            <?php } ?>
+                                <li><a href="#" class="current" rel="current"><?php echo $cate_3->name; ?></a> in <?php echo $content->city; ?></li>
+                        <?php } ?>
                         </ol>
                     </div>
 
@@ -156,7 +163,7 @@
                                 <div id='item-attributes'>
                                     <div class='attr'>
                                         <span class='label'>Category:</span>
-                                        <span class='value'><a href='#'><?php echo $parent->sub_name;?></a></span>
+                                        <span class='value'><a href='#'><?php echo (!empty($cate_3)) ? $cate_3->name : $cate_2->name;?></a></span>
                                     </div>
                                     <div class='attr'>
                                         <span class='label'>Location:</span>
@@ -392,7 +399,7 @@
                 </div>
             <?php } ?>
             </div>
-            
+
             <?php /*
             <div class='similar-items wrap'>
                 <h2>You might also like...</h2>

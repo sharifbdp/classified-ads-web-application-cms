@@ -4,7 +4,6 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/var/www/bikroy/js/custom.js</file>
-            <file>file:/var/www/bikroy/application/public/views/ad/all_ad.php</file>
             <file>file:/var/www/bikroy/application/public/views/ad/category_page.php</file>
             <file>file:/var/www/bikroy/application/public/controllers/en.php</file>
             <file>file:/var/www/bikroy/application/public/models/fronts.php</file>

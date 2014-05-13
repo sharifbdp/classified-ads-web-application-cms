@@ -68,20 +68,39 @@
                                         <a href="<?php echo base_url();?>en/all_ads">‹ All Categories</a>
                                     </li>
                                     <li class='indent-1'>
-                                        <div class='current'>
-                                            <?php echo (!empty($cate_details)) ? $cate_details->name : 'No Category'; ?>
-                                        </div>
-                                        <?php if (!empty($cate_details)) { ?>
+                                        <?php if (empty($cate_2_details)) { ?>
+                                            <div class='current'>
+                                                <?php echo (!empty($cate_1_details)) ? $cate_1_details->name : 'No Category'; ?>
+                                            </div>
                                             <ul class='flat tree links'>
                                                 <?php
-                                                $all_child_cate = $this->Fronts->get_all_parent_category($cate_details->id);
+                                                $all_child_cate = $this->Fronts->get_all_parent_category($cate_1_details->id);
                                                 foreach ($all_child_cate as $child) {
+                                                    $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, $child['id']);
                                                     ?>
-                                                    <li><a href="<?php echo base_url('en/category/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;0</span></a></li>
+                                                    <li><a href="<?php echo base_url('en/category/' .$cate_1_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad;?></span></a></li>
                                                 <?php } ?>
                                             </ul>
-                                        <?php } ?>
+                                        <?php }else{ 
+                                            echo '<a href="' . base_url('en/category/' . $cate_1_details->alias) . '">‹ ' .  $cate_1_details->name . '</a>';
+                                         } ?>
                                     </li>
+                                    <?php if (!empty($cate_2_details)) { ?>
+                                    <li class='indent-2'>
+                                        <div class='current'>
+                                            <?php echo (!empty($cate_2_details)) ? $cate_2_details->name : 'No Category'; ?>
+                                        </div>
+                                            <ul class='flat tree links'>
+                                                <?php
+                                                $all_child_cate = $this->Fronts->get_all_parent_category($cate_2_details->id);
+                                                foreach ($all_child_cate as $child) {
+                                                    $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, $child['id']);
+                                                    ?>
+                                                    <li><a href="<?php echo base_url('en/category/' .$cate_2_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad;?></span></a></li>
+                                                <?php } ?>
+                                            </ul>
+                                    </li>
+                                    <?php } ?>
                                 </ul>
 
                             </div>
