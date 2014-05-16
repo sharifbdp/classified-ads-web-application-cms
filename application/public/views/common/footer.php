@@ -71,8 +71,32 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript">URL = "<?php echo base_url(); ?>";</script>
-        <script src="<?php echo base_url();?>js/jquery.js" type="text/javascript"></script>
+
+        <?php
+        $cate_1_alias = $this->uri->segment(3);
+        $cate_2_alias = $this->uri->segment(4);
+        $cate_3_alias = $this->uri->segment(5);
+        
+        $for_what = $this->input->get('for');
+        $sale_wanted = '';
+        if ($for_what == 'wanted') {
+            $sale_wanted = '?for=wanted';
+        }
+        if ($for_what == 'sale') {
+            $sale_wanted = '?for=sale';
+        }
+        
+        ?>
+        <script type="text/javascript">
+            URL = "<?php echo base_url(); ?>";
+            c1_alias = "<?php echo ($cate_1_alias != FALSE) ? $cate_1_alias . '/' : ''; ?>";
+            c2_alias = "<?php echo ($cate_2_alias != FALSE) ? $cate_2_alias . '/' : ''; ?>";
+            c3_alias = "<?php echo ($cate_3_alias != FALSE) ? $cate_3_alias . '/' : ''; ?>";
+            sale_wanted = "<?php echo $sale_wanted;?>";
+        </script>
+        
+        <script src="<?php echo base_url();?>js/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="<?php echo base_url();?>js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url();?>js/custom.js" type="text/javascript"></script>
 
     </body>

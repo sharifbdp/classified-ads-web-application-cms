@@ -266,7 +266,7 @@ class En extends CI_Controller {
             $data['entry_date'] = date('Y-m-d H:i:s');
             $data['type'] = $this->input->post('type', TRUE);
             $data['status'] = 5;
-            
+
             //poster
             $poster_email = $this->input->post('email', TRUE);
             $poster_check = $this->Fronts->check_poster_email_existence($poster_email);
@@ -334,45 +334,7 @@ class En extends CI_Controller {
         $this->load->view('ad/finish', $data);
     }
 
-    public function all_ads() {
-        $this->load->library('pagination');
-
-        $config['base_url'] = base_url() . 'en/all_ads';
-        $config['total_rows'] = $this->Fronts->total_no_of_ad_data($type = NULL, $sort = NULL);
-        $config['per_page'] = 5;
-
-        $config['prev_link'] = 'prev';
-        $config['prev_tag_open'] = '<div class="page"><span class="prev">';
-        $config['prev_tag_close'] = '</span></div>';
-
-        $config['next_link'] = 'next';
-        $config['next_tag_open'] = '<div class="page"><span class="next ">';
-        $config['next_tag_close'] = '</span></div>';
-
-        $config['cur_tag_open'] = '<div class="page current"><span class="current"><a href="#">';
-        $config['cur_tag_close'] = '</a></span></div>';
-
-        $config['num_tag_open'] = '<div class="page"><span>';
-        $config['num_tag_close'] = '</span></div>';
-
-//        $config['first_link'] = '<<';
-//        $config['first_tag_open'] = '<div class="page"><span>';
-//        $config['first_tag_close'] = '</span></div>';
-//
-//        $config['last_link'] = '>>';
-//        $config['last_tag_open'] = '<div class="page"><span>';
-//        $config['last_tag_close'] = '</span></div>';
-
-        $config['first_link'] = FALSE;
-        $config['last_link'] = FALSE;
-
-        $this->pagination->initialize($config);
-
-        $data['content'] = $this->Fronts->get_all_ad_data($type = NULL, $sort = NULL, $config['per_page'], $this->uri->segment(3));
-        $this->load->view('ad/all_ad', $data);
-    }
-
-    public function load_ads($type = NULL, $sort = NULL) {
+    public function all_ads($type = NULL, $cate_1_slug = NULL, $cate_2_slug = NULL, $cate_3_slug = NULL, $sort = NULL) {
         if ($type != NULL) {
             if ($type == 'all') {
                 $type = NULL;
@@ -387,7 +349,42 @@ class En extends CI_Controller {
         } else {
             $sort = FALSE;
         }
-        $data['content'] = $this->Fronts->get_all_ad_data($type, $sort);
+        //
+        $data['cate_1_details'] = $this->Fronts->get_category_by_alias(trim($cate_1_slug));
+        $data['cate_2_details'] = $this->Fronts->get_category_by_alias(trim($cate_2_slug));
+        $data['cate_3_details'] = $this->Fronts->get_category_by_alias(trim($cate_3_slug));
+        $cate_1_id = (!empty($data['cate_1_details'])) ? $data['cate_1_details']->id : NULL;
+        $cate_2_id = (!empty($data['cate_2_details'])) ? $data['cate_2_details']->id : NULL;
+        $cate_3_id = (!empty($data['cate_3_details'])) ? $data['cate_3_details']->id : NULL;
+        //
+        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $cate_1_id, $cate_2_id, $cate_3_id, $sort);
+        $this->load->view('ad/all_ad', $data);
+    }
+
+    public function load_ads($type = NULL, $sort = NULL, $cate_1_slug = NULL, $cate_2_slug = NULL, $cate_3_slug = NULL) {
+        if ($type != NULL) {
+            if ($type == 'all') {
+                $type = NULL;
+            } elseif ($type == 'private') {
+                $type = 1;
+            } elseif ($type == 'business') {
+                $type = 2;
+            }
+        }
+        if ($sort == 'price') {
+            $sort = TRUE;
+        } else {
+            $sort = FALSE;
+        }
+        //
+        $data['cate_1_details'] = $this->Fronts->get_category_by_alias(trim($cate_1_slug));
+        $data['cate_2_details'] = $this->Fronts->get_category_by_alias(trim($cate_2_slug));
+        $data['cate_3_details'] = $this->Fronts->get_category_by_alias(trim($cate_3_slug));
+        $cate_1_id = (!empty($data['cate_1_details'])) ? $data['cate_1_details']->id : NULL;
+        $cate_2_id = (!empty($data['cate_2_details'])) ? $data['cate_2_details']->id : NULL;
+        $cate_3_id = (!empty($data['cate_3_details'])) ? $data['cate_3_details']->id : NULL;
+        //
+        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $sort, $cate_1_id, $cate_2_id, $cate_3_id);
         $this->load->view('ad/private_ad', $data);
     }
 
@@ -414,7 +411,7 @@ class En extends CI_Controller {
             $data['cate_3_details'] = $this->Fronts->get_category_by_alias($cate_3);
             $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_1_details']->id, $data['cate_2_details']->id, $data['cate_3_details']->id);
         }
-        var_dump($data['content']);
+        //var_dump($data['content']);
         $this->load->view('ad/category_page', $data);
     }
 

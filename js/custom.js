@@ -26,10 +26,11 @@ $(document).ready(function() {
 
     $('#all-ads').click(function(e) {
         e.preventDefault();
-        var ajax = URL + "en/load_ads/all";
+        var ajax = URL + "en/load_ads/all/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted;
         $(this).addClass('current');
         $('#private-ads, #business-ads').removeClass('current');
         $('#most-recent, #low-price').prop('rel', ajax);
+        $('#for-sale, #for-wanted').prop('rel', ajax);
         $.ajax({
             type: "GET",
             url: ajax,
@@ -42,10 +43,11 @@ $(document).ready(function() {
 
     $('#private-ads').click(function(e) {
         e.preventDefault();
-        var ajax = URL + "en/load_ads/private";
+        var ajax = URL + "en/load_ads/private/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted;
         $(this).addClass('current');
         $('#all-ads, #business-ads').removeClass('current');
         $('#most-recent, #low-price').prop('rel', ajax);
+        $('#for-sale, #for-wanted').prop('rel', ajax);
         $.ajax({
             type: "GET",
             url: ajax,
@@ -58,10 +60,11 @@ $(document).ready(function() {
 
     $('#business-ads').click(function(e) {
         e.preventDefault();
-        var ajax = URL + "en/load_ads/business";
+        var ajax = URL + "en/load_ads/business/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted;
         $(this).addClass('current');
         $('#all-ads, #private-ads').removeClass('current');
         $('#most-recent, #low-price').prop('rel', ajax);
+        $('#for-sale, #for-wanted').prop('rel', ajax);
         $.ajax({
             type: "GET",
             url: ajax,
@@ -77,7 +80,7 @@ $(document).ready(function() {
         var ajax = $('#most-recent').attr('rel');
         $.ajax({
             type: "GET",
-            url: ajax + '/recent',
+            url: ajax,
             success: function(data) {
                 // return success
                 $('#item-listing').html(data);
@@ -90,9 +93,10 @@ $(document).ready(function() {
     $('#low-price').click(function(e) {
         e.preventDefault();
         var ajax = $('#low-price').attr('rel');
+        var url = ajax.replace("recent", "price");
         $.ajax({
             type: "GET",
-            url: ajax + '/price',
+            url: url,
             success: function(data) {
                 // return success
                 $('#item-listing').html(data);
@@ -101,7 +105,7 @@ $(document).ready(function() {
             }
         });
     });
-
+    
     $('a.compact').click(function(e) {
         e.preventDefault();
         $('.flat.regular').hide(200);
@@ -116,6 +120,11 @@ $(document).ready(function() {
         $('.flat.regular').show(200);
         $('a.compact').removeClass('current');
         $('a.regular').addClass('current');
+    });
+
+    $('#report-item').click(function(e) {
+        e.preventDefault();
+        $( "#report-item-modal" ).dialog();
     });
 
 

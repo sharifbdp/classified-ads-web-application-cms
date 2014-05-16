@@ -1,10 +1,39 @@
                             <div class="spinner"></div>
                             <div class='top clearfix'>
+                                
                                 <ol class='breadcrumbs clearfix h-stack flat'>
-                                    <li>
-                                        <h1><a href="<?php echo base_url();?>en/all_ads" class="current" rel="current">All ads</a> in Ghana</h1>
-                                    </li>
+                                    <li><a href="<?php echo base_url(); ?>en/all_ads" rel="up up">All ads</a><span>&rarr;</span></li>
+                                    <?php
+                                    if (!empty($cate_1_details) && empty($cate_2_details)) {
+                                        ?>
+                                        <li><a href="#" class="current" rel="current"><?php echo $cate_1_details->name; ?></a> in <?php echo "Ghana"; ?></li>
+                                        <?php
+                                    } else {
+                                        // just for home page
+                                        if(!empty($cate_1_details)){
+                                            echo "<li><a href='#' rel='up'>{$cate_1_details->name}</a><span>&rarr;</span></li>";
+                                        }else{
+                                            echo "in Ghana";
+                                        }
+                                    }
+
+                                    if (!empty($cate_2_details) && empty($cate_3_details)) {
+                                        ?>
+                                        <li><a href="#" class="current" rel="current"><?php echo $cate_2_details->name; ?></a> in <?php echo "Ghana"; ?></li>
+                                        <?php
+                                    }
+
+                                    if (!empty($cate_2_details) && !empty($cate_3_details)) {
+                                        ?>
+                                        <li><a href="#" rel="up"><?php echo $cate_2_details->name; ?></a><span>&rarr;</span></li>
+                                        <?php
+                                    }
+                                    if (!empty($cate_3_details)) {
+                                        ?>
+                                        <li><a href="#" class="current" rel="current"><?php echo $cate_3_details->name; ?></a> in <?php echo "Ghana"; ?></li>
+                                    <?php } ?>
                                 </ol>
+                                
                                 <div class='h-stack polar' id='list-mode-nav'>
                                     <a class='regular current' href='#'>Regular</a>
                                     <a class='compact' href='#'>Compact</a>

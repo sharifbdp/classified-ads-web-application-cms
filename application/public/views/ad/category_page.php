@@ -65,8 +65,9 @@
                             <div class='categories'>
                                 <ul class='flat tree'>
                                     <li class='indent-0'>
-                                        <a href="<?php echo base_url();?>en/all_ads">‹ All Categories</a>
+                                        <a href="<?php echo base_url(); ?>en/all_ads">‹ All Categories</a>
                                     </li>
+
                                     <li class='indent-1'>
                                         <?php if (empty($cate_2_details)) { ?>
                                             <div class='current'>
@@ -78,38 +79,79 @@
                                                 foreach ($all_child_cate as $child) {
                                                     $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, $child['id']);
                                                     ?>
-                                                    <li><a href="<?php echo base_url('en/category/' .$cate_1_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad;?></span></a></li>
+                                                    <li><a href="<?php echo base_url('en/category/' . $cate_1_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad; ?></span></a></li>
                                                 <?php } ?>
                                             </ul>
-                                        <?php }else{ 
-                                            echo '<a href="' . base_url('en/category/' . $cate_1_details->alias) . '">‹ ' .  $cate_1_details->name . '</a>';
-                                         } ?>
+                                            <?php
+                                        } else {
+                                            echo '<a href="' . base_url('en/category/' . $cate_1_details->alias) . '">‹ ' . $cate_1_details->name . '</a>';
+                                        }
+                                        ?>
                                     </li>
+
                                     <?php if (!empty($cate_2_details)) { ?>
-                                    <li class='indent-2'>
-                                        <div class='current'>
-                                            <?php echo (!empty($cate_2_details)) ? $cate_2_details->name : 'No Category'; ?>
-                                        </div>
-                                            <ul class='flat tree links'>
+                                        <li class='indent-2'>
+                                            <?php if (empty($cate_3_details)) { ?>
+                                                <div class='current'>
+                                                    <?php echo $cate_2_details->name; ?>
+                                                </div>
+                                                <ul class='flat tree links'>
+                                                    <?php
+                                                    $all_child_cate = $this->Fronts->get_all_parent_category($cate_2_details->id);
+                                                    foreach ($all_child_cate as $child) {
+                                                        $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, NULL, $child['id']);
+                                                        ?>
+                                                        <li><a href="<?php echo base_url('en/category/' . $cate_1_details->alias . '/' . $cate_2_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad; ?></span></a></li>
+                                                    <?php } ?>
+                                                </ul>
                                                 <?php
-                                                $all_child_cate = $this->Fronts->get_all_parent_category($cate_2_details->id);
-                                                foreach ($all_child_cate as $child) {
-                                                    $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, $child['id']);
-                                                    ?>
-                                                    <li><a href="<?php echo base_url('en/category/' .$cate_2_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad;?></span></a></li>
-                                                <?php } ?>
-                                            </ul>
-                                    </li>
+                                            } else {
+                                                echo '<a href="' . base_url('en/category/' . $cate_1_details->alias . '/' . $cate_2_details->alias) . '">‹ ' . $cate_2_details->name . '</a>';
+                                            }
+                                            ?>
+                                        </li>
+                                    <?php } ?>
+
+                                    <?php if (!empty($cate_3_details)) { ?>
+                                        <li class='indent-3'>
+                                            <div class='current'><?php echo $cate_3_details->name; ?></div>
+                                        </li>
                                     <?php } ?>
                                 </ul>
 
                             </div>
+
+                            <?php
+                            $cate_1_alias = $this->uri->segment(3);
+                            $cate_2_alias = $this->uri->segment(4);
+                            $cate_3_alias = $this->uri->segment(5);
+                            $cate_1_id = (!empty($cate_1_details)) ? $cate_1_details->id : NULL;
+                            $cate_2_id = (!empty($cate_2_details)) ? $cate_2_details->id : NULL;
+                            $cate_3_id = (!empty($cate_3_details)) ? $cate_3_details->id : NULL;
+
+                            $last_seg = end($this->uri->segments);
+                            $cate_details = $this->Fronts->check_has_child_category_by_alias($last_seg);
+                            ?>
+
+
+
                             <div class='ad-types'>
                                 <ul class='flat tree'>
                                     <li class='indent-0'>
+                                        <?php if ($cate_details == FALSE) { 
+                                            $for_what = $this->input->get('for');
+                                            $sale_active = ($for_what == 'sale' || $for_what == '')? 'active' : '';
+                                            $wanted_active = ($for_what == 'wanted')? 'active' : '';
+                                            ?>
+                                            <ul class='flat tree links'>
+                                                <li class='<?php echo $sale_active;?>'><a id="for-sale" href="<?php echo base_url() . $this->uri->uri_string();?>?for=sale">For sale</a></li>
+                                                <li class='<?php echo $wanted_active;?>'><a id="for-wanted" href="<?php echo base_url() . $this->uri->uri_string();?>?for=wanted">Wanted</a></li>
+                                            </ul>
+                                        <?php } ?>
                                     </li>
                                 </ul>
                             </div>
+
                             <div class='locations'>
                                 <ul class='flat tree'>
                                     <li class='indent-0'>
@@ -117,37 +159,43 @@
                                             All of Ghana
                                         </div>
                                         <ul class='flat tree links'>
-                                            <li>
-                                                <a href="/en/electronics-in-accra"><span class='title'>Accra</span><span class='count'>&nbsp;29020</span></a></li>
-                                            <li>
-                                                <a href="/en/electronics-in-kumasi"><span class='title'>Kumasi</span><span class='count'>&nbsp;6584</span></a></li>
-                                            <li>
-                                                <a href="/en/electronics-in-greater-accra"><span class='title'>Greater Accra</span><span class='count'>&nbsp;2710</span></a></li>
-                                            <li>
-                                                <a href="/en/electronics-in-sekondi-takoradi"><span class='title'>Sekondi Takoradi</span><span class='count'>&nbsp;1976</span></a></li>
-                                            <li>
-                                                <a href="/en/electronics-in-central"><span class='title'>Central</span><span class='count'>&nbsp;1248</span></a></li>
-                                            <li>
-                                                <a href="/en/electronics-in-eastern"><span class='title'>Eastern</span><span class='count'>&nbsp;866</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-ashanti"><span class='title'>Ashanti</span><span class='count'>&nbsp;353</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-brong-ahafo"><span class='title'>Brong-Ahafo</span><span class='count'>&nbsp;298</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-northern"><span class='title'>Northern</span><span class='count'>&nbsp;135</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-upper-east"><span class='title'>Upper East</span><span class='count'>&nbsp;57</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-upper-west"><span class='title'>Upper West</span><span class='count'>&nbsp;85</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-volta"><span class='title'>Volta</span><span class='count'>&nbsp;223</span></a></li>
-                                            <li class='hidden'>
-                                                <a href="/en/electronics-in-western"><span class='title'>Western</span><span class='count'>&nbsp;288</span></a></li>
+                                            <?php
+                                            $all_ad_location = $this->Fronts->get_all_location_city_by_category_id($cate_1_id, $cate_2_id, $cate_3_id);
+                                            if ($all_ad_location) {
+                                                foreach ($all_ad_location as $loc) {
+                                                    $count_location_ad = $this->Fronts->count_ads_by_location_id($loc['ad_location']);
+                                                    ?>
+                                                    <li><a href="#"><span class='title'><?php echo $loc['location']; ?></span><span class='count'>&nbsp;<?php echo $count_location_ad;?></span></a></li>
+                                                <?php }
+                                            }
+                                            ?>
                                         </ul>
                                     </li>
                                 </ul>
 
                             </div>
+
+                            <div id="serp-filter">
+                                <div class="filters">
+
+                                    <div class="filter">
+                                        <ul class="flat tree">
+                                            <li class="indent-0">
+                                                <div data-filter-type="price" class="current">Price</div>
+                                                <div class="content clearfix">
+                                                    <div class="filter price"><span class="currency">$</span>
+                                                        <input class="min" name="min"> - <input class="max" name="max">
+                                                        <button>Go</button>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
                         </div>
                         <div id='skyscraper'>
                             <div style='width:160px; height:600px;'></div>
@@ -160,15 +208,15 @@
                                 <div class='h-stack' id='scopes'>
                                     <div id="all-ads" class='tab current'>
                                         <a href="#">All ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type();?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(NULL, $cate_1_id, $cate_2_id, $cate_3_id);?></span>
                                         </a></div>
                                     <div id="private-ads" class='tab'>
                                         <a href="#">Private ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type(1);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(1, $cate_1_id, $cate_2_id, $cate_3_id);?></span>
                                         </a></div>
                                     <div id="business-ads" class='tab'>
                                         <a href="#">Business ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type(2);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(2, $cate_1_id, $cate_2_id, $cate_3_id);?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -186,20 +234,42 @@
 
                         <div id='item-listing'>
                             <div class='top clearfix'>
+
                                 <ol class='breadcrumbs clearfix h-stack flat'>
-                                    <li><a href="<?php echo base_url();?>en/all_ads" rel="up">All ads</a><span>&rarr;</span></li>
-                                    <li>
-                                        <h1>
-                                            <a href="<?php echo base_url();?>en/all_ads" class="current" rel="current">Electronics</a> in Ghana
-                                        </h1>
-                                    </li>
+                                    <li><a href="<?php echo base_url(); ?>en/all_ads" rel="up up">All ads</a><span>&rarr;</span></li>
+                                    <?php
+                                    if ($cate_1_details && empty($cate_2_details)) {
+                                        ?>
+                                        <li><a href="#" class="current" rel="current"><?php echo $cate_1_details->name; ?></a> in <?php echo "Ghana"; ?></li>
+                                        <?php
+                                    } else {
+                                        echo "<li><a href='#' rel='up'>{$cate_1_details->name}</a><span>&rarr;</span></li>";
+                                    }
+
+                                    if (!empty($cate_2_details) && empty($cate_3_details)) {
+                                        ?>
+                                        <li><a href="#" class="current" rel="current"><?php echo $cate_2_details->name; ?></a> in <?php echo "Ghana"; ?></li>
+                                        <?php
+                                    }
+
+                                    if (!empty($cate_2_details) && !empty($cate_3_details)) {
+                                        ?>
+                                        <li><a href="#" rel="up"><?php echo $cate_2_details->name; ?></a><span>&rarr;</span></li>
+                                        <?php
+                                    }
+                                    if (!empty($cate_3_details)) {
+                                        ?>
+                                        <li><a href="#" class="current" rel="current"><?php echo $cate_3_details->name; ?></a> in <?php echo "Ghana"; ?></li>
+                                    <?php } ?>
                                 </ol>
+
+
                                 <div class='h-stack polar' id='list-mode-nav'>
                                     <a class='regular current' href='#'>Regular</a>
                                     <a class='compact' href='#'>Compact</a>
                                 </div>
                             </div>
-                            
+
                             <ul class='flat regular' id='item-rows'>
                                 <?php
                                 if (!empty($content)) {
@@ -279,13 +349,13 @@
                                 }
                                 ?>
                             </ul>
-                            
+
                         </div>
-                        
+
                         <div class='pagination'></div>
 
                         <div id='server-side-pagination'>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -306,5 +376,5 @@
             </div>
 
         </div>
-        
+
 <?php $this->load->view('common/footer'); ?>

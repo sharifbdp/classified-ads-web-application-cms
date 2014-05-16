@@ -234,6 +234,35 @@ class Fronts extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_all_location_city_by_category_id($cate_1 = NULL, $cate_2 = NULL, $cate_3 = NULL) {
+        $this->db->select('A.id as ad_id, A.ad_location, L.name as location');
+        $this->db->from('advertizement A');
+        $this->db->join('poster_location as L', 'L.id = A.ad_location', 'inner');
+        $this->db->where('A.status', 0);
+
+        $for_what = $this->input->get('for');
+        if ($for_what == 'wanted') {
+            $this->db->where('A.for_what', 2); // 2= wanted
+        }
+        if ($for_what == 'sale') {
+            $this->db->where('A.for_what', 1); // default show "for sale product"
+        }
+
+        if ($cate_1 != NULL) {
+            $this->db->where('A.cate_1', $cate_1);
+        }
+        if ($cate_2 != NULL) {
+            $this->db->where('A.cate_2', $cate_2);
+        }
+        if ($cate_3 != NULL) {
+            $this->db->where('A.cate_3', $cate_3);
+        }
+        $this->db->group_by('A.ad_location');
+        $this->db->order_by('L.name', 'ASC');
+
+        return $this->db->get()->result_array();
+    }
+
     public function get_all_parent_category($parent_id = 0, $limit = NULL, $offset = NULL) {
         $this->db->from('category');
         $this->db->where("parent_id", $parent_id);
@@ -263,6 +292,20 @@ class Fronts extends CI_Model {
     public function get_category_by_id($id) {
         $this->db->where('id', $id);
         return $this->db->get('category')->row();
+    }
+
+    public function check_has_child_category_by_alias($alias) {
+        $this->db->where('alias', $alias);
+        $cate_details = $this->db->get('category')->row();
+
+        $this->db->where('parent_id', $cate_details->id);
+        $result = $this->db->get('category')->result_array();
+        $norows = $this->db->count_all_results();
+        if ($norows < 0) {
+            return false;
+        } else {
+            return $result;
+        }
     }
 
     public function get_location_details_by_id($id) {
@@ -384,11 +427,20 @@ class Fronts extends CI_Model {
     public function get_all_ad_data_by_category_id($cate_1, $cate_2 = NULL, $cate_3 = NULL, $limit = NULL, $offset = NULL) {
         $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
         $this->db->from('advertizement A');
-        $this->db->join('category C', 'C.id = A.cate_1', 'inner');
+        $this->db->join('category C', 'C.id = A.cate_2', 'inner');
         $this->db->join('poster P', 'P.id = A.p_id', 'inner');
         $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
         $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
         $this->db->where('A.status', 0);
+
+        $for_what = $this->input->get('for');
+        if ($for_what == 'wanted') {
+            $this->db->where('A.for_what', 2); // 2= wanted
+        }
+        if ($for_what == 'sale') {
+            $this->db->where('A.for_what', 1); // default show "for sale product"
+        }
+
         if ($cate_1 != NULL) {
             $this->db->where('A.cate_1', $cate_1);
         }
@@ -405,17 +457,76 @@ class Fronts extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_all_ad_by_type_sort_category_id($type = NULL, $sort = NULL, $cate_1_id = NULL, $cate_2_id = NULL, $cate_3_id = NULL, $limit = NULL, $offset = NULL) {
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement A');
+        $this->db->join('category C', 'C.id = A.cate_2', 'inner');
+        $this->db->join('poster P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
+        if ($type != NULL) {
+            $this->db->where('A.type', $type);
+        }
+        if ($cate_1_id != NULL) {
+            $this->db->where('A.cate_1', $cate_1_id);
+        }
+        if ($cate_2_id != NULL) {
+            $this->db->where('A.cate_2', $cate_2_id);
+        }
+        if ($cate_3_id != NULL) {
+            $this->db->where('A.cate_3', $cate_3_id);
+        }
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        $this->db->where('A.status', 0);
+
+        $for_what = $this->input->get('for');
+        if ($for_what == 'wanted') {
+            $this->db->where('A.for_what', 2); // 2= wanted
+        }
+        if ($for_what == 'sale') {
+            $this->db->where('A.for_what', 1); // default show "for sale product"
+        }
+
+        if ($sort == TRUE) {
+            $this->db->order_by('A.price', 'ASC');
+            $this->db->where('negotiable !=', 1);
+        }
+        $this->db->order_by('A.entry_date', 'DESC');
+
+        return $this->db->get()->result_array();
+    }
+
     public function get_all_ad_image_by_ad_id($ad_id) {
         $this->db->where('ad_id', $ad_id);
         $this->db->order_by('id', 'DESC');
         return $this->db->get('advertizement_image')->result_array();
     }
 
-    public function count_ads_by_type($type = NULL) {
+    public function count_ads_by_type_and_cate_id($type = NULL, $cate_1_id = NULL, $cate_2_id = NULL, $cate_3_id = NULL) {
         if ($type != NULL) {
             $this->db->where('type', $type);
         }
+        if ($cate_1_id != NULL) {
+            $this->db->where('cate_1', $cate_1_id);
+        }
+        if ($cate_2_id != NULL) {
+            $this->db->where('cate_2', $cate_2_id);
+        }
+        if ($cate_3_id != NULL) {
+            $this->db->where('cate_3', $cate_3_id);
+        }
         $this->db->where('status', 0);
+
+        $for_what = $this->input->get('for');
+        if ($for_what == 'wanted') {
+            $this->db->where('for_what', 2); // 2= wanted
+        }
+        if ($for_what == 'sale') {
+            $this->db->where('for_what', 1); // by default = For Sale
+        }
+
         return $this->db->count_all_results('advertizement');
     }
 

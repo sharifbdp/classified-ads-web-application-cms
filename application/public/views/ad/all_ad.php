@@ -124,15 +124,15 @@
                                 <div class='h-stack' id='scopes'>
                                     <div id="all-ads" class='tab current'>
                                         <a href="#">All ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type();?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id();?></span>
                                         </a></div>
                                     <div id="private-ads" class='tab'>
                                         <a href="#">Private ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type(1);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(1);?></span>
                                         </a></div>
                                     <div id="business-ads" class='tab'>
                                         <a href="#">Business ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type(2);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(2);?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -140,8 +140,8 @@
                                     <div class='sort-wrap'>
                                         <a class='current-sort' href='#'><span>Most Recent</span><i class='arrow'></i></a>
                                         <div class='sort-options' style="">
-                                            <a id="most-recent" rel="<?php echo base_url();?>en/load_ads/all" href='#'>Most Recent</a>
-                                            <a id="low-price" rel="<?php echo base_url();?>en/load_ads/all" href='#'>Lowest Price</a>
+                                            <a id="most-recent" rel="<?php echo base_url();?>en/load_ads/all/recent/" href='#'>Most Recent</a>
+                                            <a id="low-price" rel="<?php echo base_url();?>en/load_ads/all/price/" href='#'>Lowest Price</a>
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +246,7 @@
 
                         <div class="pagination" style="display: block;">
                             <div class="nav h-stack">
-                            <?php echo $this->pagination->create_links(); ?>
+                            <?php //echo $this->pagination->create_links(); ?>
                             </div>
                         </div>
                     </div>

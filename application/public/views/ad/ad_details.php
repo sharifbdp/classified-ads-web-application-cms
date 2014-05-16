@@ -5,7 +5,16 @@
         <?php $this->load->view('common/top_menu'); ?>
 
         <div id='site-content'>
-
+            
+            <?php /*
+            <div class="alert wrap">
+                <div class="box success"><a href="#" class="polar close">×</a>
+                    <p>This ad has been reported, thank you.</p>
+                </div>
+            </div>
+             */
+            ?>
+            
             <div class='wrap'>
                 <?php if(!empty($content)){ ?>
                 <div class='item-top row'>
@@ -248,61 +257,55 @@
                                 </div>-->
 
 
-<!--                                <div class='col6' data-ui='modal' id='report-item'>
-                                    <form accept-charset="UTF-8" action="/en/slightly-used-galaxy-note-1-att-for-sale-kumasi/report_email" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="V0IkNbC0qB5NFmX1crSwoRf/+dNqkkX3YqHxeaEt3u8=" /></div><div class='inner-box'>
-                                            <h2>Is there something wrong with this ad?</h2>
-                                            <p>We're constantly working hard to assure that our ads meet high standards and we are very grateful for any kind of feedback from our users.</p>
-                                            <div class='field'>
-                                                <label for='report-reason'>
-                                                    Reason
-                                                </label>
-                                                <div class='input'>
-                                                    <select class='required' id='report-reason' name='report_email[reason]'>
-                                                        <option value=''>-- Select a reason --</option>
-                                                        <option value='sold_unavailable'>Item sold/unavailable</option>
-                                                        <option value='fraud'>Fraud</option>
-                                                        <option value='duplicate'>Duplicate</option>
-                                                        <option value='spam'>Spam</option>
-                                                        <option value='wrong_category'>Wrong category</option>
-                                                        <option value='offensive'>Offensive</option>
-                                                        <option value='other'>Other</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class='field'>
-                                                <label for="report_email_email">Your Email</label>
-                                                <div class='input'><input class="required email" id="report_email_email" name="report_email[email]" size="30" type="text" /></div>
-                                            </div>
-                                            <div class='field'>
-                                                <label for="report_email_message">Message</label>
-                                                <div class='input'><textarea class="required" cols="40" id="report_email_message" name="report_email[message]" rows="8">
-                                                    </textarea></div>
-                                            </div>
-                                        </div>
-                                        <div class='actions'>
-                                            <button class='btn' type='submit'>
-                                                <span>Send report</span>
-                                            </button>
-                                        </div>
-                                    </form>
-
-                                </div>-->
  */
 ?>
+                <div class='col6' data-ui='modal' id='report-item-modal' style="display: none;">
+                    <form accept-charset="UTF-8" action="" method="post">
+                        <div style="margin:0;padding:0;display:inline">
+                            <input name="utf8" type="hidden" value="&#x2713;" />
+                            <input name="authenticity_token" type="hidden" value="V0IkNbC0qB5NFmX1crSwoRf/+dNqkkX3YqHxeaEt3u8=" />
+                        </div>
+                        <div class='inner-box'>
+                            <h2>Is there something wrong with this ad?</h2>
+                            <p>We're constantly working hard to assure that our ads meet high standards and we are very grateful for any kind of feedback from our users.</p>
+                            <div class='field'>
+                                <label for='report-reason'> Reason </label>
+                                <div class='input'>
+                                    <select class='required' id='report-reason' name='report_email[reason]'>
+                                        <option value=''>-- Select a reason --</option>
+                                        <option value='sold_unavailable'>Item sold/unavailable</option>
+                                        <option value='fraud'>Fraud</option>
+                                        <option value='duplicate'>Duplicate</option>
+                                        <option value='spam'>Spam</option>
+                                        <option value='wrong_category'>Wrong category</option>
+                                        <option value='offensive'>Offensive</option>
+                                        <option value='other'>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class='field'>
+                                <label for="report_email_email">Your Email</label>
+                                <div class='input'><input class="required email" id="report_email_email" name="report_email" size="30" type="text" /></div>
+                            </div>
+                            <div class='field'>
+                                <label for="report_email_message">Message</label>
+                                <div class='input'><textarea class="required" cols="40" id="report_email_message" name="report_message" rows="8">
+                                    </textarea></div>
+                            </div>
+                        </div>
+                        <div class='actions'>
+                            <button class='btn' type='submit'><span>Send report</span></button>
+                        </div>
+                    </form>
 
+                </div>
+
+                
                 <div class='bottom-bar actions inner-box-compact'>
                     <div class='h-stack'></div>
                     <div class='polar h-stack'>
-                        <a href="#report-item" class="btn report" data-ui-nav="modal"><span>
-                                <i class='ico-report'></i>
-                                Report Ad
-                            </span>
-                        </a>
-                        <a href="#" class="btn edit"><span>
-                                <i class='ico-edit'></i>
-                                Edit or delete ad
-                            </span>
-                        </a>
+                        <a href="#" id="report-item" class="btn report" data-ui-nav="modal"><span><i class='ico-report'></i>Report Ad</span></a>
+                        <a href="#" class="btn edit"><span><i class='ico-edit'></i>Edit or delete ad</span></a>
                     </div>
                 </div>
 
