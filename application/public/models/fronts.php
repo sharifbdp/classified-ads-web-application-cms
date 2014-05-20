@@ -202,6 +202,67 @@ class Fronts extends CI_Model {
         return "$difference $periods[$j] ago";
     }
 
+    public function get_all_category($limit = NULL, $offset = NULL) {
+        $this->db->from('category');
+        $this->db->where("parent_id", '0');
+        $this->db->where("status != ", '13');
+        $this->db->order_by("serial", "asc");
+
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+
+        return $this->db->get()->result_array();
+    }
+
+    public function search_by_query_category_location($query, $cate_id, $location_id, $limit = NULL, $offset = NULL) {
+
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement A');
+        $this->db->join('category C', 'C.id = A.cate_2', 'inner');
+        $this->db->join('poster P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
+        $this->db->where('A.status', 0);
+
+        if ($query != NULL) {
+            $this->db->like('title', $query, 'both');
+        }
+        if ($cate_id != NULL) {
+            $this->db->like('cate_1', $cate_id, 'both');
+        }
+        if ($location_id != NULL) {
+            $this->db->like('ad_location', $location_id, 'both');
+        }
+
+        $this->db->order_by('A.entry_date', 'DESC');
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        return $this->db->get()->result_array();
+    }
+
+    public function count_ads_for_search_result_page($type = NULL, $query = NULL, $cate_1_alias = NULL, $location_name = NULL) {
+        if ($type != NULL) {
+            $this->db->where('type', $type);
+        }
+
+        if ($query != NULL) {
+            $this->db->like('title', $query, 'both');
+        }
+        if ($cate_1_alias != NULL) {
+            $cate_1_id = $this->db->query("SELECT * FROM (`category`) WHERE `alias` = '{$cate_1_alias}'")->row()->id;
+            $this->db->where('cate_1', intval($cate_1_id));
+        }
+        if ($location_name != NULL) {
+            $location_id = $this->db->query("SELECT * FROM (`poster_location`) WHERE `name` = '{$location_name}'")->row()->id;
+            $this->db->where('ad_location', intval($location_id));
+        }
+
+        $this->db->where('status', 0);
+        return $this->db->count_all_results('advertizement');
+    }
+
     public function getTreeCategory($parent, $level = 0, $selectid = NULL) {
         $this->db->from('category');
         $this->db->select('id, name, parent_id');
@@ -310,6 +371,11 @@ class Fronts extends CI_Model {
 
     public function get_location_details_by_id($id) {
         $this->db->where('id', $id);
+        return $this->db->get('poster_location')->row();
+    }
+
+    public function get_location_details_by_name($name) {
+        $this->db->where('name', $name);
         return $this->db->get('poster_location')->row();
     }
 
@@ -489,6 +555,22 @@ class Fronts extends CI_Model {
             $this->db->where('A.for_what', 1); // default show "for sale product"
         }
 
+        // for search
+        $query = $this->input->get('query');
+        if ($query != NULL) {
+            $this->db->like('A.title', $query, 'both');
+        }
+        $category_alias = $this->input->get('category');
+        if ($category_alias != NULL) {
+            $cate_1_id = $this->db->query("SELECT * FROM (`category`) WHERE `alias` = '{$category_alias}'")->row()->id;
+            $this->db->where('A.cate_1', intval($cate_1_id));
+        }
+        $location_name = $this->input->get('location');
+        if ($location_name != NULL) {
+            $location_id = $this->db->query("SELECT * FROM (`poster_location`) WHERE `name` = '{$location_name}'")->row()->id;
+            $this->db->where('A.ad_location', intval($location_id));
+        }
+        //
         if ($sort == TRUE) {
             $this->db->order_by('A.price', 'ASC');
             $this->db->where('negotiable !=', 1);

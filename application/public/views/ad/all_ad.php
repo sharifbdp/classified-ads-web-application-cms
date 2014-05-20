@@ -7,7 +7,7 @@
         <div id='site-content'>
 
             <div class='wrap'>
-                <form action='' id='item-search' method='get'>
+                <?php echo form_open('en/search', array('name' => 'search-product', 'id' => 'item-search', 'method' => 'get', 'onsubmit' => 'return validateForm()'));?>
                     <div class='h-stack fields clearfix'>
                         <div class='query'>
                             <input id='item-search-field' name='query' placeholder='What are you looking for?' type='text'>
@@ -15,51 +15,38 @@
                         <div class='category'>
                             <select id='ad_category_select' name='category'>
                                 <option value="" selected="selected">All Categories</option>
-                                <option value="604">Cars &amp; Vehicles</option>
-                                <option value="623">Property</option>
-                                <option value="644">Electronics</option>
-                                <option value="660">Home Appliances</option>
-                                <option value="689">Personal Items</option>
-                                <option value="714">Leisure, Sport &amp; Hobby</option>
-                                <option value="748">Jobs &amp; Services</option>
-                                <option value="793">Food &amp; Agriculture</option>
-                                <option value="801">Pets &amp; Animals</option>
-                                <option value="819">Education &amp; Teaching</option>
-                                <option value="831">Other</option>
+                                <?php
+                                $all_category = $this->Fronts->get_all_parent_category();
+                                if(!empty($all_category)){
+                                    foreach ($all_category as $cate){
+                                        echo "<option value='{$cate['alias']}'>{$cate['name']}</option>";
+                                    }
+                                }
+                                ?>
+                                <option value="999">Other</option>
                             </select>
                         </div>
                         <div class='location'>
                             <select name='location'>
                                 <option value=''>All of Ghana</option>
-                                <optgroup label='Cities'>
-                                    <option value='3811'>Accra</option>
-                                    <option value='3899'>Kumasi</option>
-                                    <option value='3948'>Sekondi Takoradi</option>
-                                </optgroup>
-                                <optgroup label='Regions'>
-                                    <option value='3586'>Ashanti</option>
-                                    <option value='3617'>Greater Accra</option>
-                                    <option value='3634'>Eastern</option>
-                                    <option value='3661'>Western</option>
-                                    <option value='3684'>Northern</option>
-                                    <option value='3711'>Brong-Ahafo</option>
-                                    <option value='3739'>Volta</option>
-                                    <option value='3765'>Central</option>
-                                    <option value='3786'>Upper East</option>
-                                    <option value='3800'>Upper West</option>
-                                </optgroup>
+                                <?php
+                                $all_location_data = $this->Fronts->get_all_location_data();
+                                if(!empty($all_location_data)){
+                                    foreach ($all_location_data as $data){
+                                        echo "<option value='{$data['name']}'>{$data['name']}</option>";
+                                    }
+                                }
+                                ?>
                             </select>
-
                         </div>
                         <div class='submit'>
                             <button class='btn large search-btn' type='submit'>
-                                <span>
-                                    <i class='ico-search-btn'></i>
-                                </span>
+                                <span><i class='ico-search-btn'></i></span>
                             </button>
                         </div>
                     </div>
-                </form>
+                <?php echo form_close();?>
+                
                 <div id='leaderboard'><div style='width:728px; height:90px;'><img src="http://pagead2.googlesyndication.com/simgad/14559388252663711552" /></div></div>
                 <div class='row' id='serp'>
                     <div class='col3' id='serp-nav' style="margin-left: 0px;">

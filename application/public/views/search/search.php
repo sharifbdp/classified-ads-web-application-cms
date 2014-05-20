@@ -10,16 +10,17 @@
                 <?php echo form_open('en/search', array('name' => 'search-product', 'id' => 'item-search', 'method' => 'get', 'onsubmit' => 'return validateForm()'));?>
                     <div class='h-stack fields clearfix'>
                         <div class='query'>
-                            <input id='item-search-field' name='query' placeholder='What are you looking for?' type='text'>
+                            <input id='item-search-field' name='query' placeholder='What are you looking for?' type='text' value="<?php echo $query;?>">
                         </div>
                         <div class='category'>
                             <select id='ad_category_select' name='category'>
-                                <option value="" selected="selected">All Categories</option>
+                                <option value="">All Categories</option>
                                 <?php
                                 $all_category = $this->Fronts->get_all_parent_category();
                                 if(!empty($all_category)){
                                     foreach ($all_category as $cate){
-                                        echo "<option value='{$cate['alias']}'>{$cate['name']}</option>";
+                                        $cate_selected = ($cate['alias'] == $category_alias) ? 'selected=selected' : '';
+                                        echo "<option value='{$cate['alias']}' {$cate_selected}>{$cate['name']}</option>";
                                     }
                                 }
                                 ?>
@@ -33,7 +34,8 @@
                                 $all_location_data = $this->Fronts->get_all_location_data();
                                 if(!empty($all_location_data)){
                                     foreach ($all_location_data as $data){
-                                        echo "<option value='{$data['name']}'>{$data['name']}</option>";
+                                        $location_selected = ($data['name'] == $location_name) ? 'selected=selected' : '';
+                                        echo "<option value='{$data['name']}' {$location_selected}>{$data['name']}</option>";
                                     }
                                 }
                                 ?>
@@ -49,164 +51,77 @@
                 
                 <div id='leaderboard'><div style='width:728px; height:90px;'><img src="http://pagead2.googlesyndication.com/simgad/14559388252663711552" /></div></div>
                 <div class='row' id='serp'>
-                    <div class='col3' id='serp-nav'>
+                    <div class='col3' id='serp-nav' style="margin-left: 0px;">
                         <div class='inner-box-compact clearfix'>
                             <div class='categories'>
                                 <ul class='flat tree'>
                                     <li class='indent-0'>
-                                        <a href="<?php echo base_url(); ?>en/all_ads">‹ All Categories</a>
-                                    </li>
-
-                                    <li class='indent-1'>
-                                        <?php if (empty($cate_2_details)) { ?>
-                                            <div class='current'>
-                                                <?php echo (!empty($cate_1_details)) ? $cate_1_details->name : 'No Category'; ?>
-                                            </div>
-                                            <ul class='flat tree links'>
-                                                <?php
-                                                $all_child_cate = $this->Fronts->get_all_parent_category($cate_1_details->id);
-                                                foreach ($all_child_cate as $child) {
-                                                    $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, $child['id']);
-                                                    ?>
-                                                    <li><a href="<?php echo base_url('en/category/' . $cate_1_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad; ?></span></a></li>
-                                                <?php } ?>
-                                            </ul>
+                                        <div class='current'>All Categories</div>
+                                        <ul class='flat tree links'>
                                             <?php
-                                        } else {
-                                            echo '<a href="' . base_url('en/category/' . $cate_1_details->alias) . '">‹ ' . $cate_1_details->name . '</a>';
-                                        }
-                                        ?>
-                                    </li>
-
-                                    <?php if (!empty($cate_2_details)) { ?>
-                                        <li class='indent-2'>
-                                            <?php if (empty($cate_3_details)) { ?>
-                                                <div class='current'>
-                                                    <?php echo $cate_2_details->name; ?>
-                                                </div>
-                                                <ul class='flat tree links'>
-                                                    <?php
-                                                    $all_child_cate = $this->Fronts->get_all_parent_category($cate_2_details->id);
-                                                    foreach ($all_child_cate as $child) {
-                                                        $count_cid_ad = $this->Fronts->count_ads_by_category_id(NULL, NULL, $child['id']);
-                                                        ?>
-                                                        <li><a href="<?php echo base_url('en/category/' . $cate_1_details->alias . '/' . $cate_2_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad; ?></span></a></li>
-                                                    <?php } ?>
-                                                </ul>
+                                            $all_parent_cate = $this->Fronts->get_all_parent_category();
+                                            if ($all_parent_cate) {
+                                                foreach ($all_parent_cate as $cate) {
+                                                    $cate_ad = $this->Fronts->get_category_by_id($cate['id']);
+                                                    if($cate_ad->parent_id != 0){
+                                                    $cate_ad = $this->Fronts->get_category_by_id($cate['id']);
+                                                    }
+                                                    $count_cate_1_ad = $this->Fronts->count_ads_by_category_id($cate['id']);
+                                                    ?>
+                                                    <li><a href="<?php echo base_url('en/category/' . $cate['alias']);?>"><span class='title'><?php echo $cate['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cate_1_ad;?></span></a></li>
                                                 <?php
-                                            } else {
-                                                echo '<a href="' . base_url('en/category/' . $cate_1_details->alias . '/' . $cate_2_details->alias) . '">‹ ' . $cate_2_details->name . '</a>';
+                                                }
                                             }
                                             ?>
-                                        </li>
-                                    <?php } ?>
-
-                                    <?php if (!empty($cate_3_details)) { ?>
-                                        <li class='indent-3'>
-                                            <div class='current'><?php echo $cate_3_details->name; ?></div>
-                                        </li>
-                                    <?php } ?>
+                                        </ul>
+                                    </li>
                                 </ul>
-
                             </div>
-
-                            <?php
-                            $cate_1_alias = $this->uri->segment(3);
-                            $cate_2_alias = $this->uri->segment(4);
-                            $cate_3_alias = $this->uri->segment(5);
-                            $cate_1_id = (!empty($cate_1_details)) ? $cate_1_details->id : NULL;
-                            $cate_2_id = (!empty($cate_2_details)) ? $cate_2_details->id : NULL;
-                            $cate_3_id = (!empty($cate_3_details)) ? $cate_3_details->id : NULL;
-
-                            $last_seg = end($this->uri->segments);
-                            $cate_details = $this->Fronts->check_has_child_category_by_alias($last_seg);
-                            ?>
-
-
-
                             <div class='ad-types'>
                                 <ul class='flat tree'>
                                     <li class='indent-0'>
-                                        <?php if ($cate_details == FALSE) { 
-                                            $for_what = $this->input->get('for');
-                                            $sale_active = ($for_what == 'sale' || $for_what == '')? 'active' : '';
-                                            $wanted_active = ($for_what == 'wanted')? 'active' : '';
-                                            ?>
-                                            <ul class='flat tree links'>
-                                                <li class='<?php echo $sale_active;?>'><a id="for-sale" href="<?php echo base_url() . $this->uri->uri_string();?>?for=sale">For sale</a></li>
-                                                <li class='<?php echo $wanted_active;?>'><a id="for-wanted" href="<?php echo base_url() . $this->uri->uri_string();?>?for=wanted">Wanted</a></li>
-                                            </ul>
-                                        <?php } ?>
                                     </li>
                                 </ul>
                             </div>
-
                             <div class='locations'>
                                 <ul class='flat tree'>
                                     <li class='indent-0'>
-                                        <div class='current'>
-                                            All of Ghana
-                                        </div>
+                                        <div class='current'>All of Ghana</div>
                                         <ul class='flat tree links'>
                                             <?php
-                                            $all_ad_location = $this->Fronts->get_all_location_city_by_category_id($cate_1_id, $cate_2_id, $cate_3_id);
-                                            if ($all_ad_location) {
-                                                foreach ($all_ad_location as $loc) {
-                                                    $count_location_ad = $this->Fronts->count_ads_by_location_id($loc['ad_location']);
+                                            $all_location = $this->Fronts->get_all_location_data();
+                                            if ($all_location) {
+                                                foreach ($all_location as $loc) {
+                                                    $count_location_ad = $this->Fronts->count_ads_by_location_id($loc['id']);
                                                     ?>
-                                                    <li><a href="#"><span class='title'><?php echo $loc['location']; ?></span><span class='count'>&nbsp;<?php echo $count_location_ad;?></span></a></li>
+                                                    <li><a href="#"><span class='title'><?php echo $loc['name']; ?></span><span class='count'>&nbsp;<?php echo $count_location_ad;?></span></a></li>
                                                 <?php }
                                             }
                                             ?>
                                         </ul>
                                     </li>
                                 </ul>
-
                             </div>
-                            
-                            <?php if ($cate_details == FALSE) { ?>
-                            <div id="serp-filter">
-                                <div class="filters">
-
-                                    <div class="filter">
-                                        <ul class="flat tree">
-                                            <li class="indent-0">
-                                                <div data-filter-type="price" class="current">Price</div>
-                                                <div class="content clearfix">
-                                                    <div class="filter price"><span class="currency">$</span>
-                                                        <input class="min" name="min"> - <input class="max" name="max">
-                                                        <button>Go</button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <?php } ?>
                         </div>
                         <div id='skyscraper'>
                             <div style='width:160px; height:600px;'></div>
                         </div>
                     </div>
-                    
                     <div class='col9' id='serp-content'>
                         <div id='item-nav-bar'>
                             <div class='tabs'>
                                 <div class='h-stack' id='scopes'>
                                     <div id="all-ads" class='tab current'>
                                         <a href="#">All ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(NULL, $cate_1_id, $cate_2_id, $cate_3_id);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_for_search_result_page(NULL, $query, $category_alias, $location_name);?></span>
                                         </a></div>
                                     <div id="private-ads" class='tab'>
                                         <a href="#">Private ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(1, $cate_1_id, $cate_2_id, $cate_3_id);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_for_search_result_page(1, $query, $category_alias, $location_name);?></span>
                                         </a></div>
                                     <div id="business-ads" class='tab'>
                                         <a href="#">Business ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_cate_id(2, $cate_1_id, $cate_2_id, $cate_3_id);?></span>
+                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_for_search_result_page(2, $query, $category_alias, $location_name);?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -214,8 +129,8 @@
                                     <div class='sort-wrap'>
                                         <a class='current-sort' href='#'><span>Most Recent</span><i class='arrow'></i></a>
                                         <div class='sort-options' style="">
-                                            <a id="most-recent" rel="<?php echo base_url('en/load_ads/all/recent/' . $cate_1_alias . "/" . $cate_2_alias . "/" . $cate_3_alias);?>" href='#'>Most Recent</a>
-                                            <a id="low-price" rel="<?php echo base_url('en/load_ads/all/price/' . $cate_1_alias . "/" . $cate_2_alias . "/" . $cate_3_alias);?>" href='#'>Lowest Price</a>
+                                            <a id="most-recent" rel="<?php echo base_url("en/load_ads/all/recent/?query={$query}&category={$category_alias}&location={$location_name}");?>" href='#'>Most Recent</a>
+                                            <a id="low-price" rel="<?php echo base_url("en/load_ads/all/price/?query={$query}&category={$category_alias}&location={$location_name}");?>" href='#'>Lowest Price</a>
                                         </div>
                                     </div>
                                 </div>
@@ -223,37 +138,13 @@
                         </div>
 
                         <div id='item-listing'>
+                            <div class="spinner"></div>
                             <div class='top clearfix'>
-
                                 <ol class='breadcrumbs clearfix h-stack flat'>
-                                    <li><a href="<?php echo base_url(); ?>en/all_ads" rel="up up">All ads</a><span>&rarr;</span></li>
-                                    <?php
-                                    if ($cate_1_details && empty($cate_2_details)) {
-                                        ?>
-                                        <li><a href="#" class="current" rel="current"><?php echo $cate_1_details->name; ?></a> in <?php echo "Ghana"; ?></li>
-                                        <?php
-                                    } else {
-                                        echo "<li><a href='#' rel='up'>{$cate_1_details->name}</a><span>&rarr;</span></li>";
-                                    }
-
-                                    if (!empty($cate_2_details) && empty($cate_3_details)) {
-                                        ?>
-                                        <li><a href="#" class="current" rel="current"><?php echo $cate_2_details->name; ?></a> in <?php echo "Ghana"; ?></li>
-                                        <?php
-                                    }
-
-                                    if (!empty($cate_2_details) && !empty($cate_3_details)) {
-                                        ?>
-                                        <li><a href="#" rel="up"><?php echo $cate_2_details->name; ?></a><span>&rarr;</span></li>
-                                        <?php
-                                    }
-                                    if (!empty($cate_3_details)) {
-                                        ?>
-                                        <li><a href="#" class="current" rel="current"><?php echo $cate_3_details->name; ?></a> in <?php echo "Ghana"; ?></li>
-                                    <?php } ?>
+                                    <li>
+                                        <h1><a href="<?php echo base_url();?>en/all_ads" class="current" rel="current">All ads</a> in Ghana</h1>
+                                    </li>
                                 </ol>
-
-
                                 <div class='h-stack polar' id='list-mode-nav'>
                                     <a class='regular current' href='#'>Regular</a>
                                     <a class='compact' href='#'>Compact</a>
@@ -261,11 +152,14 @@
                             </div>
                             
                             <?php if(empty($content)){ ?>
-                                <h1 style="text-align: center; margin: 15px 0px;">Sorry, No advertisement found.</h1>
+                                <h1 style="text-align: center; margin: 15px 0px;">Sorry, No advertisement found. Please try again.</h1>
                             <?php } ?>
-                                
+                            
                             <ul class='flat regular' id='item-rows'>
                                 <?php
+//                                echo "<pre>";
+//                                echo print_r($content);
+//                                echo "</pre>";
                                 if (!empty($content)) {
                                     foreach ($content as $list) {
                                         ?>
@@ -343,18 +237,17 @@
                                 }
                                 ?>
                             </ul>
-
+                                                        
                         </div>
 
-                        <div class='pagination'></div>
-
-                        <div id='server-side-pagination'>
-
+                        <div class="pagination" style="display: block;">
+                            <div class="nav h-stack">
+                            <?php //echo $this->pagination->create_links(); ?>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
             <div class='wrap'>
                 <div class='item-box'>
                     <h2>Do you have something to sell?</h2>
@@ -368,7 +261,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
 <?php $this->load->view('common/footer'); ?>

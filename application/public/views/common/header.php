@@ -13,4 +13,5 @@
         <link href='/favicon.ico' rel='shortcut icon' type='image/x-icon'>
         <link href="<?php echo base_url(); ?>css/app.css" media="screen" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url(); ?>css/site.css" media="screen" rel="stylesheet" type="text/css" />
+        <script type="text/javascript">function validateForm() {var x = document.forms["search-product"]["query"].value;if (x == null || x == ""){alert("What are you looking for? Please write someting in the search box before searching...");return false;}}</script>
     </head>

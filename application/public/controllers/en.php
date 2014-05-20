@@ -420,6 +420,27 @@ class En extends CI_Controller {
         echo $cate_details->parent_id;
     }
 
+    public function search() {
+        $data['query'] = $this->input->get('query', TRUE);
+        $data['category_alias'] = $this->input->get('category', TRUE);
+        $data['location_name'] = $this->input->get('location', TRUE);
+
+        $cate_id = NULL;
+        $location_id = NULL;
+        if ($data['category_alias'] != NULL) {
+            $category_details = $this->Fronts->get_category_by_alias(trim($data['category_alias']));
+            $cate_id = $category_details->id;
+        }
+        if ($data['location_name'] != NULL) {
+            $location_details = $this->Fronts->get_location_details_by_name(trim($data['location_name']));
+            $location_id = $location_details->id;
+        }
+
+        $data['content'] = $this->Fronts->search_by_query_category_location($data['query'], $cate_id, $location_id);
+
+        $this->load->view('search/search', $data);
+    }
+
 }
 
 /* success

@@ -14,9 +14,9 @@
 | path to your installation.
 |
 */
-//$config['base_url']	= 'http://tonaton.orionwebtech.net/';
-
 $config['base_url']	= 'http://localhost/bikroy/';
+
+//$config['base_url']	= 'http://tonaton.orionwebtech.net/';
 
 /*
 |--------------------------------------------------------------------------
@@ -59,7 +59,7 @@ $config['uri_protocol']	= 'AUTO';
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = '.html';
+$config['url_suffix'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -295,9 +295,9 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_cookie_name' = The cookie name
 | 'csrf_expire' = The number in seconds the token should expire.
 */
-$config['csrf_protection'] = FALSE;
-$config['csrf_token_name'] = 'csrf_test_name';
-$config['csrf_cookie_name'] = 'csrf_cookie_name';
+$config['csrf_protection'] = TRUE;
+$config['csrf_token_name'] = 'csrf_tok';
+$config['csrf_cookie_name'] = 'csrf_cok';
 $config['csrf_expire'] = 7200;
 
 /*

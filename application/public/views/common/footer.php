@@ -85,18 +85,20 @@
         if ($for_what == 'sale') {
             $sale_wanted = '?for=sale';
         }
-        
         ?>
-        <script type="text/javascript">
-            URL = "<?php echo base_url(); ?>";
-            c1_alias = "<?php echo ($cate_1_alias != FALSE) ? $cate_1_alias . '/' : ''; ?>";
-            c2_alias = "<?php echo ($cate_2_alias != FALSE) ? $cate_2_alias . '/' : ''; ?>";
-            c3_alias = "<?php echo ($cate_3_alias != FALSE) ? $cate_3_alias . '/' : ''; ?>";
-            sale_wanted = "<?php echo $sale_wanted;?>";
-        </script>
         
         <script src="<?php echo base_url();?>js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="<?php echo base_url();?>js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            URL = "<?php echo base_url(); ?>";
+            c1_alias = "<?php echo ($cate_1_alias != '') ? $cate_1_alias . '/' : ''; ?>";
+            c2_alias = "<?php echo ($cate_2_alias != '') ? $cate_2_alias . '/' : ''; ?>";
+            c3_alias = "<?php echo ($cate_3_alias != '') ? $cate_3_alias . '/' : ''; ?>";
+            sale_wanted = "<?php echo $sale_wanted;?>";
+            query = "<?php echo ($this->input->get('query')) ? '?query=' . $this->input->get('query') : '' ;?>";
+            ad_category = "<?php echo ($this->input->get('category')) ? '&category=' . $this->input->get('category') : '' ;?>";
+            ad_location = "<?php echo ($this->input->get('location')) ? '&location=' . $this->input->get('location') : '' ;?>";
+        </script>
         <script src="<?php echo base_url();?>js/custom.js" type="text/javascript"></script>
 
     </body>

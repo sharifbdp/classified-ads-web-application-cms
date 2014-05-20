@@ -8,11 +8,11 @@
             <div id='home-top'>
                 <div class='wrap'>
                     <h1 id='header'><a href="#">Welcome to website.com - <strong>the largest marketplace</strong> in Ghana </a></h1>
-                    <p class='slogan'>Buy and sell everything from <a href="#">used cars</a> to <a href="#">mobile phones</a> and <a href="#">computers</a>, or search for <a href="#">property</a>, <a href="#">jobs</a> and <a href="#">more</a> in Ghana. <br/>Select a region below to get started:</p>
+                    <p class='slogan'>Buy and sell everything from <a href="<?php echo base_url('en/category/cars-vehicles')?>">used cars</a> to <a href="<?php echo base_url('en/category/electronics/mobile-phones')?>">mobile phones</a> and <a href="<?php echo base_url('en/category/electronics/computers-accessories')?>">computers</a>, or search for <a href="<?php echo base_url('en/category/property')?>">property</a>, <a href="<?php echo base_url('en/category/jobs-services')?>">jobs</a> and <a href="<?php echo base_url('en/all_ads')?>">more</a> in Ghana. <br/>Select a region below to get started:</p>
                     <div class='row content'>
                         <div class='wrap sidebar'>
                             <div id="map" class="col">
-                                <img alt=" - " height="428" id="map-imagemap" src="images/transparent_map-2ebbd7cb21c3980daa0bddcc9c7ce5fc.gif" usemap="#tonaton-map" width="320" />
+                                <img alt=" - " height="428" id="map-imagemap" src="<?php echo base_url();?>images/transparent_map-2ebbd7cb21c3980daa0bddcc9c7ce5fc.gif" usemap="#tonaton-map" width="320" />
                                 <div id='map-layer'>
                                     <div class='city accra'></div>
                                     <div class='city kumasi'></div>
@@ -113,9 +113,9 @@
                     <div class='wrap links'>
 
                         <?php
-                        $first_set_cate = $this->Fronts->get_all_parent_category(4, 0);
-                        $second_set_cate = $this->Fronts->get_all_parent_category(4, 4);
-                        $third_set_cate = $this->Fronts->get_all_parent_category(4, 8);
+                        $first_set_cate = $this->Fronts->get_all_category(4, 0);
+                        $second_set_cate = $this->Fronts->get_all_category(4, 4);
+                        $third_set_cate = $this->Fronts->get_all_category(4, 8);
                         ?>
 
                         <?php if (!empty($first_set_cate)) { ?>
@@ -125,7 +125,7 @@
                                     $count_loc_ad_1 = $this->Fronts->count_ads_by_location_id($cate_1['id']);
                                     ?>
                                     <li class='col3'>
-                                        <h3><a href="#"><div class='text'><?php echo $cate_1['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_1; ?></span></a></h3>
+                                        <h3><a href="<?php echo base_url('en/category/' . $cate_1['alias'])?>"><div class='text'><?php echo $cate_1['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_1; ?></span></a></h3>
                                         <p><?php echo $cate_1['summary']; ?></p>
                                     </li>
                                 <?php } ?>
@@ -140,7 +140,7 @@
                                     $count_loc_ad_2 = $this->Fronts->count_ads_by_location_id($cate_2['id']);
                                     ?>
                                     <li class='col3'>
-                                        <h3><a href="#"><div class='text'><?php echo $cate_2['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_2; ?></span></a></h3>
+                                        <h3><a href="<?php echo base_url('en/category/' . $cate_2['alias'])?>"><div class='text'><?php echo $cate_2['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_2; ?></span></a></h3>
                                         <p><?php echo $cate_2['summary']; ?></p>
                                     </li>
                                 <?php } ?>
@@ -155,7 +155,7 @@
                                     $count_loc_ad_3 = $this->Fronts->count_ads_by_location_id($cate_3['id']);
                                     ?>
                                     <li class='col3'>
-                                        <h3><a href="#"><div class='text'><?php echo $cate_3['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_3; ?></span></a></h3>
+                                        <h3><a href="<?php echo base_url('en/category/' . $cate_3['alias'])?>"><div class='text'><?php echo $cate_3['name']; ?></div><span class='ad-count'><?php echo $count_loc_ad_3; ?></span></a></h3>
                                         <p><?php echo $cate_3['summary']; ?></p>
                                     </li>
                                 <?php } ?>
@@ -180,4 +180,4 @@
 
         </div>
 
-<?php $this->load->view('common/footer');
+<?php $this->load->view('common/footer');?>
