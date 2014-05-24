@@ -384,21 +384,19 @@ class Fronts extends CI_Model {
         return $this->db->get('poster_location_city')->row();
     }
 
-    public function check_poster_email_existence($email) {
-        $this->db->where('email', $email);
-        $query = $this->db->get('poster')->row();
-        $norows = $this->db->count_all_results();
-
-        if ($norows < 0) {
-            return false;
-        } else {
-            return $query;
-        }
-    }
-
     public function insert_ad_poster($dp) {
         $this->db->insert('poster', $dp);
         return $this->db->insert_id();
+    }
+
+    public function get_poster_details_by_id($id) {
+        $this->db->where('id', $id);
+        return $this->db->get('poster')->row();
+    }
+
+    public function update_poster_by_id($dp, $p_id) {
+        $this->db->where('id', $p_id);
+        return $this->db->update('poster', $dp);
     }
 
     public function insert_advertizement($data) {
@@ -421,18 +419,13 @@ class Fronts extends CI_Model {
         return $this->db->update('advertizement_image', $da_ad);
     }
 
-    public function update_poster_by_id($dp, $p_id) {
-        $this->db->where('id', $p_id);
-        return $this->db->update('poster', $dp);
-    }
-
     public function get_advertizement_by_id($ad_id) {
         $this->db->where('id', $ad_id);
         return $this->db->get('advertizement')->row();
     }
 
     public function get_ad_details_by_sulg($slug) {
-        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->select('A.*, C.name as cat_name, P.id as poster_id, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
         $this->db->from('advertizement as A');
         $this->db->join('category as C', 'C.id = A.cate_2', 'inner');
         $this->db->join('poster as P', 'P.id = A.p_id', 'inner');

@@ -13,8 +13,8 @@
         <li class="pureCssMenui"><a class="pureCssMenui" href="javascript:void(0);">Advertizement</a> 
             <ul class="pureCssMenum">
                 <li class="pureCssMenui"><a class="pureCssMenui" href="<?php echo base_url(); ?>index.php/category/">Add Category</a></li>
-                <li class="pureCssMenui"><a class="pureCssMenui" href="<?php echo base_url(); ?>index.php/brand/">Add Category Brand</a></li>
-                <li class="pureCssMenui"><a class="pureCssMenui" href="<?php echo base_url(); ?>index.php/ad/">Add Advertize</a></li>
+<!--                <li class="pureCssMenui"><a class="pureCssMenui" href="<?php echo base_url(); ?>index.php/brand/">Add Category Brand</a></li>-->
+                <li class="pureCssMenui"><a class="pureCssMenui" href="<?php echo base_url(); ?>index.php/ad/">Advertize List</a></li>
             </ul>
         </li>
 

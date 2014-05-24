@@ -40,13 +40,11 @@
                 <table width="96%" border="0" align="center" cellpadding="1" cellspacing="0" style="color:#333333">
                     <tr style="font-weight:bold; background:url(image/table_top_bg.jpg) repeat-x top #E0E0E0; border:#AFAFAF solid 1px;">
                         <td width="10" height="25" class="table_border" style="border-right:none;" ><div align="center" class="style2">#</div></td>
-                        <td width="110" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Name</div></td>
+                        <td width="110" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Title</div></td>
                         <td width="60" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Category</div></td>
                         <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Price</div></td>
-                        <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Serial</div></td>
-                        <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Show Home</div></td>
+                        <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Entry date</div></td>
                         <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Status</div></td>
-                        <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Edit</div></td>
                         <td width="40" height="25" class="table_border" style="border-right:none;"><div align="center" class="style2">Delete</div></td>
                         <td width="40" height="25" class="table_border"><div align="center" class="style2">Publish</div></td>
                     </tr>
@@ -68,56 +66,48 @@
                                 </div>
                             </td>
                             <td height="25" align="left" bordercolor="#FF0000"  class="table_border" style="border-top:none; border-right:none; padding-left:5px;">
-                                <?php echo $per_content['name']; ?>
+                                <?php echo $per_content['title']; ?>
                             </td>
                             <td height="25" align="center" bordercolor="#FF0000"  class="table_border" style="border-top:none; border-right:none; padding-left:5px;">
-                                <?php 
-                                    $cid = $per_content['cid']; 
-                                    if(!empty($cid)) {
-                                        $category_details = $this->Categorys->getCategory($cid);
-                                        echo $category_details->name;
-                                    }
+                                <?php
+                                $cid = $per_content['cate_1'];
+                                if (!empty($cid)) {
+                                    $category_details = $this->Categorys->getCategory($cid);
+                                    echo $category_details->name;
+                                }
                                 ?>
                             </td>
                             <td height="25" align="center" bordercolor="#FF0000"  class="table_border" style="border-top:none; border-right:none; padding-left:5px;">
                                 <?php echo $per_content['price']; ?>
                             </td>
                             <td height="25" align="center" bordercolor="#FF0000"  class="table_border" style="border-top:none; border-right:none; padding-left:5px;">
-                                <?php echo $per_content['serial']; ?>
-                            </td>
-                            <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; border-right:none;"><div align="center">
-                                    <?php
-                                    if ($per_content['show_home'] == '1') {
-                                        echo "Yes";
-                                    }
-                                    if ($per_content['show_home'] == '0') {
-                                        echo "No";
-                                    }
-                                    ?>
-                                </div>
+                                <?php echo $per_content['entry_date']; ?>
                             </td>
                             <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; border-right:none;"><div align="center">
                                     <?php
                                     if ($per_content['status'] == '1') {
-                                        echo "Published";
+                                        echo "<span style='color:green;'>Ad Published</span>";
                                     }
                                     if ($per_content['status'] == '0') {
-                                        echo "Unpublished";
+                                        echo "<span style='color:#000;'>Pending ...</span";
+                                    }
+                                    if ($per_content['status'] == '5') {
+                                        echo "<span style='color:red;'>Incomplete</span>";
+                                    }
+                                    if ($per_content['status'] == '7') {
+                                        echo "<span style='color:#428BCA;'>Ad Unpublished</span>";
                                     }
                                     ?>
                                 </div>
                             </td>
-                            <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; border-right:none;"><div align="center">
-                                    <a href="<?php echo base_url(); ?>index.php/ad/edit/<?php echo $per_content['id']; ?>" onClick="return confirm('Are you sure?');">
-                                        <img src="<?php echo base_url(); ?>image/edit.png" width="15" height="16" border="0" />	</a>
-                                </div></td>
+
                             <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; border-right:none;"><div align="center">
                                     <a href="<?php echo base_url(); ?>index.php/ad/delete/<?php echo $per_content['id']; ?>" onClick="return confirm('Are you sure?');">
                                         <img src="<?php echo base_url(); ?>image/delet.png" width="16" height="16" border="0" /></a>
                                 </div>
                             </td>
                             <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; "><div align="center">
-                                    <?php if ($per_content['status'] == '0') { ?>
+                                    <?php if ($per_content['status'] == '0' || $per_content['status'] == '7') { ?>
                                         <a href="<?php echo base_url(); ?>index.php/ad/active/<?php echo $per_content['id']; ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/status.png" width="17" height="16" border="0" /></a>
                                         <?php
                                     }

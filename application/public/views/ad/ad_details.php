@@ -74,13 +74,18 @@
                             <a class='btn small' data-ui-nav='modal' href='#favorite-login'>
                                 <span><i class='ico-star'></i>Favorite</span>
                             </a>
+                            
+                            <?php /*
                             <a class='btn small share' data-ui-nav='modal' href='#share'>
                                 <span><i class='ico-share'></i>Share this ad</span>
                             </a>
+                             */
+                            ?>
+                            
                         </div>
                     </div>
                     <div class='row'>
-                        <div class='col four-rd-padding' id='item-main'>
+                        <div class='col ' id='item-main'> <!-- four-rd-padding -->
                             <?php if(!empty($all_images)){
                                 if(count($all_images) == 1){
                                 ?>
@@ -126,18 +131,20 @@
                             <div id='item-information-left'>
                                 <div class='copy' id='item-text-description'><p><?php echo $content->details;?></p></div>
                             </div>
+                            
+                            <?php /*
                             <div class='row four-rd-row'>
                                 <div class='col'>
                                     <div class='item-actions'>
                                         <ul class='four-rd'>
                                             <li>
-                                                <a class='phone' href='#contact-phone-numbers'>
+                                                <a class='phone' href=''>
                                                     <span class='contact-text'>024XXXXXXXX</span>
                                                     <span class='additional-text'>Click to show phone number</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class='email send-email-btn' href='#contact-email'>
+                                                <a class='email send-email-btn' href=''>
                                                     <span class='contact-text'>Reply by email</span>
                                                 </a>
                                             </li>
@@ -146,18 +153,21 @@
 
                                 </div>
                             </div>
+                             * 
+                             */
+                            ?>
                         </div>
                         <div class='col' id='item-information-right'>
                             <div class='item-actions'>
                                 <ul class='four-rd'>
                                     <li>
-                                        <a class='phone' href='#contact-phone-numbers'>
-                                            <span class='contact-text'>024XXXXXXXX</span>
-                                            <span class='additional-text'>Click to show phone number</span>
+                                        <a class='phone' href=''>
+                                            <span class='contact-text'><?php echo $content->poster_phone;?></span>
+<!--                                            <span class='additional-text'>Click to show phone number</span>-->
                                         </a>
                                     </li>
                                     <li>
-                                        <a class='email send-email-btn' href='#contact-email'>
+                                        <a class='email send-email-btn' href='<?php echo 'mailto:' . $content->poster_email;?>'>
                                             <span class='contact-text'>Reply by email</span>
                                         </a>
                                     </li>
@@ -259,6 +269,8 @@
 
  */
 ?>
+                
+                <?php /*
                 <div class='col6' data-ui='modal' id='report-item-modal' style="display: none;">
                     <form accept-charset="UTF-8" action="" method="post">
                         <div style="margin:0;padding:0;display:inline">
@@ -299,16 +311,21 @@
                     </form>
 
                 </div>
-
+                */
+                ?>
                 
                 <div class='bottom-bar actions inner-box-compact'>
                     <div class='h-stack'></div>
                     <div class='polar h-stack'>
-                        <a href="#" id="report-item" class="btn report" data-ui-nav="modal"><span><i class='ico-report'></i>Report Ad</span></a>
+<!--                        <a href="#" id="report-item" class="btn report" data-ui-nav="modal"><span><i class='ico-report'></i>Report Ad</span></a>-->
                         <a href="#" class="btn edit"><span><i class='ico-edit'></i>Edit or delete ad</span></a>
                     </div>
                 </div>
 
+                
+                
+                <?php 
+                /*
                 <div class='ui-helper-hidden' id='contact-seller'>
                     <div class='clearfix'>
                         <div class='contact col7' id='contact-email'>
@@ -377,6 +394,8 @@
                         </button>
                     </div>
                 </div>
+                */ 
+                ?>
             <?php } else { ?>
                 <div class="inner-box">
                     <div class="item-box page_not_found">
@@ -385,7 +404,7 @@
                         <p></p>
                         <div class="simple-search-box">
                             <div class="green-container">
-                                <form method="get" id="simple-search" action="">
+                                <?php echo form_open('en/search', array('name' => 'search-product', 'id' => 'simple-search', 'method' => 'get', 'onsubmit' => 'return validateForm()'));?>
                                     <div class="query">
                                         <input type="text" value="" placeholder="What are you looking for?" name="query" class="large">
                                     </div>
@@ -394,7 +413,7 @@
                                             <span><i class="ico-search-btn"></i></span>
                                         </button>
                                     </div>
-                                </form>
+                                <?php echo form_close();?>
                             </div>
                         </div>
                         <p></p>

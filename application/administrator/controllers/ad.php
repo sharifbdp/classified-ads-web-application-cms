@@ -51,189 +51,6 @@ class Ad extends CI_Controller {
         $this->load->view('ad/index', $data);
     }
 
-    public function add() {
-
-        $this->load->library('form_validation');
-
-        /** this is for ckeditor and ckfinder * */
-        $this->load->library('ckeditor');
-        $this->load->library('ckfinder');
-
-        //configure base path of ckeditor folder
-        $this->ckeditor->basePath = base_url() . 'asset/ckeditor/';
-        $this->ckeditor->config['toolbar'] = 'Full';
-        $this->ckeditor->config['language'] = 'en';
-        //configure ckfinder with ckeditor config
-        $this->ckfinder->SetupCKEditor($this->ckeditor, '../../asset/ckfinder/');
-
-        /** this is for ckeditor and ckfinder * */
-        $this->form_validation->set_rules('name', 'Ad Name', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('alias', 'Ad Alias', 'required|trim|is_unique[our_products.alias]');
-        $this->form_validation->set_rules('cid', 'Ad Category', 'required|trim');
-        $this->form_validation->set_rules('price', 'Ad Price', 'required|trim');
-        $this->form_validation->set_rules('b_price', 'Blouse Price', 'required|trim');
-        $this->form_validation->set_rules('p_code', 'Ad Code', 'required|trim');
-        $this->form_validation->set_rules('custom_link', 'Custom link', 'trim|xss_clean');
-        $this->form_validation->set_rules('serial', 'Ad Serial', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('summary', 'Ad Summary', 'required');
-        $this->form_validation->set_rules('details', 'Ad Details', '');
-
-        $this->form_validation->set_message('is_unique', 'This Ad Alias is already exist. Please write a unique Alias.');
-        //'required'
-
-        if ($this->form_validation->run() == FALSE) {
-            // validation failed
-            $this->load->view('ad/add');
-        } else {
-
-            $data['name'] = $this->input->post('name', TRUE);
-            $data['alias'] = $this->input->post('alias', TRUE);
-            $data['cid'] = $this->input->post('cid', TRUE);
-            $data['price'] = $this->input->post('price', TRUE);
-            $data['b_price'] = $this->input->post('b_price', TRUE);
-            $data['p_code'] = $this->input->post('p_code', TRUE);
-            $data['custom_link'] = $this->input->post('custom_link', TRUE);
-            $data['serial'] = $this->input->post('serial', TRUE);
-            $data['summary'] = $this->input->post('summary');
-            $data['details'] = $this->input->post('details');
-            $data['show_home'] = $this->input->post('show_home', TRUE);
-            $data['status'] = $this->input->post('status', TRUE);
-
-            /*             * * Image Upload Start ** */
-
-            if (!empty($_FILES['upload_files']['name'])) {
-
-                $config['upload_path'] = '../uploads/ad/';
-                $config['allowed_types'] = 'gif|jpg|png|jpeg';
-
-                $this->load->library('upload', $config);
-
-                $this->upload->do_upload('upload_files');
-                $data_upload_files = $this->upload->data();
-                $data['image'] = $data_upload_files['file_name'];
-
-                // create resized image
-                $config = array();
-                $config['source_image'] = $data_upload_files['full_path'];
-                $config['new_image'] = '../uploads/ad/thumbs/' . $data_upload_files['file_name'];
-                $config['create_thumb'] = false;
-                $config['maintain_ratio'] = true;
-                $config['width'] = 314;
-                $config['height'] = 454;
-
-                $this->load->library('image_lib', $config);
-
-                if (!$this->image_lib->resize()) {
-                    echo $this->image_lib->display_errors('<p>', '</p>');
-                }
-            }
-            /*             * *  upload end    ** */
-
-            $insert = $this->Ads->insertData($data);
-
-            if ($insert) {
-                $msg = "Successfully Add '{$data['name']}'  ";
-                $this->session->set_flashdata('name', $msg);
-                redirect('ad/index');
-            }
-        }
-
-        // success add data into database 
-    }
-
-    public function edit($infoid) {
-
-        $infoid = trim($infoid);
-
-        $this->load->library('form_validation');
-        /** this is for ckeditor and ckfinder * */
-        $this->load->library('ckeditor');
-        $this->load->library('ckfinder');
-
-        //configure base path of ckeditor folder
-        $this->ckeditor->basePath = base_url() . 'asset/ckeditor/';
-        $this->ckeditor->config['toolbar'] = 'Full';
-        $this->ckeditor->config['language'] = 'en';
-        //configure ckfinder with ckeditor config
-        $this->ckfinder->SetupCKEditor($this->ckeditor, '../../../asset/ckfinder/');
-
-        /** this is for ckeditor and ckfinder * */
-        $this->form_validation->set_rules('name', 'Ad Name', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('alias', 'Ad Alias', 'required|trim|callback_validate_slug[' . $infoid . ']');
-        $this->form_validation->set_rules('cid', 'Ad Category', 'required|trim');
-        $this->form_validation->set_rules('price', 'Ad Price', 'required|trim');
-        $this->form_validation->set_rules('b_price', 'Blouse Price', 'required|trim');
-        $this->form_validation->set_rules('p_code', 'Ad Code', 'required|trim');
-        $this->form_validation->set_rules('custom_link', 'Custom link', 'trim|xss_clean');
-        $this->form_validation->set_rules('serial', 'Ad Serial', 'trim|required|xss_clean');
-        $this->form_validation->set_rules('summary', 'Ad Summary', 'required');
-        $this->form_validation->set_rules('details', 'Ad Details', '');
-
-        $this->form_validation->set_message('validate_slug', 'This Ad Alias is already exist. Please write a unique Alias.');
-
-        //'required'
-
-        if ($this->form_validation->run() == FALSE) {
-            // validation failed
-            $datas['content'] = $this->Ads->getData($infoid);
-
-            $this->load->view('ad/edit', $datas);
-        } else {
-
-            $data['name'] = $this->input->post('name', TRUE);
-            $data['alias'] = $this->input->post('alias', TRUE);
-            $data['cid'] = $this->input->post('cid', TRUE);
-            $data['price'] = $this->input->post('price', TRUE);
-            $data['b_price'] = $this->input->post('b_price', TRUE);
-            $data['p_code'] = $this->input->post('p_code', TRUE);
-            $data['custom_link'] = $this->input->post('custom_link', TRUE);
-            $data['serial'] = $this->input->post('serial', TRUE);
-            $data['summary'] = $this->input->post('summary');
-            $data['details'] = $this->input->post('details');
-            $data['show_home'] = $this->input->post('show_home', TRUE);
-            $data['status'] = $this->input->post('status', TRUE);
-
-            /*             * ** Image Upload Start *** */
-
-            $config['upload_path'] = '../uploads/ad/';
-            $config['allowed_types'] = 'gif|jpg|png|jpeg';
-
-            $this->load->library('upload', $config);
-
-            $this->upload->do_upload('upload_files');
-            $data_upload_files = $this->upload->data();
-            if (!empty($data_upload_files['file_name'])) {
-                $data['image'] = $data_upload_files['file_name'];
-
-                // create resized image
-                $config = array();
-                $config['source_image'] = $data_upload_files['full_path'];
-                $config['new_image'] = '../uploads/ad/thumbs/' . $data_upload_files['file_name'];
-                $config['create_thumb'] = false;
-                $config['maintain_ratio'] = true;
-                $config['width'] = 314;
-                $config['height'] = 454;
-
-                $this->load->library('image_lib', $config);
-
-                if (!$this->image_lib->resize()) {
-                    echo $this->image_lib->display_errors('<p>', '</p>');
-                }
-            }
-            /*             * *  upload end    ** */
-
-            $update = $this->Ads->changeData($data, $infoid);
-
-            if ($update) {
-                $msg = "Successfully Edit '{$data['name']}'  ";
-                $this->session->set_flashdata('name', $msg);
-                redirect('ad/index');
-            }
-        }
-
-        // success add data into database
-    }
-
     public function delete($did) {
         $did = trim($did);
         $data['status'] = '13';
@@ -242,7 +59,7 @@ class Ad extends CI_Controller {
         $name = $content->name;
         if ($change) {
 
-            $this->session->set_flashdata("name", "Delete '" . $name . "'  Succesfully");
+            $this->session->set_flashdata("name", "Delete '<strong>" . $name . "</strong>'  Succesfully");
             redirect('ad/index');
         }
     }
@@ -254,10 +71,16 @@ class Ad extends CI_Controller {
         $change = $this->Ads->changeData($data, $did);
 
         $content = $this->Ads->getData($did);
-        $name = $content->name;
+        $name = $content->title;
         if ($change) {
-
-            $this->session->set_flashdata("name", "Active  '" . $name . "'  Succesfully");
+            // sed mail to poster
+            $send_mail = $this->notify_user_ad_published($content);
+            if ($send_mail == TRUE) {
+                $this->session->set_flashdata("name", "'<strong>" . $name . "</strong>'  ad posted succesfully! and an email send to the Poster");
+            }
+            if ($send_mail == FALSE) {
+                $this->session->set_flashdata("name", "'<strong>" . $name . "</strong>'  ad posted succesfully!");
+            }
             redirect('ad/index');
         }
     }
@@ -265,15 +88,14 @@ class Ad extends CI_Controller {
     public function inactive($id) {
 
         $did = trim($id);
-        $data['status'] = '0';
+        $data['status'] = '7';
 
         $change = $this->Ads->changeData($data, $did);
 
         $content = $this->Ads->getData($did);
-        $name = $content->name;
+        $name = $content->title;
         if ($change) {
-
-            $this->session->set_flashdata("name", "Inactive   '" . $name . "'  Succesfully");
+            $this->session->set_flashdata("name", "'<strong>" . $name . "</strong>'  ad inactive succesfully");
             redirect('ad/index');
         }
     }
@@ -284,6 +106,60 @@ class Ad extends CI_Controller {
         $mine = $this->Ads->aliasExists($field_value, $id);
 
         return $mine;
+    }
+
+    public function notify_user_ad_published($content) {
+
+        $poster_details = $this->Ads->get_poster_details_by_id($content->p_id);
+        $subject = "Receipt: {$content->title} (Published)";
+        $ad_link = "http://localhost/bikroy/en/view/" . $content->slug;
+        
+        $msg = "Congratulations! Your ad has now been published Website.com - at. <br><br>
+
+Your ad is the link:  <a href='{$ad_link}' target='_blank'>{$ad_link}</a><br><br>
+
+Change or delete the ad down 'Edit Delete', click the link, or your account 'My Ads' to visit. <br><br><br>
+
+Stay Safe<br>
+- Trade respective areas. Meet the seller directly, Please check the item thoroughly and completely satisfied when you pay the price.<br>
+- Money - money and share things together. Do not pay any money in advance.<br>
+- Do not give your personal information or any atharika.<br>
+- Be careful if you pay extra to none. <br><br>
+    
+
+Regards,<br>
+The support team at Website.com<br><br>
+
+--------------------------------------------<br>
+Website.com - Sell anything ";
+
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'admin@orionwebtech.net', // gmail Username
+            'smtp_pass' => 'Orion*566#', // gmail Password
+            'mailtype' => 'html', // what type of mail you want to sent. i.e html/plaintext
+            'charset' => 'utf-8',
+            'wordwrap' => TRUE
+        );
+
+        $this->load->library('email', $config);
+        $this->email->set_newline("\r\n");
+
+        $this->email->to($poster_details->email);
+        $this->email->from($poster_details->email, $poster_details->name);
+        $this->email->subject($subject);
+        $this->email->message($msg);
+        $mail = $this->email->send();
+
+        if ($mail) {
+            return TRUE;
+        } else {
+            // if email don't send then shows error.
+            show_error($this->email->print_debugger());
+            return FALSE;
+        }
     }
 
 }

@@ -9,8 +9,6 @@ class Ads extends CI_Model {
 
     public function getAllData($limit = NULL, $offset = NULL) {
         $this->db->from('advertizement');
-        $this->db->order_by("cid", "ASC");
-        $this->db->order_by("serial", "ASC");
         $this->db->order_by("id", "DESC");
         $this->db->where("status != ", '13');
         $this->db->limit($limit, $offset);
@@ -70,6 +68,12 @@ class Ads extends CI_Model {
         } else {
             return true;
         }
+    }
+
+    public function get_poster_details_by_id($p_id) {
+        $this->db->where('id', $p_id);
+        $result = $this->db->get('poster')->row();
+        return $result;
     }
 
 }

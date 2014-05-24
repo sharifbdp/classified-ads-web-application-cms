@@ -8,6 +8,7 @@ class En extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('Fronts');
+        $this->load->model('Users');
     }
 
     public function index() {
@@ -134,7 +135,7 @@ class En extends CI_Controller {
             echo '<option value=' . $ds["id"] . '>' . $ds["name"] . '</option>';
         }
     }
-
+  
     public function generate_unique_slug($slug, $separator = '-', $increment_number_at_end = FALSE) {
 
         //check if the last char is a number
@@ -269,13 +270,14 @@ class En extends CI_Controller {
 
             //poster
             $poster_email = $this->input->post('email', TRUE);
-            $poster_check = $this->Fronts->check_poster_email_existence($poster_email);
+            $poster_check = $this->Users->check_poster_email_existence($poster_email);
             if ($poster_check == FALSE) {
                 $dp['name'] = $this->input->post('name', TRUE);
                 $dp['email'] = $poster_email;
                 $dp['phone'] = $this->input->post('phone', TRUE);
                 $dp['p_status'] = $this->input->post('p_status', TRUE);
                 $dp['status'] = 5;
+                $dp['act_code'] = $this->Users->encode($poster_email);
 
                 $data['p_id'] = $this->Fronts->insert_ad_poster($dp);
             } else {
@@ -331,6 +333,11 @@ class En extends CI_Controller {
 
     public function finish($slug) {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
+        $poster_details = $this->Fronts->get_poster_details_by_id($data['content']->poster_id);
+        if (!empty($poster_details)) {
+            $this->Users->send_user_account_email($poster_details);
+        }
+
         $this->load->view('ad/finish', $data);
     }
 
@@ -390,7 +397,9 @@ class En extends CI_Controller {
 
     public function view($slug) {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
-        $data['all_images'] = $this->Fronts->get_all_ad_image_by_ad_id($data['content']->id);
+        if(!empty($data['content'])){
+            $data['all_images'] = $this->Fronts->get_all_ad_image_by_ad_id($data['content']->id);
+        }
 //        echo "<pre>";
 //        echo print_r($data['content']);
 //        echo "<pre>";
