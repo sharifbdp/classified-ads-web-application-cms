@@ -112,7 +112,7 @@ class Ad extends CI_Controller {
 
         $poster_details = $this->Ads->get_poster_details_by_id($content->p_id);
         $subject = "Receipt: {$content->title} (Published)";
-        $ad_link = "http://localhost/bikroy/en/view/" . $content->slug;
+        $ad_link = "http://tonaton.orionwebtech.net/en/view/" . $content->slug;
         
         $msg = "Congratulations! Your ad has now been published Website.com - at. <br><br>
 
@@ -133,6 +133,17 @@ The support team at Website.com<br><br>
 --------------------------------------------<br>
 Website.com - Sell anything ";
 
+/*
+        $this->load->library('email');
+
+        $config['charset'] = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+
+        $this->email->initialize($config);
+*/
+
+        
         $config = array(
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -145,10 +156,11 @@ Website.com - Sell anything ";
         );
 
         $this->load->library('email', $config);
+              
         $this->email->set_newline("\r\n");
 
-        $this->email->to($poster_details->email);
-        $this->email->from($poster_details->email, $poster_details->name);
+        $this->email->from('admin@orionwebtech.net', 'Administrator');
+        $this->email->to($poster_details->email, $poster_details->name);
         $this->email->subject($subject);
         $this->email->message($msg);
         $mail = $this->email->send();

@@ -223,7 +223,7 @@ class Fronts extends CI_Model {
         $this->db->join('poster P', 'P.id = A.p_id', 'inner');
         $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
         $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
-        $this->db->where('A.status', 0);
+        $this->db->where('A.status', 1);
 
         if ($query != NULL) {
             $this->db->like('title', $query, 'both');
@@ -259,7 +259,7 @@ class Fronts extends CI_Model {
             $this->db->where('ad_location', intval($location_id));
         }
 
-        $this->db->where('status', 0);
+        $this->db->where('status', 1);
         return $this->db->count_all_results('advertizement');
     }
 
@@ -299,7 +299,7 @@ class Fronts extends CI_Model {
         $this->db->select('A.id as ad_id, A.ad_location, L.name as location');
         $this->db->from('advertizement A');
         $this->db->join('poster_location as L', 'L.id = A.ad_location', 'inner');
-        $this->db->where('A.status', 0);
+        $this->db->where('A.status', 1);
 
         $for_what = $this->input->get('for');
         if ($for_what == 'wanted') {
@@ -449,7 +449,7 @@ class Fronts extends CI_Model {
     }
 
     public function total_no_of_ad_data($type = NULL, $sort = NULL) {
-        $this->db->where("status", '0');
+        $this->db->where("status", '1');
         if ($type != NULL) {
             $this->db->where('type', $type);
         }
@@ -473,7 +473,7 @@ class Fronts extends CI_Model {
         if ($limit != NULL) {
             $this->db->limit($limit, $offset);
         }
-        $this->db->where('A.status', 0);
+        $this->db->where('A.status', 1);
         if ($sort == TRUE) {
             $this->db->order_by('A.price', 'ASC');
             $this->db->where('negotiable !=', 1);
@@ -490,7 +490,7 @@ class Fronts extends CI_Model {
         $this->db->join('poster P', 'P.id = A.p_id', 'inner');
         $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
         $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
-        $this->db->where('A.status', 0);
+        $this->db->where('A.status', 1);
 
         $for_what = $this->input->get('for');
         if ($for_what == 'wanted') {
@@ -498,6 +498,14 @@ class Fronts extends CI_Model {
         }
         if ($for_what == 'sale') {
             $this->db->where('A.for_what', 1); // default show "for sale product"
+        }
+
+        $min_price = $this->input->get('min-price', TRUE);
+        $max_price = $this->input->get('max-price', TRUE);
+
+        if ($max_price != NULL && $min_price != NULL) {
+            $this->db->where('price >=', $min_price);
+            $this->db->where('price <=', $max_price);
         }
 
         if ($cate_1 != NULL) {
@@ -538,7 +546,7 @@ class Fronts extends CI_Model {
         if ($limit != NULL) {
             $this->db->limit($limit, $offset);
         }
-        $this->db->where('A.status', 0);
+        $this->db->where('A.status', 1);
 
         $for_what = $this->input->get('for');
         if ($for_what == 'wanted') {
@@ -563,7 +571,15 @@ class Fronts extends CI_Model {
             $location_id = $this->db->query("SELECT * FROM (`poster_location`) WHERE `name` = '{$location_name}'")->row()->id;
             $this->db->where('A.ad_location', intval($location_id));
         }
-        //
+        //for price search
+        $min_price = $this->input->get('min-price', TRUE);
+        $max_price = $this->input->get('max-price', TRUE);
+
+        if ($max_price != NULL && $min_price != NULL) {
+            $this->db->where('price >=', $min_price);
+            $this->db->where('price <=', $max_price);
+        }
+
         if ($sort == TRUE) {
             $this->db->order_by('A.price', 'ASC');
             $this->db->where('negotiable !=', 1);
@@ -592,7 +608,7 @@ class Fronts extends CI_Model {
         if ($cate_3_id != NULL) {
             $this->db->where('cate_3', $cate_3_id);
         }
-        $this->db->where('status', 0);
+        $this->db->where('status', 1);
 
         $for_what = $this->input->get('for');
         if ($for_what == 'wanted') {
@@ -600,6 +616,14 @@ class Fronts extends CI_Model {
         }
         if ($for_what == 'sale') {
             $this->db->where('for_what', 1); // by default = For Sale
+        }
+
+        $min_price = $this->input->get('min-price', TRUE);
+        $max_price = $this->input->get('max-price', TRUE);
+
+        if ($max_price != NULL && $min_price != NULL) {
+            $this->db->where('price >=', $min_price);
+            $this->db->where('price <=', $max_price);
         }
 
         return $this->db->count_all_results('advertizement');
@@ -615,25 +639,25 @@ class Fronts extends CI_Model {
         if ($cate_3 != NULL) {
             $this->db->where('cate_3', $cate_3);
         }
-        $this->db->where('status', 0);
+        $this->db->where('status', 1);
         return $this->db->count_all_results('advertizement');
     }
 
     public function count_ads_by_location_id($ad_location) {
         $this->db->where('ad_location', $ad_location);
-        $this->db->where('status', 0);
+        $this->db->where('status', 1);
         return $this->db->count_all_results('advertizement');
     }
 
     public function get_next_ad($parent_id) {
         $this->db->where('id', $parent_id + 1);
-        $this->db->where('status', 0);
+        $this->db->where('status', 1);
         return $this->db->get('advertizement')->row();
     }
 
     public function get_previous_ad($parent_id) {
         $this->db->where('id', $parent_id - 1);
-        $this->db->where('status', 0);
+        $this->db->where('status', 1);
         return $this->db->get('advertizement')->row();
     }
 

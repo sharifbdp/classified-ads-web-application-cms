@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     $('#all-ads').click(function(e) {
         e.preventDefault();
-        var ajax = URL + "en/load_ads/all/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted + query + ad_category + ad_location;
+        var ajax = URL + "en/load_ads/all/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted + query + ad_category + ad_location + min_price + max_price;
         $(this).addClass('current');
         $('#private-ads, #business-ads').removeClass('current');
         $('#most-recent, #low-price').prop('rel', ajax);
@@ -43,7 +43,7 @@ $(document).ready(function() {
 
     $('#private-ads').click(function(e) {
         e.preventDefault();
-        var ajax = URL + "en/load_ads/private/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted + query + ad_category + ad_location;
+        var ajax = URL + "en/load_ads/private/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted + query + ad_category + ad_location + min_price + max_price;
         $(this).addClass('current');
         $('#all-ads, #business-ads').removeClass('current');
         $('#most-recent, #low-price').prop('rel', ajax);
@@ -60,7 +60,7 @@ $(document).ready(function() {
 
     $('#business-ads').click(function(e) {
         e.preventDefault();
-        var ajax = URL + "en/load_ads/business/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted + query + ad_category + ad_location;
+        var ajax = URL + "en/load_ads/business/recent/" + c1_alias + c2_alias + c3_alias + sale_wanted + query + ad_category + ad_location + min_price + max_price;
         $(this).addClass('current');
         $('#all-ads, #private-ads').removeClass('current');
         $('#most-recent, #low-price').prop('rel', ajax);

@@ -135,7 +135,7 @@ class En extends CI_Controller {
             echo '<option value=' . $ds["id"] . '>' . $ds["name"] . '</option>';
         }
     }
-  
+
     public function generate_unique_slug($slug, $separator = '-', $increment_number_at_end = FALSE) {
 
         //check if the last char is a number
@@ -341,6 +341,75 @@ class En extends CI_Controller {
         $this->load->view('ad/finish', $data);
     }
 
+    public function edit_ad($ad_slug) {
+
+        $this->load->library('form_validation');
+
+        $this->form_validation->set_rules('cate_2', 'Category', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('for_what', 'Type', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('title', 'Title', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('details', 'Description', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('price', 'Price', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('negotiable', 'Negotiable', 'xss_clean|trim');
+        $this->form_validation->set_rules('type', 'Ad Type', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('ad_location', 'Ad Location', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('ad_city', 'Ad City', 'required|xss_clean|trim');
+
+        //Poster
+        $this->form_validation->set_rules('name', 'Name', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|xss_clean|valid_email|trim');
+        $this->form_validation->set_rules('phone', 'Phone No', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('p_status', 'Phone No Show/Hide', 'xss_clean|trim');
+
+        $ds['content'] = $this->Fronts->get_ad_details_by_sulg(trim($ad_slug));
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('ad/edit_ad', $ds);
+        } else {
+            $data['cate_2'] = $this->input->post('cate_2', TRUE);
+            $data['cate_1'] = file_get_contents(base_url() . "en/find_parent_category/" . $data['cate_2']);
+            $data['cate_3'] = $this->input->post('cate_3', TRUE);
+            $data['for_what'] = $this->input->post('for_what', TRUE);
+            $data['title'] = $this->input->post('title', TRUE);
+            $slug = url_title($data['title'], '-', TRUE);
+
+            $data['slug'] = $this->generate_unique_slug($slug); //here generate slug
+            $data['details'] = $this->input->post('details', TRUE);
+            $data['price'] = $this->input->post('price', TRUE);
+            $data['negotiable'] = $this->input->post('negotiable', TRUE);
+            $data['ad_location'] = $this->input->post('ad_location', TRUE);
+            $data['ad_city'] = $this->input->post('ad_city', TRUE);
+            $data['entry_date'] = date('Y-m-d H:i:s');
+            $data['type'] = $this->input->post('type', TRUE);
+            $data['status'] = 5;
+
+            //poster
+            $poster_email = $this->input->post('email', TRUE);
+            $poster_check = $this->Users->check_poster_email_existence($poster_email);
+            if ($poster_check == FALSE) {
+                $dp['name'] = $this->input->post('name', TRUE);
+                $dp['email'] = $poster_email;
+                $dp['phone'] = $this->input->post('phone', TRUE);
+                $dp['p_status'] = $this->input->post('p_status', TRUE);
+                $dp['status'] = 5;
+                $dp['act_code'] = $this->Users->encode($poster_email);
+
+                $data['p_id'] = $this->Fronts->insert_ad_poster($dp);
+            } else {
+                $data['p_id'] = $poster_check->id;
+            }
+
+            if ($data['p_id']) {
+                $this->Fronts->update_advertizement_by_id($data, $ds['content']->id);
+                $this->upload_image($ds['content']->id); //Upload image and insert to DB
+                $ad_details = $this->Fronts->get_advertizement_by_id($ds['content']->id);
+                redirect('en/review/' . $ad_details->slug . '');
+            } else {
+                redirect("en/edit_ad/{$ad_slug}");
+            }
+        }
+    }
+
     public function all_ads($type = NULL, $cate_1_slug = NULL, $cate_2_slug = NULL, $cate_3_slug = NULL, $sort = NULL) {
         if ($type != NULL) {
             if ($type == 'all') {
@@ -397,7 +466,7 @@ class En extends CI_Controller {
 
     public function view($slug) {
         $data['content'] = $this->Fronts->get_ad_details_by_sulg(trim($slug));
-        if(!empty($data['content'])){
+        if (!empty($data['content'])) {
             $data['all_images'] = $this->Fronts->get_all_ad_image_by_ad_id($data['content']->id);
         }
 //        echo "<pre>";
@@ -410,6 +479,10 @@ class En extends CI_Controller {
         $cate_1 = trim($c_1);
         $cate_2 = trim($c_2);
         $cate_3 = trim($c_3);
+        //Get value
+        $data['min-price'] = $this->input->get('min-price', TRUE);
+        $data['max-price'] = $this->input->get('max-price', TRUE);
+
         $data['cate_1_details'] = $this->Fronts->get_category_by_alias($cate_1);
         $data['content'] = $this->Fronts->get_all_ad_data_by_category_id($data['cate_1_details']->id);
         if ($cate_2 != NUll) {

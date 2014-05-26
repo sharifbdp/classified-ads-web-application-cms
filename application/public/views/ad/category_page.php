@@ -173,10 +173,16 @@
                                             <li class="indent-0">
                                                 <div data-filter-type="price" class="current">Price</div>
                                                 <div class="content clearfix">
+                                                    <?php
+                                                    echo form_open('', array('id' => 'price-search', 'method' => 'get'));
+                                                    $min_price = $this->input->get('min-price', TRUE);
+                                                    $max_price = $this->input->get('max-price', TRUE);
+                                                    ?>
                                                     <div class="filter price"><span class="currency">$</span>
-                                                        <input class="min" name="min"> - <input class="max" name="max">
-                                                        <button>Go</button>
+                                                        <input class="min" name="min-price" value="<?php echo ($min_price != NULL) ? $this->input->get('min-price') : '' ;?>"> - <input class="max" name="max-price" value="<?php echo ($max_price != NULL) ? $this->input->get('max-price') : '' ;?>">
+                                                        <button type="submit">Go</button>
                                                     </div>
+                                                    <?php echo form_close();?>
                                                 </div>
                                             </li>
                                         </ul>

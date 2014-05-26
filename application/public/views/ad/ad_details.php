@@ -318,7 +318,7 @@
                     <div class='h-stack'></div>
                     <div class='polar h-stack'>
 <!--                        <a href="#" id="report-item" class="btn report" data-ui-nav="modal"><span><i class='ico-report'></i>Report Ad</span></a>-->
-                        <a href="#" class="btn edit"><span><i class='ico-edit'></i>Edit or delete ad</span></a>
+                        <a href="<?php echo base_url('user/login');?>" class="btn edit"><span><i class='ico-edit'></i>Edit or delete ad</span></a>
                     </div>
                 </div>
 

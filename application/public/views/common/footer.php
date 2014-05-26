@@ -98,6 +98,8 @@
             query = "<?php echo ($this->input->get('query')) ? '?query=' . $this->input->get('query') : '' ;?>";
             ad_category = "<?php echo ($this->input->get('category')) ? '&category=' . $this->input->get('category') : '' ;?>";
             ad_location = "<?php echo ($this->input->get('location')) ? '&location=' . $this->input->get('location') : '' ;?>";
+            min_price = "<?php echo ($this->input->get('min-price')) ? '?min-price=' . $this->input->get('min-price') : '' ;?>";
+            max_price = "<?php echo ($this->input->get('max-price')) ? '&max-price=' . $this->input->get('max-price') : '' ;?>";
         </script>
         <script src="<?php echo base_url();?>js/custom.js" type="text/javascript"></script>
 

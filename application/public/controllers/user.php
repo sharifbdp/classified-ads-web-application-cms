@@ -51,7 +51,7 @@ class User extends CI_Controller {
     }
 
     public function change_password($e_code) {
-        echo $email = $this->Users->decode(trim($e_code));
+        $email = $this->Users->decode(trim($e_code));
         $check_user = $this->Users->check_poster_email_existence($email);
         if ($check_user != FALSE) {
 
