@@ -54,6 +54,7 @@ class Area extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('name', 'Area Name', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('alias', 'City/Area Alias', 'required|trim|xss_clean|is_unique[poster_location_city.alias]');
         $this->form_validation->set_rules('lid', 'Select Location', 'required|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
@@ -61,6 +62,7 @@ class Area extends CI_Controller {
             $this->load->view('area/add');
         } else {
             $data['name'] = $this->input->post('name', TRUE);
+            $data['alias'] = $this->input->post('alias', TRUE);
             $data['lid'] = $this->input->post('lid', TRUE);
             $data['status'] = $this->input->post('status', TRUE);
 
@@ -83,7 +85,10 @@ class Area extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('name', 'Area Name', 'required|xss_clean|trim');
+        $this->form_validation->set_rules('alias', 'City/Area Alias', 'required|trim|xss_clean|callback_validate_slug[' . $cid . ']');
         $this->form_validation->set_rules('lid', 'Select Location', 'required|xss_clean');
+
+        $this->form_validation->set_message('validate_slug', 'This City/Area Alias is already exist. Please write a unique Alias.');
 
         if ($this->form_validation->run() == FALSE) {
             $data['content'] = $this->Areas->get_data_by_id($cid);
@@ -91,6 +96,7 @@ class Area extends CI_Controller {
         } else {
 
             $data['name'] = $this->input->post('name', TRUE);
+            $data['alias'] = $this->input->post('alias', TRUE);
             $data['lid'] = $this->input->post('lid', TRUE);
             $data['status'] = $this->input->post('status', TRUE);
 
@@ -149,6 +155,14 @@ class Area extends CI_Controller {
             $this->session->set_flashdata("item_name", "Inactive City/Area " . $name . " Succesfully");
             redirect('area/index');
         }
+    }
+
+    public function validate_slug($str, $id) {
+        $field_value = $str;
+
+        $mine = $this->Areas->aliasExists($field_value, $id);
+
+        return $mine;
     }
 
 }

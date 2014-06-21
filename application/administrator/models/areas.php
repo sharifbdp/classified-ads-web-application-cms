@@ -39,4 +39,20 @@ class Areas extends CI_Model {
         return $query;
     }
 
+    public function aliasExists($alias, $id) {
+
+        $this->db->where('alias', $alias);
+        $this->db->where_not_in('id', $id);
+
+        $query = $this->db->get('poster_location_city');
+
+        $norows = $query->num_rows();
+
+        if ($norows > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

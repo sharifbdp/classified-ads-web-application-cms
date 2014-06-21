@@ -39,7 +39,8 @@
                                     foreach ($all_location as $loc) {
                                         ?>
                                         <option value="<?php echo $loc['id']; ?>"><?php echo $loc['name']; ?></option>
-                                    <?php }
+                                        <?php
+                                    }
                                 }
                                 ?>
                             </select>
@@ -55,6 +56,14 @@
                             </div></td>
                     </tr>
 
+                    <tr>
+                        <td width="225" height="25"><div align="right" class="table_title" ><strong>City/Area Alias:</strong> </div></td>
+                        <td height="25" align="left"><div class="table_blank">
+                                <?php
+                                echo form_input(array('name' => 'alias', 'id' => 'alias', 'value' => set_value('alias'), 'size' => '40'))
+                                ?> &nbsp; ( Don't use any special character. Use <strong>-</strong> between the word )
+                            </div></td>
+                    </tr>
 
                     <tr>
                         <td width="225" height="25"> <div align="right" class="table_title " ><strong>Status:</strong><br />
@@ -101,5 +110,14 @@
     </div>
 
 </div>
-
+<script typr="text/javascript">
+    $(function() {
+        $("#name").keyup(function() {
+            var Text = $(this).val();
+            Text = Text.toLowerCase();
+            Text = Text.replace(/[^a-zA-Z0-9]+/g, '-');
+            $("#alias").val(Text);
+        });
+    });
+</script> 
 <?php $this->load->view('home/footer'); ?>

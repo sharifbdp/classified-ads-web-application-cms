@@ -113,13 +113,13 @@
 
 
                                     <?php if ($menu['status'] == '0') { ?>
-                                        <a href="<?php echo base_url(); ?>category/active/<?php echo $menu['id'] ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/status.png" width="17" height="16" border="0" /></a>
+                                        <a href="<?php echo base_url(); ?>category/active/<?php echo $menu['id'] ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/un_publi.png" width="17" height="16" border="0" /></a>
                                         <?php
                                     }
                                     if ($menu['status'] == '1') {
                                         ?>
 
-                                        <a href="<?php echo base_url(); ?>category/inactive/<?php echo $menu['id'] ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/un_publi.png" width="17" height="16" border="0" / ></a>
+                                        <a href="<?php echo base_url(); ?>category/inactive/<?php echo $menu['id'] ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/status.png" width="17" height="16" border="0" / ></a>
                                     <?php } ?>
                                 </div></td>
                         </tr>

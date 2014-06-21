@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/bikroy/application/public/views/ad/edit_ad.php</file>
-            <file>file:/var/www/bikroy/application/public/controllers/en.php</file>
-            <file>file:/var/www/bikroy/application/public/models/fronts.php</file>
-            <file>file:/var/www/bikroy/application/public/views/ad/check_ad.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/public/models/fronts.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/public/views/ad/all_ad.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/js/custom.js</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/public/controllers/en.php</file>
         </group>
     </open-files>
 </project-private>

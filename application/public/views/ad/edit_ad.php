@@ -56,7 +56,7 @@
                                             <option value="999">Other</option>
                                         </select>
                                         <select autocomplete='off' name="cate_3" style="display: none;">
-                                            
+
                                         </select>
                                     </div>
                                     <?php echo form_error('cate_2', '<label for="ad_category_id" class="error" style="display: block;">', '</label>'); ?>
@@ -132,6 +132,25 @@
                                     </div>
 
                                 </div>
+
+                                <!-- old image list -->
+                                <?php
+                                $ad_img_list = $this->Fronts->get_all_ad_image_by_ad_id($content->id);
+                                if (!empty($ad_img_list)) { ?>
+                                <div id="image-upload" class="row">
+                                    <div class="col2 label" style="text-align: right;height: 40px;">Previous Images</div>
+                                    <div class="col value images preview-images h-stack">
+                                        <?php foreach ($ad_img_list as $list){ ?>
+                                        <div class="image">
+                                            <img src="<?php echo base_url('uploads/ad_image/' . $list['image_name']);?>" width="115" height="82" style="border: 1px solid #e4e4e4;margin-bottom: 8px;margin-right: 10px;">
+                                            <img alt="<?php echo $list['id'];?>" class="img_delete_btn" src="<?php echo base_url('images/img_icon_close.png');?>">
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <?php } ?>
+                                <!-- old image list -->
+
                                 <div id="image-upload" class="row field images">
                                     <div class="label col2">
                                         <label for="add_image">Upload images</label>
@@ -146,7 +165,7 @@
                                                 </label>
 
                                                 <div style="width: 130px; height: 100px; display: inline-block;" class="showImage">
-                                                    <img  id="showImg" src="<?php echo base_url();?>images/add_img_icon.png" alt="" border="0" width="130px" height="100px"/>
+                                                    <img id="showImg" src="<?php echo base_url();?>images/add_img_icon.png" alt="" border="0" width="130px" height="100px"/>
                                                 </div>
 
                                                 <input type="file" name="ad_image[]" onchange='Test.UpdatePreview(this)' accept="image/*" id="upload" />
@@ -331,6 +350,28 @@
                 return false;
                 });
                 
+                //delete print image
+                $("img.img_delete_btn").click(function() {
+
+                    var id = $(this).attr("alt");
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url(); ?>en/delete_ad_images",
+                        data: {'id': id, '<?php echo $this->security->get_csrf_token_name(); ?>': '<?php echo $this->security->get_csrf_hash(); ?>'},
+                        success: function(data) {
+                            // return success
+
+                            if (data.status = 'ok') {
+                                alert('Successfully delete Image!');
+                                window.location.reload(true);
+                            }
+
+                        }
+                    });
+
+                });
+        
                 // load sub category list (cate_3)  by select category(cate_2)
                 $("select[name=cate_2]").change(function() {
 
@@ -348,7 +389,7 @@
                     });
 
                 });
-                
+
                 // load area by select city
                 $('#ad_location_id').change(function() {
 

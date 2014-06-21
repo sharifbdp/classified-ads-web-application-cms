@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 11, 2014 at 12:33 AM
+-- Generation Time: Jun 10, 2014 at 12:40 AM
 -- Server version: 5.5.37-0ubuntu0.14.04.1
 -- PHP Version: 5.5.9-1ubuntu4
 
@@ -28,8 +28,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `advertizement` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cid` int(11) NOT NULL,
-  `s_cid` int(11) NOT NULL,
+  `cate_1` int(11) NOT NULL,
+  `cate_2` int(11) NOT NULL,
+  `cate_3` int(11) NOT NULL,
   `p_id` int(11) NOT NULL,
   `ad_location` int(11) NOT NULL,
   `ad_city` int(11) NOT NULL,
@@ -44,21 +45,24 @@ CREATE TABLE IF NOT EXISTS `advertizement` (
   `status` int(2) NOT NULL COMMENT '1= active; 0= inactive; 5= Incomplete;13= delete',
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
 
 --
 -- Dumping data for table `advertizement`
 --
 
-INSERT INTO `advertizement` (`id`, `cid`, `s_cid`, `p_id`, `ad_location`, `ad_city`, `for_what`, `title`, `slug`, `details`, `price`, `negotiable`, `entry_date`, `type`, `status`) VALUES
-(1, 26, 0, 1, 1, 1, '1', 'A bikes', 'a-bikes', 'A bikes A bikes Good descriptions increase your ad''s chances of success. Describe features, dimensions, condition and what''s included.', 15.00, 1, '2014-05-02 00:00:00', 1, 0),
-(2, 13, 0, 1, 1, 2, '1', 'Acer Aspire 4749z', 'acer-aspire-4749z', 'Acer Aspire 4749z Acer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749zAcer Aspire 4749z', 3000.00, 0, '2014-05-03 14:05:56', 1, 0),
-(3, 18, 0, 1, 1, 3, '1', 'Canon 18-55 mm IS II', 'canon-18-55-mm-is-ii', 'Canon 18-55 mm IS II Canon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS IICanon 18-55 mm IS II', 1500.00, 0, '2014-05-03 14:06:46', 2, 0),
-(4, 14, 0, 2, 1, 14, '1', 'Dining table with 6 chairs', 'dining-table-with-6-chairs', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry''s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 700.00, 1, '2014-05-04 01:21:26', 2, 0),
-(5, 25, 0, 1, 1, 3, '2', 'this is a test title', 'this-is-a-test-title', 'ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.ake sure you post in the correct category.\nDo not post the same ad more than once. Duplicate ads will be rejected.\nDo not upload pictures with watermarks. Invalid pictures will be removed.\nDo not put your email or phone numbers in the title or description.', 1500.00, 0, '2014-05-06 01:32:54', 2, 0),
-(6, 24, 0, 3, 1, 5, '1', 'a good truck', 'a-good-truck', 'a good truck a good trucka good trucka good trucka good truck', 10000.00, 1, '2014-05-07 22:40:52', 1, 0),
-(7, 12, 0, 1, 1, 6, '1', 'A mobile', 'a-mobile', 'A mobileA mobileA mobileA mobileA mobile', 3000.00, 0, '2014-05-07 23:51:33', 1, 0),
-(8, 13, 0, 1, 1, 8, '1', 'X code', 'x-code', 'Make sure you post in the correct category.\n    Do not post the same ad more than once. Duplicate ads will be rejected.\n    Do not upload pictures with watermarks. Invalid pictures will be removed.\n    Do not put your email or phone numbers in the title or description.', 3000.00, 0, '2014-05-10 00:18:04', 1, 0);
+INSERT INTO `advertizement` (`id`, `cate_1`, `cate_2`, `cate_3`, `p_id`, `ad_location`, `ad_city`, `for_what`, `title`, `slug`, `details`, `price`, `negotiable`, `entry_date`, `type`, `status`) VALUES
+(1, 2, 23, 25, 1, 1, 1, '1', 'A bikes', 'a-bikes', 'A bikes A bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikesA bikes', 890.00, 0, '2014-05-13 23:21:28', 1, 0),
+(2, 1, 12, 0, 5, 1, 2, '1', 'Micromax x455', 'micromax-x455', 'Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455Micromax x455', 3000.00, 0, '2014-05-13 23:22:18', 2, 1),
+(3, 2, 23, 26, 5, 2, 9, '1', 'Aspire 4749z', 'aspire-4749z', 'Aspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749zAspire 4749z', 9000.00, 0, '2014-05-13 23:24:01', 1, 0),
+(4, 2, 23, 25, 6, 1, 3, '1', 'New Bmx bicycle from U.S', 'new-bmx-bicycle-from-us', 'it''s in perfect condition and jxt. arrived', 500.00, 0, '2014-05-15 23:13:32', 1, 0),
+(5, 2, 23, 25, 7, 1, 5, '2', 'New Bicycle', 'new-bicycle', 'Home used BMX...Turning steer...no faults', 890.00, 0, '2014-05-15 23:15:20', 2, 1),
+(6, 1, 12, 0, 8, 1, 2, '1', 'Mob One', 'mob-one', 'Mob OneMob OneMob OneMob OneMob One', 9089.00, 0, '2014-05-21 22:48:18', 1, 5),
+(7, 1, 12, 0, 9, 1, 2, '1', 'Mob One', 'mob-one-1', 'Mob OneMob OneMob OneMob OneMob One', 9089.00, 0, '2014-05-21 22:52:11', 1, 5),
+(8, 1, 12, 0, 10, 1, 2, '1', 'Mob One', 'mob-one-3', 'Mob OneMob OneMob OneMob OneMob One', 9089.00, 0, '2014-05-28 00:46:24', 1, 0),
+(9, 1, 12, 0, 11, 1, 5, '1', 'Symphony w65i only 3 month used', 'symphony-w65i-only-3-month-used', 'Symphony w65i only 3 month usedSymphony w65i only 3 month usedSymphony w65i only 3 month usedSymphony w65i only 3 month usedSymphony w65i only 3 month usedSymphony w65i only 3 month used', 300.00, 0, '2014-05-24 12:02:56', 1, 1),
+(10, 1, 12, 0, 11, 1, 2, '1', 'Nokia X2-00', 'nokia-x2-00', 'Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00Nokia X2-00', 700.00, 0, '2014-05-27 00:29:58', 1, 1),
+(11, 1, 12, 0, 10, 1, 4, '1', 'Micromax x4789', 'micromax-x4789-1', 'Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x4Micromax x47', 507.00, 0, '2014-05-27 01:29:09', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -72,22 +76,26 @@ CREATE TABLE IF NOT EXISTS `advertizement_image` (
   `image_name` varchar(255) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `advertizement_image`
 --
 
 INSERT INTO `advertizement_image` (`id`, `ad_id`, `image_name`, `status`) VALUES
-(1, 5, 'Acer-Aspire-A5560-7414.png', 1),
-(2, 5, 'images.jpeg', 1),
-(3, 5, 'sharif_ul_islam.jpg', 1),
-(4, 6, 'Acer-Aspire-A5560-74141.png', 1),
-(5, 7, 'Acer-Aspire-A5560-74142.png', 1),
-(6, 7, 'images1.jpeg', 1),
-(7, 7, 'sharif_ul_islam1.jpg', 1),
-(8, 8, '2.png', 1),
-(9, 8, '1.png', 1);
+(1, 1, 'mobile.jpg', 1),
+(2, 1, 'Acer-Aspire-A5560-7414.png', 1),
+(3, 2, 'mobiole.jpg', 1),
+(4, 3, 'watch.jpg', 1),
+(5, 4, 'bike1.jpg', 1),
+(6, 5, 'bike2.jpg', 1),
+(7, 6, 'mobiole1.jpg', 0),
+(8, 7, 'mobiole2.jpg', 0),
+(14, 8, 'mobile3.jpg', 1),
+(10, 9, 'mobile1.jpg', 1),
+(11, 10, 'mobile2.jpg', 1),
+(12, 11, 'images.jpeg', 0),
+(15, 8, 'images1.jpeg', 1);
 
 -- --------------------------------------------------------
 
@@ -134,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `category` (
   `serial` int(11) NOT NULL,
   `status` int(11) NOT NULL COMMENT '0=inactive, 1=active, 13=delete',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000 ;
 
 --
 -- Dumping data for table `category`
@@ -150,7 +158,7 @@ INSERT INTO `category` (`id`, `parent_id`, `name`, `alias`, `summary`, `serial`,
 (7, 0, 'Pets & Animals', 'pets-animals', 'Search from the widest variety of pets in Ghana . Select from dogs, puppies, cats, kittens, birds and other domesticated animals.', 35, 1),
 (8, 0, 'Leisure, Sport & Hobby', 'leisure-sport-hobby', 'Buy and sell used musical instruments, sports gear and accessories, art and collectibles, movies, music and more.', 40, 1),
 (9, 0, 'Education', 'education', 'Buy and sell books and magazines, find tuition, classes and other educational resources in Ghana.', 45, 1),
-(10, 0, 'Other', 'other', 'Free classified ads for miscellaneous products and items all over Ghana. Buy and sell almost anything.', 50, 1),
+(10, 0, 'Other', 'other', 'Free classified ads for miscellaneous products and items all over Ghana. Buy and sell almost anything.', 50, 13),
 (11, 0, 'Food & Agriculture', 'food-agriculture', 'Find food and edible products, including fresh fruits and vegetables, meats, fish, seafood, crop seeds, plants and other agricultural products in Ghana.', 55, 1),
 (12, 1, 'Mobile Phones', 'mobile-phones', '', 5, 1),
 (13, 1, 'Computers & Accessories', 'computers-accessories', '', 10, 1),
@@ -166,7 +174,8 @@ INSERT INTO `category` (`id`, `parent_id`, `name`, `alias`, `summary`, `serial`,
 (23, 2, 'Bikes & Scooters', 'bikes-scooters', '', 20, 1),
 (24, 2, 'Truck, Bus & Heavy-Duty', 'truck-bus-heavy-duty', '', 25, 1),
 (25, 23, 'Bicycles', 'bicycles', '', 5, 1),
-(26, 23, 'Motorbikes & Scooters', 'motorbikes-scooters', '', 10, 1);
+(26, 23, 'Motorbikes & Scooters', 'motorbikes-scooters', '', 10, 1),
+(999, 0, 'Other', 'other', 'Free classified ads for miscellaneous products and items all over Ghana. Buy and sell almost anything.', 999, 1);
 
 -- --------------------------------------------------------
 
@@ -444,18 +453,26 @@ CREATE TABLE IF NOT EXISTS `poster` (
   `password` varchar(36) NOT NULL,
   `last_login_date` datetime NOT NULL,
   `last_login_ip` varchar(16) NOT NULL,
+  `act_code` varchar(255) NOT NULL,
   `status` int(1) NOT NULL COMMENT '0= inactive; 1=active; 13 = delete',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
 
 --
 -- Dumping data for table `poster`
 --
 
-INSERT INTO `poster` (`id`, `name`, `email`, `phone`, `p_status`, `password`, `last_login_date`, `last_login_ip`, `status`) VALUES
-(1, 'Sharif', 'sharifbdp@gmail.com', '01913513255', 1, 'a75d6a841eafd550b0a27293ee054614', '0000-00-00 00:00:00', '', 0),
-(2, 'Toma Karmokar', 'toma@yahoo.com', '01987680087', 1, '9b89b7713fd72002f29be0c1fc3ff445', '0000-00-00 00:00:00', '', 0),
-(3, 'A Man', 'man@gmail.com', '099988777', 0, '6531401f9a6807306651b87e44c05751', '0000-00-00 00:00:00', '', 0);
+INSERT INTO `poster` (`id`, `name`, `email`, `phone`, `p_status`, `password`, `last_login_date`, `last_login_ip`, `act_code`, `status`) VALUES
+(1, 'Sharif', 'sharif@gmail.com', '01913513255', 1, 'a75d6a841eafd550b0a27293ee054614', '0000-00-00 00:00:00', '', '', 0),
+(2, 'Toma Karmokar', 'toma@yahoo.com', '01987680087', 1, '9b89b7713fd72002f29be0c1fc3ff445', '0000-00-00 00:00:00', '', '', 0),
+(3, 'A Man', 'man@gmail.com', '099988777', 0, '6531401f9a6807306651b87e44c05751', '0000-00-00 00:00:00', '', '', 0),
+(4, 'Watch Man', 'watch@gmail.com', '01965169659', 0, '6ca29d9bb530402bd09fe026ee838148', '0000-00-00 00:00:00', '', '', 0),
+(5, 'Coventry Sam', 'coventry012@gmail.com', '01965169659', 0, '69830ca86240b626dd9943f6fe4d54c2', '0000-00-00 00:00:00', '', '', 0),
+(6, 'Richmond', 'richmond@gmail.com', '09890899788', 0, '6ca29d9bb530402bd09fe026ee838148', '0000-00-00 00:00:00', '', '', 0),
+(7, 'Nana Kofi', 'kofi@gmail.com', '87679000988', 0, '6ca29d9bb530402bd09fe026ee838148', '0000-00-00 00:00:00', '', '', 0),
+(10, 'Sharif ul islam', 'sharifbdp@gmail.com', '01965169659', 0, '6531401f9a6807306651b87e44c05751', '2014-05-27 11:03:24', '127.0.0.1', 'c2hhcmlmYmRwQGdtYWlsLmNvbQaa', 0),
+(13, 'Sharif ul islama', 'sharifbdp@gmail.coma', '019651696590', 0, '', '0000-00-00 00:00:00', '', 'c2hhcmlmYmRwQGdtYWlsLmNvbWEa', 5),
+(11, 'Sharif Ul islam asdf', 'sharifbdp@live.com', '0987', 0, '6531401f9a6807306651b87e44c05751', '2014-05-24 08:09:34', '127.0.0.1', 'c2hhcmlmYmRwQGxpdmUuY29t', 0);
 
 -- --------------------------------------------------------
 
@@ -466,21 +483,23 @@ INSERT INTO `poster` (`id`, `name`, `email`, `phone`, `p_status`, `password`, `l
 CREATE TABLE IF NOT EXISTS `poster_location` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `alias` varchar(255) NOT NULL,
   `status` int(11) NOT NULL COMMENT '0=inactive, 1=active, 13=delete',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `poster_location`
 --
 
-INSERT INTO `poster_location` (`id`, `name`, `status`) VALUES
-(1, 'Accra', 1),
-(2, 'Kumasi', 1),
-(3, 'Sekondi Takoradi', 1),
-(4, 'Ashanti', 1),
-(5, 'Greater Accra', 1),
-(6, 'Eastern', 1);
+INSERT INTO `poster_location` (`id`, `name`, `alias`, `status`) VALUES
+(1, 'Accra', 'accra', 1),
+(2, 'Kumasi', 'kumasi', 1),
+(3, 'Sekondi Takoradi', 'sekondi-takoradi', 1),
+(4, 'Ashanti', 'ashanti', 1),
+(5, 'Greater Accra', 'greater-accra', 1),
+(6, 'Eastern', 'eastern', 1),
+(7, 'Belabo', 'belabo', 1);
 
 -- --------------------------------------------------------
 
@@ -492,6 +511,7 @@ CREATE TABLE IF NOT EXISTS `poster_location_city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `lid` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
+  `alias` varchar(255) NOT NULL,
   `status` int(11) NOT NULL COMMENT '0=inactive, 1=active, 13=delete',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
@@ -500,24 +520,24 @@ CREATE TABLE IF NOT EXISTS `poster_location_city` (
 -- Dumping data for table `poster_location_city`
 --
 
-INSERT INTO `poster_location_city` (`id`, `lid`, `name`, `status`) VALUES
-(1, 1, 'Adenta', 1),
-(2, 1, 'Abeka La Paz', 1),
-(3, 1, 'Abelemkpe', 1),
-(4, 1, 'Ablorh Adjei', 1),
-(5, 1, 'Abokobi', 1),
-(6, 1, 'Aborfu', 1),
-(7, 1, 'Abossey Okai', 1),
-(8, 1, 'Accra Central', 1),
-(9, 2, 'Aboabo 1', 1),
-(10, 2, 'Aboabo 2', 1),
-(11, 2, 'Adum', 1),
-(12, 2, 'Ahinsan', 1),
-(13, 2, 'Amakom', 1),
-(14, 1, 'Anloga', 1),
-(15, 2, 'Anwomaso', 1),
-(16, 2, 'Apatrapa', 1),
-(17, 2, 'Asafo', 1);
+INSERT INTO `poster_location_city` (`id`, `lid`, `name`, `alias`, `status`) VALUES
+(1, 1, 'Adenta', 'adenta', 1),
+(2, 1, 'Abeka La Paz', 'abeka-la-paz', 1),
+(3, 1, 'Abelemkpe', 'abelemkpe', 1),
+(4, 1, 'Ablorh Adjei', 'ablorh-adjei', 1),
+(5, 1, 'Abokobi', 'abokobi', 1),
+(6, 1, 'Aborfu', 'aborfu', 1),
+(7, 1, 'Abossey Okai', 'abossey-okai', 1),
+(8, 1, 'Accra Central', 'accra-central', 1),
+(9, 2, 'Aboabo 1', 'aboabo-1', 1),
+(10, 2, 'Aboabo 2', 'aboabo-2', 1),
+(11, 2, 'Adum', 'adum', 1),
+(12, 2, 'Ahinsan', 'ahinsan', 1),
+(13, 2, 'Amakom', 'amakom', 1),
+(14, 1, 'Anloga', 'anloga', 1),
+(15, 2, 'Anwomaso', 'anwomaso', 1),
+(16, 2, 'Apatrapa', 'apatrapa', 1),
+(17, 2, 'Asafo', 'asafo', 1);
 
 -- --------------------------------------------------------
 
@@ -618,7 +638,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `last_login_date`, `last_login_ip`, `user_status`, `status`) VALUES
-(1, 'Administrator', 'admin@gmail.com', '845129bda003ebeec92f31b74d08f01a', '2014-04-16 04:29:43', '41.215.169.31', 1, 1);
+(1, 'Administrator', 'admin@gmail.com', '21232f297a57a5a743894a0e4a801fc3', '2014-05-27 11:33:18', '127.0.0.1', 1, 1);
 
 -- --------------------------------------------------------
 

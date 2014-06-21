@@ -369,8 +369,27 @@ class Fronts extends CI_Model {
         }
     }
 
+    public function check_has_child_city_by_alias($alias) {
+        $this->db->where('alias', "$alias");
+        $ad_location = $this->db->get('poster_location')->row();
+
+        $this->db->where('lid', $ad_location->id);
+        $result = $this->db->get('poster_location_city')->result_array();
+        $norows = $this->db->count_all_results();
+        if ($norows < 0) {
+            return false;
+        } else {
+            return $result;
+        }
+    }
+
     public function get_location_details_by_id($id) {
         $this->db->where('id', $id);
+        return $this->db->get('poster_location')->row();
+    }
+
+    public function get_location_details_by_alias($alias) {
+        $this->db->where('alias', $alias);
         return $this->db->get('poster_location')->row();
     }
 
@@ -381,6 +400,11 @@ class Fronts extends CI_Model {
 
     public function get_city_details_by_id($id) {
         $this->db->where('id', $id);
+        return $this->db->get('poster_location_city')->row();
+    }
+
+    public function get_city_area_details_by_alias($alias) {
+        $this->db->where('alias', "$alias");
         return $this->db->get('poster_location_city')->row();
     }
 
@@ -524,6 +548,44 @@ class Fronts extends CI_Model {
         return $this->db->get()->result_array();
     }
 
+    public function get_all_ad_data_by_location_id($ad_location, $ad_city = NULL, $limit = NULL, $offset = NULL) {
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement A');
+        $this->db->join('category C', 'C.id = A.cate_2', 'inner');
+        $this->db->join('poster P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
+        $this->db->where('A.status', 1);
+
+        $for_what = $this->input->get('for');
+        if ($for_what == 'wanted') {
+            $this->db->where('A.for_what', 2); // 2= wanted
+        }
+        if ($for_what == 'sale') {
+            $this->db->where('A.for_what', 1); // default show "for sale product"
+        }
+
+        $min_price = $this->input->get('min-price', TRUE);
+        $max_price = $this->input->get('max-price', TRUE);
+
+        if ($max_price != NULL && $min_price != NULL) {
+            $this->db->where('price >=', $min_price);
+            $this->db->where('price <=', $max_price);
+        }
+
+        if ($ad_location != NULL) {
+            $this->db->where('A.ad_location', $ad_location);
+        }
+        if ($ad_city != NULL) {
+            $this->db->where('A.ad_city', $ad_city);
+        }
+        $this->db->order_by('A.entry_date', 'DESC');
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        return $this->db->get()->result_array();
+    }
+
     public function get_all_ad_by_type_sort_category_id($type = NULL, $sort = NULL, $cate_1_id = NULL, $cate_2_id = NULL, $cate_3_id = NULL, $limit = NULL, $offset = NULL) {
         $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
         $this->db->from('advertizement A');
@@ -595,6 +657,15 @@ class Fronts extends CI_Model {
         return $this->db->get('advertizement_image')->result_array();
     }
 
+    public function get_ad_image_by_id($ad_id) {
+        $this->db->where('id', $ad_id);
+        return $this->db->get('advertizement_image')->row();
+    }
+
+    public function delete_ad_image_by_id($ad_id) {
+        $this->db->delete('advertizement_image', array('id' => $ad_id));
+    }
+
     public function count_ads_by_type_and_cate_id($type = NULL, $cate_1_id = NULL, $cate_2_id = NULL, $cate_3_id = NULL) {
         if ($type != NULL) {
             $this->db->where('type', $type);
@@ -629,6 +700,38 @@ class Fronts extends CI_Model {
         return $this->db->count_all_results('advertizement');
     }
 
+    public function count_ads_by_type_and_location_city_id($type = NULL, $ad_location = NULL, $ad_city = NULL) {
+        if ($type != NULL) {
+            $this->db->where('type', $type);
+        }
+        if ($ad_location != NULL) {
+            $this->db->where('ad_location', $ad_location);
+        }
+        if ($ad_city != NULL) {
+            $this->db->where('ad_city', $ad_city);
+        }
+     
+        $this->db->where('status', 1);
+
+        $for_what = $this->input->get('for');
+        if ($for_what == 'wanted') {
+            $this->db->where('for_what', 2); // 2= wanted
+        }
+        if ($for_what == 'sale') {
+            $this->db->where('for_what', 1); // by default = For Sale
+        }
+
+        $min_price = $this->input->get('min-price', TRUE);
+        $max_price = $this->input->get('max-price', TRUE);
+
+        if ($max_price != NULL && $min_price != NULL) {
+            $this->db->where('price >=', $min_price);
+            $this->db->where('price <=', $max_price);
+        }
+
+        return $this->db->count_all_results('advertizement');
+    }
+    
     public function count_ads_by_category_id($cate_1 = NULL, $cate_2 = NULL, $cate_3 = NULL) {
         if ($cate_1 != NULL) {
             $this->db->where('cate_1', $cate_1);
@@ -645,6 +748,12 @@ class Fronts extends CI_Model {
 
     public function count_ads_by_location_id($ad_location) {
         $this->db->where('ad_location', $ad_location);
+        $this->db->where('status', 1);
+        return $this->db->count_all_results('advertizement');
+    }
+
+    public function count_ads_by_city_id($ad_city) {
+        $this->db->where('ad_city', $ad_city);
         $this->db->where('status', 1);
         return $this->db->count_all_results('advertizement');
     }

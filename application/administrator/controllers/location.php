@@ -53,12 +53,14 @@ class Location extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('name', 'Location Name', 'required|xss_clean');
+        $this->form_validation->set_rules('alias', 'Location Alias', 'required|trim|xss_clean|is_unique[poster_location.alias]');
 
         if ($this->form_validation->run() == FALSE) {
             // validation failed
             $this->load->view('location/add');
         } else {
             $data['name'] = $this->input->post('name', TRUE);
+            $data['alias'] = $this->input->post('alias', TRUE);
             $data['status'] = $this->input->post('status', TRUE);
 
             $insert = $this->Locations->insert_data($data);
@@ -79,13 +81,17 @@ class Location extends CI_Controller {
 
         $this->load->library('form_validation');
         $this->form_validation->set_rules('name', 'Location Name', 'required|xss_clean');
-
+        $this->form_validation->set_rules('alias', 'Location Alias', 'required|trim|xss_clean|callback_validate_slug[' . $cid . ']');
+        
+        $this->form_validation->set_message('validate_slug', 'This Location Alias is already exist. Please write a unique Alias.');
+        
         if ($this->form_validation->run() == FALSE) {
             $data['content'] = $this->Locations->get_data_by_id($cid);
             $this->load->view('location/edit', $data);
         } else {
 
             $data['name'] = $this->input->post('name', TRUE);
+            $data['alias'] = $this->input->post('alias', TRUE);
             $data['status'] = $this->input->post('status', TRUE);
 
             $update = $this->Locations->update_data($data, $cid);
@@ -143,6 +149,14 @@ class Location extends CI_Controller {
             $this->session->set_flashdata("item_name", "Inactive Location " . $name . " Succesfully");
             redirect('location/index');
         }
+    }
+
+    public function validate_slug($str, $id) {
+        $field_value = $str;
+
+        $mine = $this->Locations->aliasExists($field_value, $id);
+
+        return $mine;
     }
 
 }

@@ -1,3 +1,11 @@
+.img_delete_btn {
+  cursor: pointer;
+  margin-left: -24px;
+  margin-top: -10px;
+  padding-right: 5px;
+  vertical-align: top;
+  width: 20px;
+}
 .dest{
     width:400px;
     text-align:center;

@@ -92,7 +92,7 @@
                                                 foreach ($all_location as $loc) {
                                                     $count_location_ad = $this->Fronts->count_ads_by_location_id($loc['id']);
                                                     ?>
-                                                    <li><a href="#"><span class='title'><?php echo $loc['name']; ?></span><span class='count'>&nbsp;<?php echo $count_location_ad;?></span></a></li>
+                                                <li><a href="<?php echo base_url("en/city/{$loc['alias']}")?>"><span class='title'><?php echo $loc['name']; ?></span><span class='count'>&nbsp;<?php echo $count_location_ad;?></span></a></li>
                                                 <?php }
                                             }
                                             ?>
@@ -136,6 +136,10 @@
                         </div>
 
                         <div id='item-listing'>
+                            
+                            <?php
+                            $this->load->view('ad/private_ad');
+                            /*?>
                             <div class="spinner"></div>
                             <div class='top clearfix'>
                                 <ol class='breadcrumbs clearfix h-stack flat'>
@@ -228,7 +232,8 @@
                                 }
                                 ?>
                             </ul>
-
+                            
+                            */; ?>
                         </div>
 
                         <div class="pagination" style="display: block;">
@@ -255,3 +260,18 @@
         </div>
 
 <?php $this->load->view('common/footer'); ?>
+
+        <script type="text/javascript">
+        $(function(){
+            $("div.page span a").on("click", function(){
+                var thisUrl = $(this).attr('href');
+                
+                $.post(thisUrl, { 
+                 '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>' }, function(data){
+                    $("#item-listing").html(data);
+                });
+                return false;
+                alert(thisUrl);
+            });
+        });
+        </script>

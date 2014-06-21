@@ -141,7 +141,7 @@
                     <div class="info">
                         <span class="polar">
                             Did you miss something?
-                            <a href="<?php echo base_url("en/edit_ad/{$content->slug}");?>" id="edit_item" class="btn small edit"><span>edit ad</span></a>
+                            <a href="<?php echo base_url("en/edit_ad/{$content->id}/{$content->slug}");?>" id="edit_item" class="btn small edit"><span>edit ad</span></a>
                         </span>
                         <span class="small-print polar">
                             By publishing your ad on Website.com, you agree to Website.com's <a href="<?php echo base_url(); ?>en/details/terms-conditions" target="_blank">terms and conditions</a>

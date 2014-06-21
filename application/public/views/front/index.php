@@ -52,50 +52,19 @@
                                 <div class="region cities">
                                     <h3>Cities</h3>
                                     <ul class="flat">
-                                        <li>
-                                            <a href="#" class="accra">Accra</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="kumasi">Kumasi</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="sekondi-takoradi">Sekondi Takoradi</a>
-                                        </li>
+                                        <?php if(!empty($location_one)){ 
+                                            foreach ($location_one as $l_one){ ?>
+                                        <li><a href="<?php echo base_url('en/city/' . $l_one['alias']); ?>" class="<?php echo $l_one['alias'];?>"><?php echo $l_one['name']; ?></a></li>
+                                        <?php } } ?>
                                     </ul>
                                 </div>
                                 <div class="region regions">
                                     <h3>Regions</h3>
                                     <ul class="flat">
-                                        <li>
-                                            <a href="#" class="ashanti">Ashanti</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="greater-accra">Greater Accra</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="eastern">Eastern</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="western">Western</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="northern">Northern</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="brong-ahafo">Brong-Ahafo</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="volta">Volta</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="central">Central</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="upper-east">Upper East</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="upper-west">Upper West</a>
-                                        </li>
+                                        <?php if(!empty($location_two)){ 
+                                            foreach ($location_two as $l_two){ ?>
+                                        <li><a href="<?php echo base_url('en/city/' . $l_two['alias']); ?>" class="<?php echo $l_two['alias'];?>"><?php echo $l_two['name']; ?></a></li>
+                                        <?php } } ?>
                                     </ul>
                                 </div>
                             </div>

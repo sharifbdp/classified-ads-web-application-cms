@@ -127,6 +127,22 @@ $(document).ready(function() {
         $("#report-item-modal").dialog();
     });
 
+    // add to favorite
+    
+    $('#add_to_favorite').click(function(e) {
+        e.preventDefault();
+        var post_data = { 'ad_alias': ad_alias, csrf_tok : csrf_hash };
+        
+        $.ajax({
+            type: "POST",
+            url: URL + 'user/add_to_favorite',
+            data: post_data,
+            success: function(data) {
+                // return success
+                
+            }
+        });
+    });
 
 });
 

@@ -283,6 +283,16 @@ class User extends CI_Controller {
         return $mine;
     }
 
+    public function add_to_favorite() {
+        $ad_alias = $this->input->post('ad_alias', TRUE);
+        $ad_details = $this->Fronts->get_ad_details_by_sulg($ad_alias);
+        
+        $data['ad_id'] = $ad_details->id;
+        $data['poster_id'] = $this->session->userdata('uid');
+        $data['status'] = '1';
+        
+    }
+    
     public function logout() {
         $this->session->sess_destroy();
         redirect('user/login');

@@ -57,7 +57,7 @@
                                 </div>
                                 <div class='item-actions'>
                                     <div class='links'>
-                                        <a class='btn small edit' href='#'>
+                                        <a class='btn small edit' href='<?php echo base_url("en/edit_ad/{$list['id']}/{$list['slug']}");?>'>
                                             <span><i class='ico-user-edit'></i>Edit</span>
                                         </a>
                                         <a class='btn small delete' href='#'>

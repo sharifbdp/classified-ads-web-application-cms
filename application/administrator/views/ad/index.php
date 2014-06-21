@@ -102,19 +102,19 @@
                             </td>
 
                             <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; border-right:none;"><div align="center">
-                                    <a href="<?php echo base_url(); ?>index.php/ad/delete/<?php echo $per_content['id']; ?>" onClick="return confirm('Are you sure?');">
+                                    <a href="<?php echo base_url(); ?>index.php/ad/delete/<?php echo $per_content['id']; ?>" onClick="return confirm('Do you sure to delete this item?');">
                                         <img src="<?php echo base_url(); ?>image/delet.png" width="16" height="16" border="0" /></a>
                                 </div>
                             </td>
                             <td height="25" bordercolor="#FF0000" class="table_border" style="border-top:none; "><div align="center">
                                     <?php if ($per_content['status'] == '0' || $per_content['status'] == '7') { ?>
-                                        <a href="<?php echo base_url(); ?>index.php/ad/active/<?php echo $per_content['id']; ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/status.png" width="17" height="16" border="0" /></a>
+                                        <a href="<?php echo base_url(); ?>index.php/ad/active/<?php echo $per_content['id']; ?>" onClick="return confirm('Do you sure to active/publish this Advertizement?');"><img src="<?php echo base_url(); ?>image/un_publi.png" width="17" height="16" border="0" /></a>
                                         <?php
                                     }
                                     if ($per_content['status'] == '1') {
                                         ?>
 
-                                        <a href="<?php echo base_url(); ?>index.php/ad/inactive/<?php echo $per_content['id']; ?>" onClick="return confirm('Are you sure?');"><img src="<?php echo base_url(); ?>image/un_publi.png" width="17" height="16" border="0" / ></a>
+                                        <a href="<?php echo base_url(); ?>index.php/ad/inactive/<?php echo $per_content['id']; ?>" onClick="return confirm('Do you sure to inactive/unpublish this Advertizement?');"><img src="<?php echo base_url(); ?>image/status.png" width="17" height="16" border="0" / ></a>
                                     <?php } ?>
                                 </div>
                             </td>

@@ -15,7 +15,7 @@ class Locations extends CI_Model {
         if ($limit != NULL) {
             $this->db->limit($limit, $offset);
         }
-        
+
         $query = $this->db->get()->result_array();
 
         return $query;
@@ -37,6 +37,22 @@ class Locations extends CI_Model {
         $this->db->where('id', $cid);
         $query = $this->db->update('poster_location', $data);
         return $query;
+    }
+
+    public function aliasExists($alias, $id) {
+
+        $this->db->where('alias', $alias);
+        $this->db->where_not_in('id', $id);
+
+        $query = $this->db->get('poster_location');
+
+        $norows = $query->num_rows();
+
+        if ($norows > 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }

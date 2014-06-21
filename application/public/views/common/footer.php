@@ -58,11 +58,20 @@
                                 </ul>
                             </div>
                             <div class='quarter'>
+                                <?php
+                                    $social_fblink = $this->Fronts->getAllSocialLinks(1);
+                                    $social_twlink = $this->Fronts->getAllSocialLinks(2);
+                                    $social_ytlink = $this->Fronts->getAllSocialLinks(3);
+                                    
+                                    $fblink = "https://www.facebook.com/";
+                                    $ytlink = "http://www.youtube.com/";
+                                    $twlink = "https://www.twitter.com/";
+                                ?>
                                 <ul>
                                     <lh><span class='heading muted'>Social</span></lh>
-                                    <li><a href="#" target="_blank">Facebook</a></li>
-                                    <li><a href="#" target="_blank">Twitter</a></li>
-                                    <li><a href="#" target="_blank">YouTube</a></li>
+                                    <li><a href="<?php echo (!empty($social_fblink)) ? $social_fblink->link : $fblink; ?>" target="_blank">Facebook</a></li>
+                                    <li><a href="<?php echo (!empty($social_twlink)) ? $social_twlink->link : $twlink; ?>" target="_blank">Twitter</a></li>
+                                    <li><a href="<?php echo (!empty($social_ytlink)) ? $social_ytlink->link : $ytlink; ?>" target="_blank">YouTube</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -100,6 +109,8 @@
             ad_location = "<?php echo ($this->input->get('location')) ? '&location=' . $this->input->get('location') : '' ;?>";
             min_price = "<?php echo ($this->input->get('min-price')) ? '?min-price=' . $this->input->get('min-price') : '' ;?>";
             max_price = "<?php echo ($this->input->get('max-price')) ? '&max-price=' . $this->input->get('max-price') : '' ;?>";
+            ad_alias = "<?php echo ($cate_1_alias != '') ? $cate_1_alias : ''; ?>";
+            csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
         </script>
         <script src="<?php echo base_url();?>js/custom.js" type="text/javascript"></script>
 

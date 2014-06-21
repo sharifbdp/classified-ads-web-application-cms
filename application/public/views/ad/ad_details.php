@@ -71,7 +71,7 @@
                         <div class='item-info'>
                             Posted by <a href="#contact-email" class="contact"><?php echo $content->poster_name;?></a><?php echo ($content->type == 2) ? " (Business ad) " : "";?>
                             <time class='item-date'><?php echo date('d M  h:i a', strtotime($content->entry_date));?></time><span class='item-location'>, <?php echo $content->city;?></span>
-                            <a class='btn small' data-ui-nav='modal' href='#favorite-login'>
+                            <a class='btn small' href='#' id="add_to_favorite">
                                 <span><i class='ico-star'></i>Favorite</span>
                             </a>
                             
