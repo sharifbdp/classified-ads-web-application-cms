@@ -135,6 +135,7 @@ class User extends CI_Controller {
 
     public function login() {
 
+        $back_url = $this->session->userdata('back_url');
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('email', 'email', 'required|xss_clean|valid_email');
@@ -161,7 +162,12 @@ class User extends CI_Controller {
                 $this->Users->updateLoginInfo($check_user->id);
 
                 $this->session->set_flashdata('sign_success', 'Your are now successfully signed in.');
-                redirect('user/index');
+                if (!empty($back_url)) {
+                    $this->session->unset_userdata('back_url');
+                    redirect($back_url);
+                } else {
+                    redirect('user/index');
+                }
             } else {
                 $this->session->set_flashdata("sign_error", "Wrong email / password, or you did not create an account when you posted your ad. . Please <a href='" . base_url('user/sign_up') . "'>Create an account</a> and manage your ads.");
                 redirect('user/login');
@@ -283,16 +289,34 @@ class User extends CI_Controller {
         return $mine;
     }
 
+    public function add_to_favorite_login() {
+        $current_url = $this->input->post('current_url', TRUE);
+        $this->session->set_userdata('back_url', $current_url);
+        var_dump($current_url);
+        return true;
+    }
+
     public function add_to_favorite() {
         $ad_alias = $this->input->post('ad_alias', TRUE);
         $ad_details = $this->Fronts->get_ad_details_by_sulg($ad_alias);
-        
+
         $data['ad_id'] = $ad_details->id;
         $data['poster_id'] = $this->session->userdata('uid');
         $data['status'] = '1';
-        
+        //var_dump($data);
+        $check_fav = $this->Users->check_fouorite_ad_existance_in_user_list($data['ad_id'], $data['poster_id']);
+        if ($check_fav == TRUE) {
+            echo '<div class="box success">This advertisement is already in your favorite list.</div>';
+        } else {
+            $favourite_insert = $this->Users->insert_ad_to_favorite_data($data);
+            if ($favourite_insert) {
+                echo '<div class="box success"> This advertisement is successfully added to your favorite List </div>';
+            } else {
+                echo '<div class="alert alert-error">Here is an error. Please try again. </div>';
+            }
+        }
     }
-    
+
     public function logout() {
         $this->session->sess_destroy();
         redirect('user/login');

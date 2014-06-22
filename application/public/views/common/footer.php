@@ -100,6 +100,7 @@
         <script src="<?php echo base_url();?>js/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             URL = "<?php echo base_url(); ?>";
+            current_url = "<?php echo current_url(); ?>"
             c1_alias = "<?php echo ($cate_1_alias != '') ? $cate_1_alias . '/' : ''; ?>";
             c2_alias = "<?php echo ($cate_2_alias != '') ? $cate_2_alias . '/' : ''; ?>";
             c3_alias = "<?php echo ($cate_3_alias != '') ? $cate_3_alias . '/' : ''; ?>";
@@ -113,6 +114,16 @@
             csrf_hash = "<?php echo $this->security->get_csrf_hash(); ?>";
         </script>
         <script src="<?php echo base_url();?>js/custom.js" type="text/javascript"></script>
+        
+        <!-- Add mousewheel plugin (this is optional) -->
+        <script type="text/javascript" src="<?php echo base_url('asset/lib/jquery.mousewheel-3.0.6.pack.js')?>"></script>
+
+        <!-- Add fancyBox -->
+        <link rel="stylesheet" href="<?php echo base_url('asset/source/jquery.fancybox.css')?>" type="text/css" media="screen" />
+        <script type="text/javascript" src="<?php echo base_url('asset/source/jquery.fancybox.pack.js')?>"></script>
+
+        <link rel="stylesheet" href="<?php echo base_url('asset/source/helpers/jquery.fancybox-thumbs.css')?>" type="text/css" media="screen" />
+        <script type="text/javascript" src="<?php echo base_url('asset/source/helpers/jquery.fancybox-thumbs.js')?>"></script>
 
     </body>
 </html>

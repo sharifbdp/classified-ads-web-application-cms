@@ -66,7 +66,7 @@
                                 </div>
                             </td>
                             <td height="25" align="left" bordercolor="#FF0000"  class="table_border" style="border-top:none; border-right:none; padding-left:5px;">
-                                <?php echo $per_content['title']; ?>
+                                <a href="<?php echo base_url('ad/view/' . $per_content['id']);?>"><?php echo $per_content['title']; ?></a>
                             </td>
                             <td height="25" align="center" bordercolor="#FF0000"  class="table_border" style="border-top:none; border-right:none; padding-left:5px;">
                                 <?php

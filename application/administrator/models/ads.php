@@ -76,4 +76,16 @@ class Ads extends CI_Model {
         return $result;
     }
 
+    public function get_ad_details_by_id($id) {
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement as A');
+        $this->db->join('category as C', 'C.id = A.cate_2', 'inner');
+        $this->db->join('poster as P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location as L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city as CT', 'CT.id = A.ad_city', 'inner');
+
+        $this->db->where('A.id', $id);
+        return $this->db->get()->row();
+    }
+    
 }

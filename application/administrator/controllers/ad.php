@@ -51,6 +51,12 @@ class Ad extends CI_Controller {
         $this->load->view('ad/index', $data);
     }
 
+    public function view($did) {
+        $did = trim($did);
+        $data['content'] = $this->Ads->get_ad_details_by_id($did);
+        $this->load->view('ad/view', $data);
+    }
+    
     public function delete($did) {
         $did = trim($did);
         $data['status'] = '13';

@@ -127,8 +127,23 @@ $(document).ready(function() {
         $("#report-item-modal").dialog();
     });
 
-    // add to favorite
+    // add to favorite login
+    $('#add_to_favorite_login').click(function(e) {
+        e.preventDefault();
+        var post_data = { 'current_url': current_url, csrf_tok : csrf_hash };
+        
+        $.ajax({
+            type: "POST",
+            url: URL + 'user/add_to_favorite_login',
+            data: post_data,
+            success: function(data) {
+                // return success
+                window.location = URL + "user/login";
+            }
+        });
+    });
     
+    // add to favorite
     $('#add_to_favorite').click(function(e) {
         e.preventDefault();
         var post_data = { 'ad_alias': ad_alias, csrf_tok : csrf_hash };
@@ -139,11 +154,19 @@ $(document).ready(function() {
             data: post_data,
             success: function(data) {
                 // return success
-                
+                $.fancybox.showLoading();
+                            
+                $.fancybox({
+                    'content' : data,
+                    'height' : 20,
+                    'minHeight' : 20,
+                    'width' : 380,
+                    'minWidth' : 380,
+                    'scrolling' : false
+                });
             }
         });
     });
-
 });
 
 

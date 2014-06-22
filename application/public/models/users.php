@@ -20,16 +20,16 @@ The support team at Website.com<br><br>
 
 --------------------------------------------";
 
-/*
-        $this->load->library('email');
+        /*
+          $this->load->library('email');
 
-        $config['charset'] = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['mailtype'] = 'html';
+          $config['charset'] = 'utf-8';
+          $config['wordwrap'] = TRUE;
+          $config['mailtype'] = 'html';
 
-        $this->email->initialize($config);
-*/
-    
+          $this->email->initialize($config);
+         */
+
         $config = array(
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -42,8 +42,8 @@ The support team at Website.com<br><br>
         );
 
         $this->load->library('email', $config);
-    
-        
+
+
         $this->email->set_newline("\r\n");
 
         $this->email->from('admin@orionwebtech.net', 'Administrator');
@@ -78,15 +78,15 @@ The support team at Website.com<br><br>
 
 --------------------------------------------";
 
-/*
-        $this->load->library('email');
+        /*
+          $this->load->library('email');
 
-        $config['charset'] = 'utf-8';
-        $config['wordwrap'] = TRUE;
-        $config['mailtype'] = 'html';
+          $config['charset'] = 'utf-8';
+          $config['wordwrap'] = TRUE;
+          $config['mailtype'] = 'html';
 
-        $this->email->initialize($config);
-*/
+          $this->email->initialize($config);
+         */
 
         $config = array(
             'protocol' => 'smtp',
@@ -100,7 +100,7 @@ The support team at Website.com<br><br>
         );
 
         $this->load->library('email', $config);
-        
+
         $this->email->set_newline("\r\n");
 
         $this->email->from('admin@orionwebtech.net', 'Administrator');
@@ -231,6 +231,23 @@ The support team at Website.com<br><br>
             $this->db->limit($limit, $offset);
         }
         return $this->db->get()->result_array();
+    }
+
+    public function check_fouorite_ad_existance_in_user_list($ad_id, $poster_id) {
+        $this->db->where('ad_id', $ad_id);
+        $this->db->where('poster_id', $poster_id);
+        $query = $this->db->get('poster_ad_favorite_list');
+
+        $norows = $query->num_rows();
+
+        if ($norows > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function insert_ad_to_favorite_data($data) {
+        return $this->db->insert('poster_ad_favorite_list', $data);
     }
 
 }

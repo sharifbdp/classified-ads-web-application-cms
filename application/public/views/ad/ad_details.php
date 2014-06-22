@@ -71,9 +71,14 @@
                         <div class='item-info'>
                             Posted by <a href="#contact-email" class="contact"><?php echo $content->poster_name;?></a><?php echo ($content->type == 2) ? " (Business ad) " : "";?>
                             <time class='item-date'><?php echo date('d M  h:i a', strtotime($content->entry_date));?></time><span class='item-location'>, <?php echo $content->city;?></span>
-                            <a class='btn small' href='#' id="add_to_favorite">
-                                <span><i class='ico-star'></i>Favorite</span>
-                            </a>
+                            
+                            <?php if (!$this->session->userdata('user_logged')) { ?>
+                                <a class='btn small fancybox' href='#favorite-login'>
+                            <?php }else{ ?>
+                                <a class='btn small' href='#' id="add_to_favorite">    
+                            <?php } ?>    
+                                    <span><i class='ico-star'></i>Favorite</span>
+                                </a>
                             
                             <?php /*
                             <a class='btn small share' data-ui-nav='modal' href='#share'>
@@ -530,16 +535,15 @@
             </div>
             */ ?>
 
-<!--            <div data-ui='modal' id='favorite-login'>
-                  <div class='inner-box'>
-                      Please log in or sign up for an account to save Favorites.
-                  </div>
-                  <div class='actions'>
-                      <a href="/en/users/log_in" class="btn"><span>Log in</span>
-                      </a><a href="/en/users/sign_up" class="btn"><span>Sign up</span>
-                     </a></div>
-            </div>-->
-
+            <div data-ui='modal' id='favorite-login' style="display: none;">
+                <div class='inner-box'>
+                    Please log in or sign up for an account to save Favorites.
+                </div>
+                <div class='actions'>
+                    <a href="#" id="add_to_favorite_login" class="btn"><span>Log in</span></a>
+                    <a href="<?php echo base_url('user/sign_up');?>" class="btn"><span>Sign up</span></a>
+                </div>
+            </div>
 
             <div class='wrap'>
                 <div class='item-box'>
@@ -557,3 +561,9 @@
         </div>
 
 <?php $this->load->view('common/footer'); ?>
+
+        <script type="text/javascript">
+	$(document).ready(function() {
+            $(".fancybox").fancybox();
+	});
+        </script>

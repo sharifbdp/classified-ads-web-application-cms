@@ -4,9 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/sharif/Sites/bikroy/application/public/models/fronts.php</file>
-            <file>file:/Users/sharif/Sites/bikroy/application/public/views/ad/all_ad.php</file>
-            <file>file:/Users/sharif/Sites/bikroy/js/custom.js</file>
-            <file>file:/Users/sharif/Sites/bikroy/application/public/controllers/en.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/administrator/controllers/ad.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/administrator/views/ad/view.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/administrator/views/ad/index.php</file>
+            <file>file:/Users/sharif/Sites/bikroy/application/administrator/models/ads.php</file>
         </group>
     </open-files>
 </project-private>
