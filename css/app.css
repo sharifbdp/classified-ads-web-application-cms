@@ -2305,7 +2305,7 @@ div.pagination span.very-big-number { font-size: 0.8em }
 }
 .four-rd-padding { padding-bottom: 120px }
 .four-rd-row {
-    position: absolute;
+    /* position: absolute; */
     bottom: 15px;
 }
 .four-rd {

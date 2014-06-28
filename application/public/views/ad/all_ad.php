@@ -234,13 +234,15 @@
                             </ul>
                             
                             */; ?>
+                            
+                            <!-- 
                         </div>
 
-                        <div class="pagination" style="display: block;">
+                       <div class="pagination" style="display: block;">
                             <div class="nav h-stack">
                             <?php //echo $this->pagination->create_links(); ?>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
@@ -261,17 +263,4 @@
 
 <?php $this->load->view('common/footer'); ?>
 
-        <script type="text/javascript">
-        $(function(){
-            $("div.page span a").on("click", function(){
-                var thisUrl = $(this).attr('href');
-                
-                $.post(thisUrl, { 
-                 '<?php echo $this->security->get_csrf_token_name(); ?>' : '<?php echo $this->security->get_csrf_hash(); ?>' }, function(data){
-                    $("#item-listing").html(data);
-                });
-                return false;
-                alert(thisUrl);
-            });
-        });
-        </script>
+        

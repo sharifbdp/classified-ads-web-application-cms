@@ -136,20 +136,19 @@
                             <div id='item-information-left'>
                                 <div class='copy' id='item-text-description'><p><?php echo $content->details;?></p></div>
                             </div>
-                            
-                            <?php /*
+                         
                             <div class='row four-rd-row'>
                                 <div class='col'>
                                     <div class='item-actions'>
                                         <ul class='four-rd'>
                                             <li>
-                                                <a class='phone' href=''>
-                                                    <span class='contact-text'>024XXXXXXXX</span>
+                                                <a class='phone' href='#contact-phone-numbers'>
+                                                    <span class='contact-text'><?php echo substr($content->poster_phone, 0, -8) . 'XXXXXXXX';?></span>
                                                     <span class='additional-text'>Click to show phone number</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class='email send-email-btn' href=''>
+                                                <a class='email send-email-btn' href='#contact-email'>
                                                     <span class='contact-text'>Reply by email</span>
                                                 </a>
                                             </li>
@@ -158,21 +157,19 @@
 
                                 </div>
                             </div>
-                             * 
-                             */
-                            ?>
+                            
                         </div>
                         <div class='col' id='item-information-right'>
                             <div class='item-actions'>
                                 <ul class='four-rd'>
                                     <li>
-                                        <a class='phone' href=''>
-                                            <span class='contact-text'><?php echo $content->poster_phone;?></span>
-<!--                                            <span class='additional-text'>Click to show phone number</span>-->
+                                        <a class='phone' href='#contact-phone-numbers'>
+                                            <span class='contact-text'><?php echo substr($content->poster_phone, 0, -8) . 'XXXXXXXX';?></span>
+                                            <span class='additional-text'>Click to show phone number</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a class='email send-email-btn' href='<?php echo 'mailto:' . $content->poster_email;?>'>
+                                        <a class='email send-email-btn' href='#contact-email'>
                                             <span class='contact-text'>Reply by email</span>
                                         </a>
                                     </li>
@@ -328,9 +325,73 @@
                 </div>
 
                 
+                <div id="contact-seller" class="hide">
+                    <div class="clearfix">
+                        <div id="contact-email" class="contact col7" style="display: none;">
+                            <div class="inner-box">
+                                <form method="post" class="gtm-email-seller" action="/en/lenevo-g460-for-sale-dhaka/email_seller" accept-charset="UTF-8">
+                                    
+                                    <h2>Send <?php echo $content->poster_name;?> a message</h2>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="field name"><label for="contact_seller_email_name">Your name</label>
+                                                <div class="input">
+                                                    <input type="text" size="30" name="contact_seller_email[name]" id="contact_seller_email_name" class="required">
+                                                </div>
+                                            </div>
+                                            <div class="field email"><label for="contact_seller_email_email">Your email</label>
+                                                <div class="input">
+                                                    <input type="text" size="30" name="contact_seller_email[email]" id="contact_seller_email_email" class="required email">
+                                                </div>
+                                            </div>
+                                            <div class="field"><label for="contact_seller_email_phone_no">Phone No</label>
+                                                <div class="input">
+                                                    <input type="text" size="30" name="contact_seller_email[phone_no]" id="contact_seller_email_phone_no" class="phone ascii">
+                                                </div>
+                                            </div>
+                                            <div class="field msg"><label for="contact_seller_email_message">Message</label>
+                                                <div class="input">
+                                                    <textarea rows="8" name="contact_seller_email[message]" id="contact_seller_email_message" cols="77" class="required"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <div id="contact-phone-numbers" class="contact col7" style="display: block;">
+                            <div class="inner-box">
+                                <h2>Call <?php echo $content->poster_name;?></h2>
+                                <div class="number">
+                                    <i class="ico-phone"></i><?php echo $content->poster_phone;?>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="contact-apply-via" class="contact col7" style="display: none;"></div>
+                        
+                        <div id="stay-safe" class="col4">
+                            <div class="inner-box">
+                                <div class="inner-box-compact">
+                                    <h3>Stay Safe</h3>
+                                    <h4>How to stay safe when you are trading at Bikroy.com:</h4>
+                                    <ul>
+                                        <li>Keep things simple. Keep things local. Make sure you conclude your deals by meeting people face to face.</li><li>Make sure you are completely satisfied with the item before any money exchanges hands.</li>
+                                    </ul>
+                                    <h4>How to spot potential frauds and scams:</h4>
+                                    <ul><li>A potential fraudster will often recommend a payment service that is unfamiliar or unorthodox.</li><li>If an item seems too good to be true, it probably is. A fraudster will often appear to be selling an item that is usually expensive at a suspiciously low price. Be aware.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom-bar actions inner-box-compact">
+                        <button class="btn contact send-email-button invisible"><span><i class="ico-mail"></i>Send message</span></button>
+                    </div>
+                </div>
                 
-                <?php 
-                /*
+                
+                <?php /*?>
                 <div class='ui-helper-hidden' id='contact-seller'>
                     <div class='clearfix'>
                         <div class='contact col7' id='contact-email'>
@@ -399,8 +460,8 @@
                         </button>
                     </div>
                 </div>
-                */ 
-                ?>
+                
+                <?php */?>
             <?php } else { ?>
                 <div class="inner-box">
                     <div class="item-box page_not_found">

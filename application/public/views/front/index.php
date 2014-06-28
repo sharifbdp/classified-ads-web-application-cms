@@ -1,5 +1,20 @@
 <?php $this->load->view('common/header'); ?>
 
+
+
+
+<style>#site-logo a{width:165px;height:35px}#site-logo a,.smile-logo{background:url(<?php echo base_url();?>images/logo-7e80d2c12f9f1787e4f2348e2227778c.png) no-repeat}
+.news-ticker{padding-right:100px;background:url(<?php echo base_url();?>images/ghanaweb-66d90a0877c69ba7c1529055b1ee7f49.png) 99.33% 50% no-repeat}#region-list{margin-top:30px}.home-map{background-position:0 -50px}#map,#map-layer{width:320px}#map{margin-left:-18px;margin-right:40px}
+#map-layer{height:428px;background:url(<?php echo base_url();?>images/tonaton-map-6ea684fba1e024f5a8fcf7cbd3c80f82.png) top left no-repeat}
+#map-layer div{display:none;z-index:1;height:200px;width:200px;background:url(<?php echo base_url();?>images/tonaton-map-6ea684fba1e024f5a8fcf7cbd3c80f82.png) top left no-repeat;position:absolute}
+#map-layer .city{z-index:2;height:30px;width:30px}
+#map-layer .accra{background-position:-458px -423px;top:320px;left:224px}
+#map-layer .kumasi{background-position:-673px -422px;top:250px;left:143px}#map-layer .sekondi-takoradi{background-position:-872px -423px;top:361px;left:126px}#map-layer .western{background-position:-991px -190px;top:219px;left:16px}#map-layer .central{background-position:-1188px 0px;top:228px;left:83px}#map-layer .greater-accra{background-position:-1186px -194px;top:222px;left:148px}#map-layer .volta{background-position:-1004px 0px;top:138px;left:189px}#map-layer .eastern{background-position:-787px -154px;top:147px;left:124px}#map-layer .ashanti{background-position:-792px 0px;top:170px;left:78px}#map-layer .brong-ahafo{background-position:-589px -178px;top:103px;left:71px}#map-layer .northern{background-position:-589px 0;top:21px;left:89px}#map-layer .upper-west{background-position:-382px 0;top:-46px;left:24px}#map-layer .upper-east{background-position:-382px -148px;top:-108px;left:99px}.tooltip.accra{top:304px;left:114px}.tooltip.kumasi{top:236px;left:29px}.tooltip.sekondi-takoradi{top:345px;left:15px}.tooltip.western{top:284px;left:-27px}.tooltip.central{top:300px;left:60px}.tooltip.greater-accra{top:289px;left:136px}.tooltip.volta{top:206px;left:149px}.tooltip.eastern{top:258px;left:97px}.tooltip.ashanti{top:218px;left:48px}.tooltip.brong-ahafo{top:172px;left:30px}.tooltip.northern{top:81px;left:89px}.tooltip.upper-west{top:24px;left:-6px}.tooltip.upper-east{top:-7px;left:94px}#competition-landing{width:245px}#competition-landing a{display:block;background:url(/assets/desktop/competition/tonaton/en/landing-d41996ff193c6b456eafc9a165823609.png) no-repeat 50% 0;height:380px;text-indent:-999em}
+</style>
+
+
+
+
     <body class='home home home-index'>
 
         <?php $this->load->view('common/top_menu'); ?>
@@ -28,9 +43,7 @@
                                     <div class='upper-west'></div>
                                     <div class='upper-east'></div>
                                 </div>
-                                <div class='tooltip'>
-                                    <div class='txt'></div>
-                                </div>
+                                <div class='tooltip'><div class='txt'></div></div>
                                 <map name='tonaton-map'>
                                     <area class='accra' coords='238,335,11' data-title='Accra' href='#accra' shape='circle'>
                                     <area class='kumasi' coords='154,265,9' data-title='Kumasi' href='#kumasi' shape='circle'>

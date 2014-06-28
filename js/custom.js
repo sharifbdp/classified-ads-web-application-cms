@@ -1,5 +1,24 @@
 $(document).ready(function() {
 
+    $('map area').mouseover(function() {
+        var title = $(this).attr("data-title");
+        var cssClass = $(this).attr("class");
+        $(".tooltip").addClass(cssClass);
+        $(".tooltip").css("display", "block");
+        $('.txt').text(title);
+    }).mouseout(function() { 
+        var cssClass = $(this).attr("class");
+        $(".tooltip").removeClass(cssClass);
+        $(".tooltip").css("display", "none");
+        $('.txt').text('');
+    });
+
+    $('map area').click(function(){
+        var cityAlias = $(this).attr("href");
+        var alias = cityAlias.replace(/#/, '/');
+        document.location.href = URL + "en/city" + alias;
+    });
+  
     $('.current-sort').click(function(e) {
         e.preventDefault();
         var style = $('.sort-options').attr('style');
@@ -12,6 +31,20 @@ $(document).ready(function() {
         }
     });
 
+    $('a.phone').click(function(){
+       $('#contact-seller').removeClass('hide');
+       $("#contact-phone-numbers").css("display", "block");
+       $("#contact-email").css("display", "none");
+       $('.send-email-button').addClass('invisible');
+    });
+    
+    $('a.send-email-btn').click(function(){
+       $('#contact-seller').removeClass('hide');
+       $("#contact-phone-numbers").css("display", "none");
+       $("#contact-email").css("display", "block");
+       $('.send-email-button').removeClass('invisible');
+       
+    });
     // ready
     $(document).on({
         ajaxStart: function() {

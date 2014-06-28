@@ -79,14 +79,14 @@
                             <?php
                             $loc_alias = $this->uri->segment(3);
                             $city_alias = $this->uri->segment(4);
-                            
+
                             //$last_seg = end($this->uri->segments);
                             $location_details = $this->Fronts->get_location_details_by_alias($loc_alias);
                             $city_details = $this->Fronts->get_city_area_details_by_alias($city_alias);
-                            
+
                             $ad_location_id = (!empty($location_details)) ? $location_details->id : NULL;
                             $ad_city_id = (!empty($city_details)) ? $city_details->id : NULL;
-                            
+
                             $has_city = $this->Fronts->check_has_child_city_by_alias($loc_alias);
                             //var_dump($has_city);
                             ?>
@@ -119,15 +119,18 @@
                                     <li class='indent-1'>
                                         <?php if (empty($city_details)) { ?>
                                             <div class='current'>
-                                                <?php echo (!empty($location_details)) ? $location_details->name : 'No Category'; ?>
+                                                <?php echo (!empty($location_details)) ? $location_details->name : 'No city found'; ?>
                                             </div>
                                             <ul class='flat tree links'>
                                                 <?php
-                                                foreach ($has_city as $child) {
-                                                    $count_cid_ad = $this->Fronts->count_ads_by_city_id($child['id']);
-                                                    ?>
-                                                    <li><a href="<?php echo base_url('en/city/' . $location_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad; ?></span></a></li>
-                                                <?php } ?>
+                                                if (!empty($has_city)) {
+                                                    foreach ($has_city as $child) {
+                                                        $count_cid_ad = $this->Fronts->count_ads_by_city_id($child['id']);
+                                                        ?>
+                                                        <li><a href="<?php echo base_url('en/city/' . $location_details->alias . '/' . $child['alias']); ?>"><span class='title'><?php echo $child['name']; ?></span><span class='count'>&nbsp;<?php echo $count_cid_ad; ?></span></a></li>
+                                                    <?php }
+                                                }
+                                                ?>
                                             </ul>
                                             <?php
                                         } else {
@@ -185,15 +188,15 @@
                                 <div class='h-stack' id='scopes'>
                                     <div id="all-ads" class='tab current'>
                                         <a href="#">All ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_location_city_id(NULL, $ad_location_id, $ad_city_id);?></span>
+                                            <span class='ad-count'><?php echo (!empty($location_details)) ? $this->Fronts->count_ads_by_type_and_location_city_id(NULL, $ad_location_id, $ad_city_id) : '0';?></span>
                                         </a></div>
                                     <div id="private-ads" class='tab'>
                                         <a href="#">Private ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_location_city_id(1, $ad_location_id, $ad_city_id);?></span>
+                                            <span class='ad-count'><?php echo (!empty($location_details)) ? $this->Fronts->count_ads_by_type_and_location_city_id(1, $ad_location_id, $ad_city_id) : '0';?></span>
                                         </a></div>
                                     <div id="business-ads" class='tab'>
                                         <a href="#">Business ads
-                                            <span class='ad-count'><?php echo $this->Fronts->count_ads_by_type_and_location_city_id(2,  $ad_location_id, $ad_city_id);?></span>
+                                            <span class='ad-count'><?php echo (!empty($location_details)) ? $this->Fronts->count_ads_by_type_and_location_city_id(2,  $ad_location_id, $ad_city_id) : '0';?></span>
                                         </a>
                                     </div>
                                 </div>
@@ -218,9 +221,9 @@
                                     <li><a rel="up up" href=""><?php echo $location_details->name?></a><span>→</span></li>
                                     <li><a rel="current" class="current" href=""><?php echo $city_details->name?></a> in Ghana</li>
                                     <?php }else{ ?>
-                                    <li><a rel="current" class="current" href=""><?php echo $location_details->name?></a> in Ghana</li>
+                                    <li><a rel="current" class="current" href=""><?php echo (!empty($location_details)) ? $location_details->name : 'No city found'?></a> in Ghana</li>
                                     <?php } ?>
-                                    
+
                                 </ol>
 
                                 <div class='h-stack polar' id='list-mode-nav'>

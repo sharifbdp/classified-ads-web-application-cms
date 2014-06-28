@@ -372,14 +372,17 @@ class Fronts extends CI_Model {
     public function check_has_child_city_by_alias($alias) {
         $this->db->where('alias', "$alias");
         $ad_location = $this->db->get('poster_location')->row();
-
-        $this->db->where('lid', $ad_location->id);
-        $result = $this->db->get('poster_location_city')->result_array();
-        $norows = $this->db->count_all_results();
-        if ($norows < 0) {
-            return false;
+        if (!empty($ad_location)) {
+            $this->db->where('lid', $ad_location->id);
+            $result = $this->db->get('poster_location_city')->result_array();
+            $norows = $this->db->count_all_results();
+            if ($norows < 0) {
+                return false;
+            } else {
+                return $result;
+            }
         } else {
-            return $result;
+            return false;
         }
     }
 
@@ -710,7 +713,7 @@ class Fronts extends CI_Model {
         if ($ad_city != NULL) {
             $this->db->where('ad_city', $ad_city);
         }
-     
+
         $this->db->where('status', 1);
 
         $for_what = $this->input->get('for');
@@ -731,7 +734,7 @@ class Fronts extends CI_Model {
 
         return $this->db->count_all_results('advertizement');
     }
-    
+
     public function count_ads_by_category_id($cate_1 = NULL, $cate_2 = NULL, $cate_3 = NULL) {
         if ($cate_1 != NULL) {
             $this->db->where('cate_1', $cate_1);

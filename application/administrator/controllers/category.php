@@ -41,7 +41,7 @@ class Category extends CI_Controller {
 
         $config['base_url'] = base_url() . 'category/index';
         $config['total_rows'] = $this->Categorys->totalMainCategory();
-        $config['per_page'] = 50;
+        $config['per_page'] = 5;
 
         $this->pagination->initialize($config);
 

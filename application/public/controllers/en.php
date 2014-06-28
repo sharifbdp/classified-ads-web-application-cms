@@ -450,15 +450,16 @@ class En extends CI_Controller {
         $cate_2_id = (!empty($data['cate_2_details'])) ? $data['cate_2_details']->id : NULL;
         $cate_3_id = (!empty($data['cate_3_details'])) ? $data['cate_3_details']->id : NULL;
         //
-        /*
+
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . 'en/ajax_all_ads';
+        $config['base_url'] = base_url() . 'en/ajax_all_ads/0/0/0/0/0';
 
         $config['total_rows'] = $this->Fronts->total_no_of_ad_data($type = NULL, $sort = NULL);
 
-        $config['per_page'] = 2;
-
+        $config['per_page'] = 1;
+        $config['uri_segment'] = 8;
+       
         $config['prev_link'] = 'prev';
 
         $config['prev_tag_open'] = '<div class="page"><span class="prev">';
@@ -471,7 +472,7 @@ class En extends CI_Controller {
 
         $config['next_tag_close'] = '</span></div>';
 
-        $config['cur_tag_open'] = '<div class="page current"><span class="current"><a href="#">';
+        $config['cur_tag_open'] = '<div class="page current"><span class="current"><a href="0">';
 
         $config['cur_tag_close'] = '</a></span></div>';
 
@@ -479,35 +480,28 @@ class En extends CI_Controller {
 
         $config['num_tag_close'] = '</span></div>';
 
-//        $config['first_link'] = '<<';
+        $config['first_link'] = '<<';
+        $config['first_tag_open'] = '<div class="page"><span>';
+        $config['first_tag_close'] = '</span></div>';
 
-//        $config['first_tag_open'] = '<div class="page"><span>';
 
-//        $config['first_tag_close'] = '</span></div>';
+        $config['last_link'] = '>>';
+        $config['last_tag_open'] = '<div class="page"><span>';
+        $config['last_tag_close'] = '</span></div>';
 
-//        
-
-//        $config['last_link'] = '>>';
-
-//        $config['last_tag_open'] = '<div class="page"><span>';
-
-//        $config['last_tag_close'] = '</span></div>';
-
-        $config['first_link'] = FALSE;
-        $config['last_link'] = FALSE;
-
+        //$config['first_link'] = FALSE;
+        //$config['last_link'] = FALSE;
+        
         $this->pagination->initialize($config);
 
         //$data['content'] = $this->Fronts->get_all_ad_data($type = NULL, $sort = NULL, $config['per_page'], $this->uri->segment(3));
 
-        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $cate_1_id, $cate_2_id, $cate_3_id, $sort, $config['per_page'], $this->uri->segment(3));
-         * 
-         */
-        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $cate_1_id, $cate_2_id, $cate_3_id, $sort);
+        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $sort, $cate_1_id, $cate_2_id, $cate_3_id, $config['per_page'], $this->uri->segment(8));
+
+        //$data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $cate_1_id, $cate_2_id, $cate_3_id, $sort);
         $this->load->view('ad/all_ad', $data);
     }
 
-    
     public function ajax_all_ads($type = NULL, $cate_1_slug = NULL, $cate_2_slug = NULL, $cate_3_slug = NULL, $sort = NULL) {
         if ($type != NULL) {
             if ($type == 'all') {
@@ -533,12 +527,13 @@ class En extends CI_Controller {
         //
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . 'en/ajax_all_ads';
+        $config['base_url'] = base_url() . 'en/ajax_all_ads/0/0/0/0/0';
 
         $config['total_rows'] = $this->Fronts->total_no_of_ad_data($type = NULL, $sort = NULL);
 
-        $config['per_page'] = 2;
-
+        $config['per_page'] = 1;
+        $config['uri_segment'] = 8;
+        
         $config['prev_link'] = 'prev';
 
         $config['prev_tag_open'] = '<div class="page"><span class="prev">';
@@ -551,7 +546,7 @@ class En extends CI_Controller {
 
         $config['next_tag_close'] = '</span></div>';
 
-        $config['cur_tag_open'] = '<div class="page current"><span class="current"><a href="#">';
+        $config['cur_tag_open'] = '<div class="page current"><span class="current"><a href="0">';
 
         $config['cur_tag_close'] = '</a></span></div>';
 
@@ -559,31 +554,26 @@ class En extends CI_Controller {
 
         $config['num_tag_close'] = '</span></div>';
 
-//        $config['first_link'] = '<<';
+        $config['first_link'] = '<<';
+        $config['first_tag_open'] = '<div class="page"><span>';
+        $config['first_tag_close'] = '</span></div>';
 
-//        $config['first_tag_open'] = '<div class="page"><span>';
+        $config['last_link'] = '>>';
+        $config['last_tag_open'] = '<div class="page"><span>';
+        $config['last_tag_close'] = '</span></div>';
 
-//        $config['first_tag_close'] = '</span></div>';
-
-//        
-
-//        $config['last_link'] = '>>';
-
-//        $config['last_tag_open'] = '<div class="page"><span>';
-
-//        $config['last_tag_close'] = '</span></div>';
-
-        $config['first_link'] = FALSE;
-        $config['last_link'] = FALSE;
-
+        //$config['first_link'] = FALSE;
+        //$config['last_link'] = FALSE;
+        
         $this->pagination->initialize($config);
 
         //$data['content'] = $this->Fronts->get_all_ad_data($type = NULL, $sort = NULL, $config['per_page'], $this->uri->segment(3));
-
-        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $cate_1_id, $cate_2_id, $cate_3_id, $sort, $config['per_page'], $this->uri->segment(3));
-        $this->load->view('ad/all_ad', $data, TRUE);
+        //var_dump($this->uri->segment(9));
+        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $sort, $cate_1_id, $cate_2_id, $cate_3_id, $config['per_page'], $this->uri->segment(8));
+        //var_dump($data);
+        $this->load->view('ad/private_ad', $data);
     }
-    
+
     public function load_ads($type = NULL, $sort = NULL, $cate_1_slug = NULL, $cate_2_slug = NULL, $cate_3_slug = NULL) {
         if ($type != NULL) {
             if ($type == 'all') {
@@ -648,13 +638,18 @@ class En extends CI_Controller {
         $l_slug = trim($location_slug);
         $c_slug = trim($city_slug);
 
-        $data['location_details'] = $this->Fronts->get_location_details_by_alias($l_slug);
-        $data['content'] = $this->Fronts->get_all_ad_data_by_location_id($data['location_details']->id);
-        if ($c_slug != NUll) {
-            $data['city_details'] = $this->Fronts->get_city_area_details_by_alias($c_slug);
-            $data['content'] = $this->Fronts->get_all_ad_data_by_location_id($data['location_details']->id, $data['city_details']->id);
+        $location_details = $this->Fronts->get_location_details_by_alias($l_slug);
+        if (!empty($location_details)) {
+            $data['location_details'] = $location_details;
+            $data['content'] = $this->Fronts->get_all_ad_data_by_location_id($data['location_details']->id);
+            if ($c_slug != NUll) {
+                $data['city_details'] = $this->Fronts->get_city_area_details_by_alias($c_slug);
+                $data['content'] = $this->Fronts->get_all_ad_data_by_location_id($data['location_details']->id, $data['city_details']->id);
+            }
+        } else {
+            $data['location_details'] = "";
+            $data['content'] = "";
         }
-
         //var_dump($data['content']);
         $this->load->view('ad/city_page', $data);
     }
