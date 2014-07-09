@@ -10,7 +10,6 @@ class Users extends CI_Model {
 
 Please click on the link below to confirm and gain access to your account.<br><br>
 
-
 <a href='{$confirmation_link}' target='_blank'>{$confirmation_link}</a><br><br>
 
 If you didn't sign up for an account, please ignore this email. The account will not be created if you do not click the link above.<br><br>
@@ -20,33 +19,20 @@ The support team at Website.com<br><br>
 
 --------------------------------------------";
 
-        /*
-          $this->load->library('email');
+        $this->load->library('email');
 
-          $config['charset'] = 'utf-8';
-          $config['wordwrap'] = TRUE;
-          $config['mailtype'] = 'html';
+        $config['charset'] = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
 
-          $this->email->initialize($config);
-         */
-
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'admin@orionwebtech.net', // gmail Username
-            'smtp_pass' => 'Orion*566#', // gmail Password
-            'mailtype' => 'html', // what type of mail you want to sent. i.e html/plaintext
-            'charset' => 'utf-8',
-            'wordwrap' => TRUE
-        );
+        $this->email->initialize($config);
 
         $this->load->library('email', $config);
 
 
         $this->email->set_newline("\r\n");
 
-        $this->email->from('admin@orionwebtech.net', 'Administrator');
+        $this->email->from('admin@website.com', 'Administrator');
         $this->email->to($poster_details->email, $poster_details->name);
         $this->email->subject($subject);
         $this->email->message($msg);
@@ -78,32 +64,20 @@ The support team at Website.com<br><br>
 
 --------------------------------------------";
 
-        /*
-          $this->load->library('email');
 
-          $config['charset'] = 'utf-8';
-          $config['wordwrap'] = TRUE;
-          $config['mailtype'] = 'html';
+        $this->load->library('email');
 
-          $this->email->initialize($config);
-         */
+        $config['charset'] = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
 
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'admin@orionwebtech.net', // gmail Username
-            'smtp_pass' => 'Orion*566#', // gmail Password
-            'mailtype' => 'html', // what type of mail you want to sent. i.e html/plaintext
-            'charset' => 'utf-8',
-            'wordwrap' => TRUE
-        );
+        $this->email->initialize($config);
 
         $this->load->library('email', $config);
 
         $this->email->set_newline("\r\n");
 
-        $this->email->from('admin@orionwebtech.net', 'Administrator');
+        $this->email->from('admin@website.com', 'Administrator');
         $this->email->to($poster_details->email, $poster_details->name);
         $this->email->subject($subject);
         $this->email->message($msg);
@@ -250,7 +224,7 @@ The support team at Website.com<br><br>
         }
         return $this->db->get()->result_array();
     }
-    
+
     public function check_fouorite_ad_existance_in_user_list($ad_id, $poster_id) {
         $this->db->where('ad_id', $ad_id);
         $this->db->where('poster_id', $poster_id);
@@ -264,6 +238,7 @@ The support team at Website.com<br><br>
             return false;
         }
     }
+
     public function insert_ad_to_favorite_data($data) {
         return $this->db->insert('poster_ad_favorite_list', $data);
     }
@@ -273,4 +248,5 @@ The support team at Website.com<br><br>
         $this->db->where('poster_id', $poster_id);
         return $this->db->delete('poster_ad_favorite_list');
     }
+
 }

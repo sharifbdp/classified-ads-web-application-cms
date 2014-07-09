@@ -1,6 +1,6 @@
                             <div class="spinner"></div>
                             <div class='top clearfix'>
-
+                                
                                 <ol class='breadcrumbs clearfix h-stack flat'>
                                     <li><a href="<?php echo base_url(); ?>en/all_ads" rel="up up">All ads</a><span>&rarr;</span></li>
                                     <?php
@@ -33,17 +33,17 @@
                                         <li><a href="#" class="current" rel="current"><?php echo $cate_3_details->name; ?></a> in <?php echo "Ghana"; ?></li>
                                     <?php } ?>
                                 </ol>
-
+                                
                                 <div class='h-stack polar' id='list-mode-nav'>
                                     <a class='regular current' href='#'>Regular</a>
                                     <a class='compact' href='#'>Compact</a>
                                 </div>
                             </div>
-
+                            
                             <?php if(empty($content)){ ?>
                                 <h1 style="text-align: center; margin: 15px 0px;">Sorry, No advertisement found.</h1>
                             <?php } ?>
-
+                                
                             <ul class='flat regular' id='item-rows'>
                                 <?php
                                 if (!empty($content)) {
@@ -124,30 +124,22 @@
                                 ?>
                             </ul>
 
-
-                            
-                            <div class="pagination" style="display: block;">
-                                <div class="nav h-stack">
-                                    <?php echo $this->pagination->create_links(); ?>
-                                </div>
-                            </div>
-
                             <script type="text/javascript">
-                            $(function(){
-                                        
-                            $("div.page span a").on("click", function(e) {
-                                e.preventDefault();
-                                var ajax = $(this).attr('href');
-                                $.ajax({
-                                    type: "GET",
-                                    url: ajax,
-                                    success: function(data) {
-                                        // return success
-                                        $('#item-listing').html(data);
-
-                                    }
+                            $(document).ready(function() {
+                                $('a.compact').click(function(e) {
+                                    e.preventDefault();
+                                    $('.flat.regular').hide(200);
+                                    $('.flat.compact').show(200);
+                                    $('a.regular').removeClass('current');
+                                    $('a.compact').addClass('current');
                                 });
 
-                            });
+                                $('a.regular').click(function(e) {
+                                    e.preventDefault();
+                                    $('.flat.compact').hide(200);
+                                    $('.flat.regular').show(200);
+                                    $('a.compact').removeClass('current');
+                                    $('a.regular').addClass('current');
+                                });
                             });
                             </script>

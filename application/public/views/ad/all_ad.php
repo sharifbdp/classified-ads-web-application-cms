@@ -138,8 +138,8 @@
                         <div id='item-listing'>
                             
                             <?php
-                            $this->load->view('ad/private_ad');
-                            /*?>
+                            //$this->load->view('ad/private_ad');
+                            ?>
                             <div class="spinner"></div>
                             <div class='top clearfix'>
                                 <ol class='breadcrumbs clearfix h-stack flat'>
@@ -232,8 +232,6 @@
                                 }
                                 ?>
                             </ul>
-                            
-                            */; ?>
                             
                             
                         </div>

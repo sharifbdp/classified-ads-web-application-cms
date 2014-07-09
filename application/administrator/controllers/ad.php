@@ -56,7 +56,7 @@ class Ad extends CI_Controller {
         $data['content'] = $this->Ads->get_ad_details_by_id($did);
         $this->load->view('ad/view', $data);
     }
-    
+
     public function delete($did) {
         $did = trim($did);
         $data['status'] = '13';
@@ -119,7 +119,7 @@ class Ad extends CI_Controller {
         $poster_details = $this->Ads->get_poster_details_by_id($content->p_id);
         $subject = "Receipt: {$content->title} (Published)";
         $ad_link = "http://tonaton.orionwebtech.net/en/view/" . $content->slug;
-        
+
         $msg = "Congratulations! Your ad has now been published Website.com - at. <br><br>
 
 Your ad is the link:  <a href='{$ad_link}' target='_blank'>{$ad_link}</a><br><br>
@@ -139,7 +139,6 @@ The support team at Website.com<br><br>
 --------------------------------------------<br>
 Website.com - Sell anything ";
 
-/*
         $this->load->library('email');
 
         $config['charset'] = 'utf-8';
@@ -147,25 +146,12 @@ Website.com - Sell anything ";
         $config['mailtype'] = 'html';
 
         $this->email->initialize($config);
-*/
-
-        
-        $config = array(
-            'protocol' => 'smtp',
-            'smtp_host' => 'ssl://smtp.googlemail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'admin@orionwebtech.net', // gmail Username
-            'smtp_pass' => 'Orion*566#', // gmail Password
-            'mailtype' => 'html', // what type of mail you want to sent. i.e html/plaintext
-            'charset' => 'utf-8',
-            'wordwrap' => TRUE
-        );
 
         $this->load->library('email', $config);
-              
+
         $this->email->set_newline("\r\n");
 
-        $this->email->from('admin@orionwebtech.net', 'Administrator');
+        $this->email->from('admin@website.com', 'Administrator');
         $this->email->to($poster_details->email, $poster_details->name);
         $this->email->subject($subject);
         $this->email->message($msg);
