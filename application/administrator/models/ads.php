@@ -88,4 +88,9 @@ class Ads extends CI_Model {
         return $this->db->get()->row();
     }
     
+    public function get_all_ad_image_by_ad_id($ad_id) {
+        $this->db->where('ad_id', $ad_id);
+        $this->db->order_by('id', 'DESC');
+        return $this->db->get('advertizement_image')->result_array();
+    }
 }

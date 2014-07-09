@@ -5,7 +5,24 @@
         <?php $this->load->view('common/top_menu'); ?>
 
         <div id='site-content'>
-
+            
+            <?php if ($this->session->flashdata('feedback_success')) { ?>
+                <div class='alert wrap'>
+                    <div class='box notice'>
+                        <a class='polar close' href='#'>×</a><p><?php echo $this->session->flashdata('feedback_success'); ?></p>
+                    </div>
+                </div>
+                <?php
+            }
+            if ($this->session->flashdata('feedback_error')) {
+                ?>
+                <div class='alert wrap'>
+                    <div class='box error'>
+                        <a class='polar close' href='#'>×</a><p><?php echo $this->session->flashdata('feedback_error'); ?></p>
+                    </div>
+                </div>
+            <?php } ?>
+            
             <div class='wrap'>
                 <div class='inner-box top'>
                     <?php 
@@ -28,32 +45,44 @@
                         <div class='inner-box'>
                             
                             <h2>Contact us</h2>
-                            <p>If you did not find the answer to your question or problem on this page, then please get in touch with us using the form below. We endeavor to answer your messages as soon as possible.</p>
+                            <?php
+                                if(!empty($content->details)){ echo $content->details; }
+                            ?>
                             <hr>
                             
-                            <form accept-charset="UTF-8" action="" class="new_support_ticket" id="new_support_ticket" method="post">
+                            
+                            <?php echo form_open('', array('class' => 'new_support_ticket', 'id' => 'new_support_ticket'));?>    
                                 <div class='row field'>
                                     <div class='label col2'><label for="support_ticket_name">Your name</label></div>
-                                    <div class='input col'><input class="required" id="support_ticket_name" name="support_ticket[name]" size="30" type="text" /></div>
+                                    <div class='input col'>
+                                        <input class="required" id="support_ticket_name" name="support_ticket_name" value="<?php echo set_value('support_ticket_name');?>" size="30" type="text" />
+                                        <?php echo form_error('support_ticket_name', '<label for="support_ticket_name" class="error" style="display: block;">', '</label>'); ?>
+                                    </div>
                                 </div>
                                 <div class='row field'>
                                     <div class='label col2'><label for="support_ticket_email">Your email</label></div>
-                                    <div class='input col'><input class="required email" id="support_ticket_email" name="support_ticket[email]" size="30" type="text" /></div>
+                                    <div class='input col'>
+                                        <input class="required email" id="support_ticket_email" name="support_ticket_email" value="<?php echo set_value('support_ticket_email');?>" size="30" type="text" />
+                                        <?php echo form_error('support_ticket_email', '<label for="support_ticket_email" class="error" style="display: block;">', '</label>'); ?>
+                                    </div>
                                 </div>
                                 <div class='row field'>
                                     <div class='label col2'><label for="support_ticket_message">Message</label></div>
-                                    <div class='input col'><textarea class="required" cols="40" id="support_ticket_message" name="support_ticket[message]" rows="8">
-                                        </textarea></div>
+                                    <div class='input col'>
+                                        <textarea class="required" cols="40" id="support_ticket_message" name="support_ticket_message" rows="8"><?php echo set_value('support_ticket_message');?></textarea>
+                                        <?php echo form_error('support_ticket_message', '<label for="support_ticket_message" class="error" style="display: block;">', '</label>'); ?>
+                                    </div>
                                 </div>
                                 <div class='row field'>
                                     <div class='label col2'>&nbsp;</div>
                                     <div class='input col'>
-                                        <button class='submit btn' type='submit'>
+                                        <button class='submit btn' type='submit' name="contact_us_submit" value="contact_us_form">
                                             <span>Send your message</span>
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            
+                            <?php echo form_close();?>
 
                             <hr>
 

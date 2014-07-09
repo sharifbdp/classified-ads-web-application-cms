@@ -20,6 +20,16 @@ class User extends CI_Controller {
             redirect('user/login');
         }
     }
+    
+    public function favorites() {
+        if ($this->session->userdata('user_logged')) {
+            $uid = $this->session->userdata('uid');
+            $data['my_fav_list'] = $this->Users->get_all_my_favorite_ad_list_by_uid($uid);
+            $this->load->view('poster/favorites', $data);
+        } else {
+            redirect('user/login');
+        }
+    }
 
     public function activate($e_code) {
         $email = $this->Users->decode(trim($e_code));
@@ -292,7 +302,7 @@ class User extends CI_Controller {
     public function add_to_favorite_login() {
         $current_url = $this->input->post('current_url', TRUE);
         $this->session->set_userdata('back_url', $current_url);
-        var_dump($current_url);
+        //var_dump($current_url);
         return true;
     }
 
@@ -317,6 +327,24 @@ class User extends CI_Controller {
         }
     }
 
+    
+    public function remove_from_favorite() {
+        $ad_alias = $this->input->post('ad_alias', TRUE);
+        $ad_details = $this->Fronts->get_ad_details_by_sulg($ad_alias);
+
+        $ad_id = $ad_details->id;
+        $poster_id = $this->session->userdata('uid');
+        //var_dump($data);
+        
+        $favourite_remove = $this->Users->remove_ad_to_favorite_data($ad_id, $poster_id);
+        if ($favourite_remove) {
+            echo '<div class="box success"> This advertisement is successfully remove from your favorite List </div>';
+        } else {
+            echo '<div class="alert alert-error">Here is an error. Please try again. </div>';
+        }
+        
+    }
+    
     public function logout() {
         $this->session->sess_destroy();
         redirect('user/login');

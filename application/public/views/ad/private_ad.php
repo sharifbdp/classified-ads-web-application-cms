@@ -125,11 +125,29 @@
                             </ul>
 
 
-                            </div>
-                            <div class="pagination" style="display: block;">
-                            <div class="nav h-stack">
-                            <?php echo $this->pagination->create_links(); ?>
-                            </div>
-                        </div>
-
                             
+                            <div class="pagination" style="display: block;">
+                                <div class="nav h-stack">
+                                    <?php echo $this->pagination->create_links(); ?>
+                                </div>
+                            </div>
+
+                            <script type="text/javascript">
+                            $(function(){
+                                        
+                            $("div.page span a").on("click", function(e) {
+                                e.preventDefault();
+                                var ajax = $(this).attr('href');
+                                $.ajax({
+                                    type: "GET",
+                                    url: ajax,
+                                    success: function(data) {
+                                        // return success
+                                        $('#item-listing').html(data);
+
+                                    }
+                                });
+
+                            });
+                            });
+                            </script>

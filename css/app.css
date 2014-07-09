@@ -1834,7 +1834,7 @@ ul#item-rows.regular li.item h2 { color: #00547e }
     margin-bottom: 5px;
 }
 .favorites-index .intro p { font-size: 16px }
-.favorites-index i.star {
+.users-account i.star {
     text-indent: -9999px;
     background: url(../images/icons-9e3356ed62773f9596fc8bafab1496f9.png) no-repeat;
     background-position: -77px -26px;

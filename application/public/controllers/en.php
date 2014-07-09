@@ -26,98 +26,63 @@ class En extends CI_Controller {
         $data['content'] = $this->Fronts->getInfo($mid);
         $data['m_alias'] = $m_alias;
 
-        $this->load->view('inner/' . $menu_details->page_template . '', $data);
-    }
+        // This is for contact us form
+        $submit = $this->input->post('contact_us_submit');
+        if ($submit == 'contact_us_form') {
 
-    public function readmore($ids) {
+            $this->load->library('form_validation');
 
-        $id = trim($ids);
-        $data['content'] = $this->Fronts->getWelcomeNote($id);
+            $this->form_validation->set_rules('support_ticket_name', 'Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('support_ticket_email', 'Email', 'required|xss_clean|valid_email');
+            $this->form_validation->set_rules('support_ticket_message', 'Message', 'required|xss_clean|trim');
 
-        $this->load->view('inner/details', $data);
-    }
-
-    public function links($alias) {
-        $al = trim($alias);
-        $data['content'] = $this->Fronts->get_quick_links_details_by_slug($al);
-
-        $this->load->view('inner/quick_links_details', $data);
-    }
-
-    public function footer($alias) {
-        $alias = trim($alias);
-        $data['content'] = $this->Fronts->get_footer_link_details_by_alias($alias);
-
-        $this->load->view('inner/footer_link_details', $data);
-    }
-
-    public function pageNotFound() {
-
-        $this->load->view('inner/404');
-    }
-
-    public function care_request() {
-        /*         * ** check & required ** */
-
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('care_type', 'Care Type', 'required|xss_clean');
-        $this->form_validation->set_rules('name', 'Name', 'required|xss_clean');
-        $this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-        $this->form_validation->set_rules('contact_no', 'Contact No', 'required|xss_clean');
-        $this->form_validation->set_rules('zip_code', 'ZIP code', 'xss_clean');
-
-        $this->form_validation->set_rules('comments', 'Message', 'required|xss_clean');
-
-
-        if ($this->form_validation->run() == FALSE) {
-            $this->session->set_flashdata('feedback_success', 'Please write your message');
-            $this->load->view('form/care_request');
-        } else {
-            $datas['care_type'] = $this->input->post('care_type');
-            $datas['name'] = $this->input->post('name');
-            $datas['email'] = $this->input->post('email');
-            $datas['contact_no'] = $this->input->post('contact_no');
-            $datas['zip_code'] = $this->input->post('zip_code');
-
-            $datas['comments'] = $this->input->post('comments');
-
-            $subject = "Senior Care Request From Hope Adult Care- Web Site.";
-
-            $datas['send_date'] = date('Y-m-d');
-
-            /*             * * Success Email ** */
-
-            $msg = "<strong>Message: </strong>{$datas['comments']}<br/><br/><strong>Name :</strong>{$datas['name']}<br/>
-            <strong>Care Type :</strong>{$datas['care_type']}<br/>
-            <strong>Contact no :</strong>{$datas['contact_no']}<br/>
-            <strong>Email :</strong>{$datas['email']}<br/>
-            <strong>Zip Code :</strong>{$datas['zip_code']} ";
-
-            $this->load->library('email');
-
-            $config['charset'] = 'utf-8';
-            $config['wordwrap'] = TRUE;
-            $config['mailtype'] = 'html';
-
-            $this->email->initialize($config);
-
-            $this->email->to('sharif@infobase.com.bd');
-            $this->email->from($datas['email'], $datas['name']);
-            $this->email->subject($subject);
-            $this->email->message($msg);
-            $mail = $this->email->send();
-
-            if ($mail) {
-                $this->session->set_flashdata('feedback_success', 'Care Request Sent Successfully');
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('inner/' . $menu_details->page_template . '', $data);
             } else {
-                $this->session->set_flashdata('feedback_error', 'Care Request Sending Failed');
+
+                $dp['support_ticket_name'] = $this->input->post('support_ticket_name', TRUE);
+                $dp['support_ticket_email'] = $this->input->post('support_ticket_email', TRUE);
+                $dp['support_ticket_message'] = $this->input->post('support_ticket_message', TRUE);
+                $mail = $this->send_contact_us_mail($dp);
+
+                if ($mail) {
+                    $this->session->set_flashdata('feedback_success', 'Your message was sent successfully.');
+                    redirect('en/details/' . $data['m_alias']);
+                } else {
+                    $this->session->set_flashdata('feedback_error', 'Message sending failed. Try again later.');
+                    redirect('en/details/' . $data['m_alias']);
+                }
             }
+        } else {
 
-            /*             * *** email **** */
-
-            redirect('view/care_request');
+            $this->load->view('inner/' . $menu_details->page_template . '', $data);
         }
+    }
+
+    public function send_contact_us_mail($dp) {
+
+        $subject = "Contact us From - Website.com";
+
+        /*         * * Success Email ** */
+
+        $msg = "<strong>Message: </strong>{$dp['support_ticket_message']}<br/><br/><strong>Name :</strong>{$dp['support_ticket_name']}<br/>
+            <strong>Email :</strong>{$dp['support_ticket_email']} ";
+
+        $this->load->library('email');
+
+        $config['charset'] = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+
+        $this->email->initialize($config);
+
+        $this->email->to('sharifbdp@aol.com');
+        $this->email->from($dp['support_ticket_email'], $dp['support_ticket_name']);
+        $this->email->subject($subject);
+        $this->email->message($msg);
+        return $this->email->send();
+
+        /*         * *** email **** */
     }
 
     public function view_area_by_location($location_id) {
@@ -453,13 +418,15 @@ class En extends CI_Controller {
 
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . 'en/ajax_all_ads/0/0/0/0/0';
+        $per_page = 1;
+        $uri_seg = $this->uri->segment(4);
+        $config['base_url'] = base_url() . "en/ajax_all_ads/{$type}/{$cate_1_slug}/{$cate_2_slug}/{$cate_3_slug}/{$sort}";
 
         $config['total_rows'] = $this->Fronts->total_no_of_ad_data($type = NULL, $sort = NULL);
 
-        $config['per_page'] = 1;
-        $config['uri_segment'] = 8;
-       
+        $config['per_page'] = $per_page;
+        $config['uri_segment'] = 4;
+
         $config['prev_link'] = 'prev';
 
         $config['prev_tag_open'] = '<div class="page"><span class="prev">';
@@ -491,12 +458,12 @@ class En extends CI_Controller {
 
         //$config['first_link'] = FALSE;
         //$config['last_link'] = FALSE;
-        
+
         $this->pagination->initialize($config);
 
         //$data['content'] = $this->Fronts->get_all_ad_data($type = NULL, $sort = NULL, $config['per_page'], $this->uri->segment(3));
 
-        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $sort, $cate_1_id, $cate_2_id, $cate_3_id, $config['per_page'], $this->uri->segment(8));
+        $data['content'] = $this->Fronts->get_all_ad_by_ajax($config['per_page'], $uri_seg, $type, $sort, $cate_1_id, $cate_2_id, $cate_3_id);
 
         //$data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $cate_1_id, $cate_2_id, $cate_3_id, $sort);
         $this->load->view('ad/all_ad', $data);
@@ -527,13 +494,15 @@ class En extends CI_Controller {
         //
         $this->load->library('pagination');
 
-        $config['base_url'] = base_url() . 'en/ajax_all_ads/0/0/0/0/0';
+        $per_page = 1;
+        $uri_seg = $this->uri->segment(3);
+        $config['base_url'] = base_url() . "en/ajax_all_ads/";
 
         $config['total_rows'] = $this->Fronts->total_no_of_ad_data($type = NULL, $sort = NULL);
 
-        $config['per_page'] = 1;
-        $config['uri_segment'] = 8;
-        
+        $config['per_page'] = $per_page;
+        $config['uri_segment'] = 3;
+
         $config['prev_link'] = 'prev';
 
         $config['prev_tag_open'] = '<div class="page"><span class="prev">';
@@ -564,12 +533,12 @@ class En extends CI_Controller {
 
         //$config['first_link'] = FALSE;
         //$config['last_link'] = FALSE;
-        
+
         $this->pagination->initialize($config);
 
         //$data['content'] = $this->Fronts->get_all_ad_data($type = NULL, $sort = NULL, $config['per_page'], $this->uri->segment(3));
         //var_dump($this->uri->segment(9));
-        $data['content'] = $this->Fronts->get_all_ad_by_type_sort_category_id($type, $sort, $cate_1_id, $cate_2_id, $cate_3_id, $config['per_page'], $this->uri->segment(8));
+        $data['content'] = $this->Fronts->get_all_ad_by_ajax($config['per_page'], $uri_seg, $type, $sort, $cate_1_id, $cate_2_id, $cate_3_id);
         //var_dump($data);
         $this->load->view('ad/private_ad', $data);
     }
@@ -606,10 +575,67 @@ class En extends CI_Controller {
         if (!empty($data['content'])) {
             $data['all_images'] = $this->Fronts->get_all_ad_image_by_ad_id($data['content']->id);
         }
+
+        // This is for contact us form
+        $submit = $this->input->post('contact_seller');
+        if ($submit == 'contact_seller') {
+
+            $this->load->library('form_validation');
+
+            $this->form_validation->set_rules('contact_seller_email_name', 'Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('contact_seller_email_email', 'Email', 'required|xss_clean|valid_email');
+            $this->form_validation->set_rules('contact_seller_email_message', 'Message', 'required|xss_clean|trim');
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('ad/ad_details', $data);
+            } else {
+
+                $dp['contact_seller_email_name'] = $this->input->post('contact_seller_email_name', TRUE);
+                $dp['contact_seller_email_email'] = $this->input->post('contact_seller_email_email', TRUE);
+                $dp['contact_seller_email_phone_no'] = $this->input->post('contact_seller_email_phone_no', TRUE);
+                $dp['contact_seller_email_message'] = $this->input->post('contact_seller_email_message', TRUE);
+                $mail = $this->send_contact_with_seller_mail($dp);
+
+                if ($mail) {
+                    $this->session->set_flashdata('feedback_success', 'Your message was sent successfully.');
+                    redirect('en/view/' . $slug);
+                } else {
+                    $this->session->set_flashdata('feedback_error', 'Message sending failed. Try again later.');
+                    redirect('en/view/' . $slug);
+                }
+            }
+        }
+
 //        echo "<pre>";
 //        echo print_r($data['content']);
 //        echo "<pre>";
         $this->load->view('ad/ad_details', $data);
+    }
+
+    public function send_contact_with_seller_mail($dp) {
+
+        $subject = "Contact us From - Website.com";
+
+        /*         * * Success Email ** */
+
+        $msg = "<strong>Message: </strong>{$dp['contact_seller_email_message']}<br/><br/><strong>Name :</strong>{$dp['contact_seller_email_name']}<br/>
+            <strong>Email :</strong>{$dp['contact_seller_email_email']}<br><strong>Phone No :</strong>{$dp['contact_seller_email_phone_no']} ";
+
+        $this->load->library('email');
+
+        $config['charset'] = 'utf-8';
+        $config['wordwrap'] = TRUE;
+        $config['mailtype'] = 'html';
+
+        $this->email->initialize($config);
+
+        $this->email->to('sharifbdp@aol.com');
+        $this->email->from($dp['contact_seller_email_email'], $dp['contact_seller_email_name']);
+        $this->email->subject($subject);
+        $this->email->message($msg);
+        return $this->email->send();
+
+        /*         * *** email **** */
     }
 
     public function category($c_1, $c_2 = NULL, $c_3 = NULL) {
@@ -681,36 +707,3 @@ class En extends CI_Controller {
     }
 
 }
-
-/* success
- *
-
-<div class="alert wrap">
-<div class="box success">
-<a href="#" class="polar close">
-×
-</a>
-<p>An email with a confirmation link has been sent to your email address. Please click the link to confirm your account.</p>
-</div>
-</div>
-
- *
- *
- * no-ads
-<div id="no-ads">
-<div class="wrap">
-<div class="item-box">
-<h2>Looks like you don't have any ads yet</h2>
-<p>What are you waiting for? Posting ads is free</p>
-<div class="btn-wrapper">
-<div class="bg left"></div>
-<div class="bg right"></div>
-<div class="btn-border">
-<a class="btn large post" href="/en/new?controller=ads"><span class="large">Post an ad now</span></a>
-</div>
-</div>
-</div>
-</div>
-
-</div>
- */

@@ -170,4 +170,10 @@ select option[disabled=disabled] {
     color: #808080;
     font-weight: bold;
     font-style: italic;
-} 
+}
+.image_list {
+    background: none repeat scroll 0 0 #e3e3e3;
+    border: 1px solid #fff;
+    display: inline-block;
+    padding: 5px;
+}

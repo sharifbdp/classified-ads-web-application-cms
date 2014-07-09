@@ -35,7 +35,7 @@
                 <div class='row'>
                     <ul class='flat h-stack'>
                         <li><a href="<?php echo base_url('user');?>"><i class='ico-user-ads'></i>My ads</a></li>
-                        <li class='favorites'><a href="/en/favorites"><span><i class='ico-star'></i>Favorites</span></a></li>
+                        <li class='favorites'><a href="<?php echo base_url('user/favorites');?>"><span><i class='ico-star'></i>Favorites</span></a></li>
                         <li class='current'><a href="<?php echo base_url('user/settings');?>"><i class='ico-user-settings'></i>Settings</a></li>
                     </ul>
                     <ul class='polar flat h-stack'>

@@ -6,14 +6,22 @@
 
         <div id='site-content'>
             
-            <?php /*
-            <div class="alert wrap">
-                <div class="box success"><a href="#" class="polar close">×</a>
-                    <p>This ad has been reported, thank you.</p>
+            <?php if ($this->session->flashdata('feedback_success')) { ?>
+                <div class='alert wrap'>
+                    <div class='box notice'>
+                        <a class='polar close' href='#'>×</a><p><?php echo $this->session->flashdata('feedback_success'); ?></p>
+                    </div>
                 </div>
-            </div>
-             */
-            ?>
+                <?php
+            }
+            if ($this->session->flashdata('feedback_error')) {
+                ?>
+                <div class='alert wrap'>
+                    <div class='box error'>
+                        <a class='polar close' href='#'>×</a><p><?php echo $this->session->flashdata('feedback_error'); ?></p>
+                    </div>
+                </div>
+            <?php } ?>
             
             <div class='wrap'>
                 <?php if(!empty($content)){ ?>
@@ -69,7 +77,7 @@
                     <h1><?php echo $content->title;?> <small><?php echo ($content->for_what == 1) ? 'For sale' : 'Wanted';?></small></h1>
                     <div class='item-meta'>
                         <div class='item-info'>
-                            Posted by <a href="#contact-email" class="contact"><?php echo $content->poster_name;?></a><?php echo ($content->type == 2) ? " (Business ad) " : "";?>
+                            Posted by <a href="#contact-email" class="contact send-email-btn"><?php echo $content->poster_name;?></a><?php echo ($content->type == 2) ? " (Business ad) " : "";?>
                             <time class='item-date'><?php echo date('d M  h:i a', strtotime($content->entry_date));?></time><span class='item-location'>, <?php echo $content->city;?></span>
                             
                             <?php if (!$this->session->userdata('user_logged')) { ?>
@@ -329,34 +337,40 @@
                     <div class="clearfix">
                         <div id="contact-email" class="contact col7" style="display: none;">
                             <div class="inner-box">
-                                <form method="post" class="gtm-email-seller" action="/en/lenevo-g460-for-sale-dhaka/email_seller" accept-charset="UTF-8">
+                                <?php echo form_open('', array('class' => 'gtm-email-seller', 'id' => 'new_support_ticket'));?>
                                     
                                     <h2>Send <?php echo $content->poster_name;?> a message</h2>
                                     <div class="row">
                                         <div class="col">
                                             <div class="field name"><label for="contact_seller_email_name">Your name</label>
                                                 <div class="input">
-                                                    <input type="text" size="30" name="contact_seller_email[name]" id="contact_seller_email_name" class="required">
+                                                    <input type="text" size="30" name="contact_seller_email_name" id="contact_seller_email_name" class="required">
                                                 </div>
                                             </div>
                                             <div class="field email"><label for="contact_seller_email_email">Your email</label>
                                                 <div class="input">
-                                                    <input type="text" size="30" name="contact_seller_email[email]" id="contact_seller_email_email" class="required email">
+                                                    <input type="text" size="30" name="contact_seller_email_email" id="contact_seller_email_email" class="required email">
                                                 </div>
                                             </div>
                                             <div class="field"><label for="contact_seller_email_phone_no">Phone No</label>
                                                 <div class="input">
-                                                    <input type="text" size="30" name="contact_seller_email[phone_no]" id="contact_seller_email_phone_no" class="phone ascii">
+                                                    <input type="text" size="30" name="contact_seller_email_phone_no" id="contact_seller_email_phone_no" class="phone ascii">
                                                 </div>
                                             </div>
                                             <div class="field msg"><label for="contact_seller_email_message">Message</label>
                                                 <div class="input">
-                                                    <textarea rows="8" name="contact_seller_email[message]" id="contact_seller_email_message" cols="77" class="required"></textarea>
+                                                    <textarea rows="8" name="contact_seller_email_message" id="contact_seller_email_message" cols="77" class="required"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                    
+                                    <div class="">
+                                        <button class="btn contact send-email-button invisible" type="submit" value="contact_seller" name="contact_seller"><span><i class="ico-mail"></i>Send message</span></button>
+                                    </div>
+
+                                <?php echo form_close();?>
+                                    
                             </div>
                         </div>
                         
@@ -374,7 +388,7 @@
                             <div class="inner-box">
                                 <div class="inner-box-compact">
                                     <h3>Stay Safe</h3>
-                                    <h4>How to stay safe when you are trading at Bikroy.com:</h4>
+                                    <h4>How to stay safe when you are trading at Website.com:</h4>
                                     <ul>
                                         <li>Keep things simple. Keep things local. Make sure you conclude your deals by meeting people face to face.</li><li>Make sure you are completely satisfied with the item before any money exchanges hands.</li>
                                     </ul>
@@ -385,9 +399,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="bottom-bar actions inner-box-compact">
-                        <button class="btn contact send-email-button invisible"><span><i class="ico-mail"></i>Send message</span></button>
-                    </div>
+                    
                 </div>
                 
                 

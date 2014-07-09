@@ -233,6 +233,24 @@ The support team at Website.com<br><br>
         return $this->db->get()->result_array();
     }
 
+    public function get_all_my_favorite_ad_list_by_uid($uid, $limit = NULL, $offset = NULL) {
+        $this->db->select('A.*, C.name as cat_name, P.name as poster_name, P.email as poster_email, P.phone as poster_phone, P.status as poster_status, L.name as location, CT.name as city');
+        $this->db->from('advertizement A');
+        $this->db->join('poster_ad_favorite_list F', 'F.ad_id = A.id', 'inner');
+        $this->db->join('category C', 'C.id = A.cate_2', 'inner');
+        $this->db->join('poster P', 'P.id = A.p_id', 'inner');
+        $this->db->join('poster_location L', 'L.id = A.ad_location', 'inner');
+        $this->db->join('poster_location_city CT', 'CT.id = A.ad_city', 'inner');
+        $this->db->where('F.poster_id', $uid);
+        $this->db->where('A.status', 1);
+        $this->db->where('F.status', 1);
+        $this->db->order_by('A.entry_date', 'DESC');
+        if ($limit != NULL) {
+            $this->db->limit($limit, $offset);
+        }
+        return $this->db->get()->result_array();
+    }
+    
     public function check_fouorite_ad_existance_in_user_list($ad_id, $poster_id) {
         $this->db->where('ad_id', $ad_id);
         $this->db->where('poster_id', $poster_id);
@@ -250,4 +268,9 @@ The support team at Website.com<br><br>
         return $this->db->insert('poster_ad_favorite_list', $data);
     }
 
+    public function remove_ad_to_favorite_data($ad_id, $poster_id) {
+        $this->db->where('ad_id', $ad_id);
+        $this->db->where('poster_id', $poster_id);
+        return $this->db->delete('poster_ad_favorite_list');
+    }
 }

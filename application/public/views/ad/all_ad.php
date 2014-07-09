@@ -235,14 +235,17 @@
                             
                             */; ?>
                             
-                            <!-- 
+                            
                         </div>
-
+<?php
+/*
                        <div class="pagination" style="display: block;">
                             <div class="nav h-stack">
                             <?php //echo $this->pagination->create_links(); ?>
                             </div>
-                        </div>-->
+                        </div>
+ * 
+ */?>
                     </div>
                 </div>
             </div>
