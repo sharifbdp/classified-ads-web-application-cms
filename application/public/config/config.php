@@ -16,7 +16,6 @@
 */
 $config['base_url']	= 'http://localhost:8888/bikroy/';
 
-//$config['base_url']	= 'http://tonaton.orionwebtech.net/';
 
 /*
 |--------------------------------------------------------------------------
